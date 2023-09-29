@@ -7,6 +7,6 @@ export const routes = {
   welcome: {
     path: '/welcome/:step',
     panel: 'welcome_panel',
-    view: 'welcome_view',
+    view: 'home_view',
   },
 };

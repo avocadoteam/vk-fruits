@@ -10,6 +10,12 @@ export const typography = recipe({
   },
   variants: {
     variant: {
+      head1: {
+        fontSize: '24px',
+        lineHeight: '26px',
+        fontWeight: 700,
+        letterSpacing: '-0.24px',
+      },
       head: {
         fontSize: '22px',
         lineHeight: '26px',

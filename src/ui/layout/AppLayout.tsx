@@ -4,8 +4,8 @@ import { HomeLayout } from '@ui/home/HomeLayout';
 import { Offline } from '@ui/offline/Offline';
 import { bg } from '@ui/theme/theme.css';
 import { WelcomeLayout } from '@ui/welcome/WelcomeLayout';
-import { useActiveVkuiLocation, useGetPanelForView, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
-import { Panel, PanelHeader, Root, ScreenSpinner, SplitCol, SplitLayout, View } from '@vkontakte/vkui';
+import { useGetPanelForView, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
+import { Panel, ScreenSpinner, SplitCol, SplitLayout, View } from '@vkontakte/vkui';
 import { combine } from 'effector';
 import { useStore } from 'effector-react';
 import { useEffect } from 'react';
@@ -17,8 +17,7 @@ export const AppLayout = () => {
   const { online, onlineHandleActivate, sawWelcome } = useStore($config);
   const initialLoading = useStore(initialLoadingCombine);
 
-  const { view: activeView } = useActiveVkuiLocation();
-  const activePanel = useGetPanelForView('default_view')!;
+  const activePanel = useGetPanelForView(routes.main.view)!;
   const routeNavigator = useRouteNavigator();
 
   useEffect(() => {
@@ -34,20 +33,14 @@ export const AppLayout = () => {
   return (
     <SplitLayout popout={initialLoading ? <ScreenSpinner /> : null}>
       <SplitCol>
-        <Root activeView={activeView!}>
-          <View nav={routes.main.view} activePanel={activePanel} className={bg}>
-            <Panel nav={routes.main.panel}>
-              <PanelHeader separator={false} />
-              <HomeLayout />
-            </Panel>
-          </View>
-          <View nav={routes.welcome.view} activePanel={activePanel} className={bg}>
-            <Panel nav={routes.welcome.panel}>
-              <PanelHeader separator={false} />
-              <WelcomeLayout />
-            </Panel>
-          </View>
-        </Root>
+        <View nav={routes.main.view} activePanel={activePanel} className={bg}>
+          <Panel nav={routes.welcome.panel}>
+            <WelcomeLayout />
+          </Panel>
+          <Panel nav={routes.main.panel}>
+            <HomeLayout />
+          </Panel>
+        </View>
       </SplitCol>
     </SplitLayout>
   );

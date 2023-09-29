@@ -33,6 +33,11 @@ globalStyle(`.vkuiSearch`, {
   background: 'transparent !important',
   marginTop: '1rem',
 } as GlobalStyleRule);
+globalStyle(`.vkuiButton--mode-primary`, {
+  backgroundColor: `${vars.palette.white} !important`,
+  color: `${vars.palette.primary} !important`,
+  borderRadius: `9999px !important`,
+} as GlobalStyleRule);
 globalStyle(`.vkuiSwitch__self:checked+.vkuiSwitch__pseudo:after`, {
   background: `${vars.palette.primary} !important`,
 } as GlobalStyleRule);
