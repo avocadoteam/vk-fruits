@@ -1,5 +1,10 @@
+import { getStorageKeys, getUserDataFX } from '@core/config/effects.config';
+import '@core/vk-bridge/init';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { Providers } from './providers';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(<Providers />);
+getStorageKeys();
+getUserDataFX();
+
+ReactDOM.createRoot(document.getElementById('app')!).render(<Providers />);

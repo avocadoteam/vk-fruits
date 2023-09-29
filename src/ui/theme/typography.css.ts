@@ -5,37 +5,26 @@ export const typography = recipe({
   base: {
     fontFamily: vars.fonts.family,
     margin: 0,
+    color: vars.palette.white,
+    fontWeight: 400,
   },
   variants: {
     variant: {
       head: {
-        fontSize: '23px',
-        lineHeight: '22px',
+        fontSize: '22px',
+        lineHeight: '26px',
         fontWeight: 700,
-        letterSpacing: '0.25px',
       },
-      subHead: {
-        fontSize: '20px',
-        lineHeight: '22px',
-        fontWeight: 600,
-        letterSpacing: '0.25px',
-      },
-      body: {
-        fontWeight: 400,
-        fontSize: '1rem',
-        lineHeight: '22px',
-        letterSpacing: '0.35px',
-      },
-      caption: {
-        fontWeight: 400,
+      elo: {
         fontSize: '1rem',
         lineHeight: '20px',
-        letterSpacing: '-0.25px',
+        fontWeight: 700,
+        letterSpacing: '-0.24px',
+        color: vars.palette.warn,
       },
-      tertiary: {
-        fontWeight: 500,
-        fontSize: '15px',
-        lineHeight: '22px',
+      small: {
+        fontSize: '1rem',
+        lineHeight: '19px',
       },
     },
     weight: {

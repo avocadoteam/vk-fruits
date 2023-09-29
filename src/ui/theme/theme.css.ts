@@ -1,11 +1,4 @@
-import {
-  GlobalStyleRule,
-  createGlobalTheme,
-  createTheme,
-  createThemeContract,
-  globalStyle,
-  style,
-} from '@vanilla-extract/css';
+import { GlobalStyleRule, createGlobalTheme, globalStyle, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 const root = createGlobalTheme('#app', {
@@ -22,54 +15,26 @@ const root = createGlobalTheme('#app', {
   palette: {
     white: '#ffffff',
     black: '#000000',
-    warn: '#FCA743',
+    warn: '#FEAF48',
     error: '#FF726E',
+    shade: '#BCBCBC',
+    primary: '#407860',
   },
 });
-
-const elemnetsContract = createThemeContract({
-  primary: null,
-  background: null,
-});
-
-export const lightTheme = createTheme(elemnetsContract, {
-  primary: '#407860',
-  background: '#357460',
-});
-
-export const darkTheme = createTheme(elemnetsContract, {
-  primary: '#407860',
-  background: '#357460',
-});
-
-export const vars = { ...root, all: elemnetsContract };
+export const vars = { ...root };
 
 globalStyle('#app', {
   boxSizing: 'border-box',
   fontSize: '16px',
   fontStyle: 'normal',
 });
-
-globalStyle(`.vkui__root`, {
-  '--vkui--color_background_page': `${vars.all.background} !important`,
-  '--vkui--color_background_content': `${vars.all.background} !important`,
-  '--vkui--color_header_background': `${vars.all.background} !important`,
-  '--button_primary_background': vars.all.primary,
-  '--button_seondary_background': vars.palette.white,
-  '--button_secondary_foreground': vars.palette.white,
-  '--vkui--size_border_radius--regular': '1rem',
-  '--accent': vars.all.primary,
-} as GlobalStyleRule);
 globalStyle(`.vkuiSearch`, {
   padding: '0 !important',
   background: 'transparent !important',
   marginTop: '1rem',
 } as GlobalStyleRule);
-globalStyle(`.vkuiPanel.vkuiPanel--sizeX-regular .vkuiPanel__in, .vkuiPanel.vkuiPanel--sizeX-regular:after`, {
-  backgroundColor: `${vars.all.background} !important`,
-} as GlobalStyleRule);
 globalStyle(`.vkuiSwitch__self:checked+.vkuiSwitch__pseudo:after`, {
-  background: `${vars.all.primary} !important`,
+  background: `${vars.palette.primary} !important`,
 } as GlobalStyleRule);
 
 export const contentCenter = recipe({
@@ -78,8 +43,7 @@ export const contentCenter = recipe({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '1rem 1.5rem',
-    minHeight: '65vh',
+    padding: '.5rem 1rem',
   },
   variants: {
     alignItems: {
@@ -92,11 +56,19 @@ export const contentCenter = recipe({
         justifyContent: 'flex-start',
       },
     },
+    direction: {
+      column: {
+        flexDirection: 'column',
+      },
+      row: {
+        flexDirection: 'row',
+      },
+    },
   },
 });
 
 export const primary = style({
-  color: `${vars.all.primary} !important`,
+  color: `${vars.palette.primary} !important`,
 });
 
 export const mt2 = style({
@@ -110,6 +82,16 @@ export const mt = style({
 });
 
 export const btnSec = style({
-  color: `${vars.all.primary} !important`,
+  minHeight: '52px !important',
+  color: `${vars.palette.white} !important`,
   borderRadius: '1rem !important',
+});
+
+export const bg = style({
+  background:
+    'radial-gradient(78.87% 47.71% at 3.61% 9.35%, rgba(222, 251, 80, 0.15) 0%, rgba(215, 167, 142, 0.00) 100%), radial-gradient(69.42% 50.26% at -16.53% 93.46%, rgba(222, 251, 80, 0.15) 0%, rgba(215, 167, 142, 0.00) 100%), radial-gradient(50.07% 88.27% at 100% 64.84%, rgba(222, 251, 80, 0.20) 0%, rgba(215, 167, 142, 0.00) 100%), radial-gradient(83.57% 72.39% at 67.22% 100%, rgba(86, 75, 46, 0.25) 0%, rgba(215, 167, 142, 0.00) 100%), #357460;',
+});
+export const bgGift = style({
+  background:
+    'radial-gradient(78.87% 47.71% at 3.61% 9.35%, rgba(222, 251, 80, 0.15) 0%, rgba(215, 167, 142, 0.00) 100%), radial-gradient(69.42% 50.26% at -16.53% 93.46%, rgba(222, 251, 80, 0.15) 0%, rgba(215, 167, 142, 0.00) 100%), radial-gradient(50.07% 88.27% at 100% 64.84%, rgba(222, 251, 80, 0.20) 0%, rgba(215, 167, 142, 0.00) 100%), radial-gradient(83.57% 72.39% at 67.22% 100%, rgba(86, 75, 46, 0.25) 0%, rgba(215, 167, 142, 0.00) 100%), #9E3D3D;',
 });

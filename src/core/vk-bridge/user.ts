@@ -60,7 +60,7 @@ export const getUserStorageKeys = (keys: Skeys[]) =>
         keys: [
           {
             key: Skeys.Welcome,
-            value: 'yes',
+            value: 'no',
           },
           {
             key: Skeys.SecondVisit,

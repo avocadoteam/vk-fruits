@@ -25,3 +25,16 @@ body,
 div#root {
   font-family: SF Pro Rounded !important;
 }
+
+.vkuiPanel,
+.vkuiPanel__in,
+.vkuiPanel:before,
+.vkuiPanel.vkuiPanel--sizeX-regular .vkuiPanel__in,
+.vkuiPanel.vkuiPanel--sizeX-regular:after {
+  background: transparent !important;
+
+}
+
+.vkuiPanelHeader__in {
+  background: transparent !important;
+}

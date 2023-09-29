@@ -3,7 +3,7 @@ import { styleVariants } from '@vanilla-extract/css';
 
 const snackAva = styleVariants({
   success: {
-    background: `${vars.all.primary} !important`,
+    background: `${vars.palette.primary} !important`,
   },
   error: {
     background: `${vars.palette.error} !important`,
@@ -12,7 +12,7 @@ const snackAva = styleVariants({
     background: `${vars.palette.warn} !important`,
   },
   info: {
-    background: `${vars.all.primary} !important`,
+    background: `${vars.palette.primary} !important`,
   },
 });
 
