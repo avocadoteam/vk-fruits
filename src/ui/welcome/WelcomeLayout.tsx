@@ -1,7 +1,9 @@
+import { finishWelcomeFX } from '@core/config/effects.config';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { useParams, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Button, FixedLayout, PanelHeader } from '@vkontakte/vkui';
+import { useCallback } from 'react';
 
 const welcomeData: Record<
   string,
@@ -59,6 +61,13 @@ export const WelcomeLayout = () => {
   const step = params?.step ?? 'step1';
   const stepData = welcomeData[step];
 
+  const onBtnClick = useCallback(() => {
+    if (stepData.shouldExit) {
+      finishWelcomeFX();
+    }
+    routeNavigator.replace(stepData.nextStep);
+  }, [routeNavigator, stepData.nextStep, stepData.shouldExit]);
+
   return (
     <>
       <PanelHeader separator={false} />
@@ -69,15 +78,7 @@ export const WelcomeLayout = () => {
             <p className={typography({ variant: 'head1', m: 't', align: 'center' })}>{stepData.title}</p>
             <p className={typography({ variant: 'small', m: 't.5', align: 'center' })}>{stepData.subtitle}</p>
 
-            <Button
-              onClick={() =>
-                stepData.shouldExit ? routeNavigator.replace(stepData.nextStep) : routeNavigator.push(stepData.nextStep)
-              }
-              style={{ margin: '1rem 0 3rem' }}
-              size="l"
-              stretched
-              mode="primary"
-            >
+            <Button onClick={onBtnClick} style={{ margin: '1rem 0 3rem' }} size="l" stretched mode="primary">
               {stepData.btnText}
             </Button>
           </div>
