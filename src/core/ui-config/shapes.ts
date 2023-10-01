@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Form, Toast } from './types';
 
 export const codeErrorToToast = (form?: Form, text?: string, data?: unknown): Pick<Toast, 'text' | 'title'> => {
   return formError(form, text, data);
 };
-export const successToToast = (form?: Form, data?: unknown): Toast => {
+export const successToToast = (form?: Form, _?: unknown): Toast => {
   switch (form) {
     default:
       return {
@@ -13,7 +14,7 @@ export const successToToast = (form?: Form, data?: unknown): Toast => {
   }
 };
 
-const formError = (form?: Form, text?: unknown, data?: unknown): Pick<Toast, 'text' | 'title'> => {
+const formError = (form?: Form, _?: unknown, __?: unknown): Pick<Toast, 'text' | 'title'> => {
   switch (form) {
     default:
       return {
