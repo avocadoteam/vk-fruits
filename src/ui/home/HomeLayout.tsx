@@ -1,14 +1,18 @@
 import { $config } from '@core/config';
 import { clsx } from '@core/utils/clsx';
+import { routes } from '@ui/layout/routes';
 import { btnSec, contentCenter, vars } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Icon12Chevron } from '@vkontakte/icons';
+import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Avatar, Button, PanelHeader } from '@vkontakte/vkui';
 import { useStore } from 'effector-react';
 import { homeStyles } from './style.css';
 
 export const HomeLayout = () => {
   const { user } = useStore($config);
+  const routeNavigator = useRouteNavigator();
+
   return (
     <>
       <PanelHeader separator={false} />
@@ -24,7 +28,7 @@ export const HomeLayout = () => {
           </div>
 
           <Button
-            className={clsx(btnSec, homeStyles.btnWide)}
+            className={clsx(btnSec.secHome, homeStyles.btnWide)}
             mode="secondary"
             stretched
             size="l"
@@ -38,13 +42,19 @@ export const HomeLayout = () => {
           </Button>
         </div>
         <div className={homeStyles.grid}>
-          <Button className={clsx(btnSec, homeStyles.btnWide)} mode="secondary" stretched size="l">
+          <Button
+            onClick={() => routeNavigator.push(routes.shop.path)}
+            className={clsx(btnSec.secHome, homeStyles.btnWide)}
+            mode="secondary"
+            stretched
+            size="l"
+          >
             <span className={homeStyles.btnContent}>
               <img src="/imgs/money_bag.png" alt="gift" width="28" height="28" />
               Магазин
             </span>
           </Button>
-          <Button className={clsx(btnSec, homeStyles.btnWide)} mode="secondary" stretched size="l">
+          <Button className={clsx(btnSec.secHome, homeStyles.btnWide)} mode="secondary" stretched size="l">
             <span className={homeStyles.btnContent}>
               <img src="/imgs/fire.png" alt="gift" width="28" height="28" />
               Рейтинг
@@ -53,7 +63,7 @@ export const HomeLayout = () => {
         </div>
         <div className={contentCenter({ direction: 'column' })} style={{ marginTop: '1rem' }}>
           <Button
-            className={clsx(btnSec, homeStyles.btnWide)}
+            className={clsx(btnSec.secHome, homeStyles.btnWide)}
             mode="secondary"
             stretched
             size="l"
@@ -66,7 +76,7 @@ export const HomeLayout = () => {
           </Button>
           <Button
             style={{ marginTop: '.5rem' }}
-            className={clsx(btnSec, homeStyles.btnWide)}
+            className={clsx(btnSec.secHome, homeStyles.btnWide)}
             mode="secondary"
             stretched
             size="l"

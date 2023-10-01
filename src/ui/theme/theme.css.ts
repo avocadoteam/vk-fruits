@@ -1,4 +1,4 @@
-import { GlobalStyleRule, createGlobalTheme, globalStyle, style } from '@vanilla-extract/css';
+import { GlobalStyleRule, createGlobalTheme, globalStyle, style, styleVariants } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 const root = createGlobalTheme('#app', {
@@ -69,6 +69,16 @@ export const contentCenter = recipe({
         flexDirection: 'row',
       },
     },
+    p: {
+      '1': {
+        padding: '1rem',
+      },
+    },
+    gap: {
+      '1': {
+        gap: '1rem',
+      },
+    },
   },
 });
 
@@ -86,10 +96,18 @@ export const mt = style({
   marginTop: '1rem !important',
 });
 
-export const btnSec = style({
-  minHeight: '52px !important',
-  color: `${vars.palette.white} !important`,
-  borderRadius: '1rem !important',
+export const btnSec = styleVariants({
+  secHome: {
+    minHeight: '52px !important',
+    color: `${vars.palette.white} !important`,
+    borderRadius: '1rem !important',
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+  },
+  secBase: {
+    color: `${vars.palette.white} !important`,
+    borderRadius: '44px !important',
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+  },
 });
 
 export const bg = style({

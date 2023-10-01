@@ -26,8 +26,7 @@ div#root {
   font-family: SF Pro Rounded !important;
 }
 
-.vkuiPanel,
-.vkuiPanel__in,
+
 .vkuiPanel:before,
 .vkuiPanel.vkuiPanel--sizeX-regular .vkuiPanel__in,
 .vkuiPanel.vkuiPanel--sizeX-regular:after {
@@ -35,6 +34,15 @@ div#root {
 
 }
 
+.vkuiPanel__in,
+.vkuiInternalPanel__in {
+  background: inherit !important;
+}
+
 .vkuiPanelHeader__in {
   background: transparent !important;
+}
+
+.vkuiRadio__title {
+  margin: 0 !important
 }

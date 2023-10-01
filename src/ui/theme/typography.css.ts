@@ -93,5 +93,21 @@ export const typography = recipe({
         textOverflow: 'ellipsis',
       },
     },
+    transform: {
+      up: {
+        textTransform: 'uppercase',
+        fontVariant: 'all-small-caps',
+      },
+    },
+    shadow: {
+      true: {
+        opacity: 0.5,
+      },
+    },
+    color: {
+      primary: {
+        color: vars.palette.primary,
+      },
+    },
   },
 });
