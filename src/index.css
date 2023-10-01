@@ -40,7 +40,7 @@ div#root {
 }
 
 .vkuiPanelHeader__in {
-  background: transparent !important;
+  background: inherit !important;
 }
 
 .vkuiRadio__title {
