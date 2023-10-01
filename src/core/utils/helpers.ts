@@ -3,6 +3,7 @@ import { mapVkError } from './vk-errors';
 export const anonAva = 'https://vk.app-dich.com/static/stickers/anon.png';
 export const avocadoLogo = 'https://vk.app-dich.com/static/stickers/avocado_logo.png';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const errMap = (error: any) => {
   if (error && error.error_type && error.error_data) {
     return mapVkError(error);

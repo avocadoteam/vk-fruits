@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const mapVkError = (error: any) => {
   const type: 'client_error' | 'api_error' | 'auth_error' = error.error_type;
   const data = error.error_data;
