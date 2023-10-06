@@ -1,0 +1,1 @@
+VITE_QVK=for server requests in dev mode
