@@ -54,7 +54,13 @@ export const HomeLayout = () => {
               Магазин
             </span>
           </Button>
-          <Button className={clsx(btnSec.secHome, homeStyles.btnWide)} mode="secondary" stretched size="l">
+          <Button
+            onClick={() => routeNavigator.push(routes.rating.path)}
+            className={clsx(btnSec.secHome, homeStyles.btnWide)}
+            mode="secondary"
+            stretched
+            size="l"
+          >
             <span className={homeStyles.btnContent}>
               <img src="/imgs/fire.png" alt="gift" width="28" height="28" />
               Рейтинг

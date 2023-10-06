@@ -14,4 +14,9 @@ export const routes = {
     panel: 'shop_panel',
     view: 'home_view',
   },
+  rating: {
+    path: '/rating',
+    panel: 'rating_panel',
+    view: 'home_view',
+  },
 };
