@@ -1,5 +1,6 @@
 import { $config } from '@core/config';
 import { getStorageKeys, getUserDataFX } from '@core/config/effects.config';
+import { noop } from '@core/utils/noop';
 import { HomeLayout } from '@ui/home/HomeLayout';
 import { Offline } from '@ui/offline/Offline';
 import { ShopLayout } from '@ui/shop/ShopLayout';
@@ -18,7 +19,7 @@ export const AppLayout = () => {
   const { online, onlineHandleActivate, sawWelcome } = useStore($config);
   const initialLoading = useStore(initialLoadingCombine);
 
-  const { view: activeView } = useActiveVkuiLocation();
+  const { view: activeView, panelsHistory } = useActiveVkuiLocation();
   const activePanel = useGetPanelForView(routes.main.view)!;
   const routeNavigator = useRouteNavigator();
 
@@ -36,7 +37,12 @@ export const AppLayout = () => {
     <SplitLayout popout={initialLoading ? <ScreenSpinner /> : null}>
       <SplitCol>
         <Root activeView={activeView!}>
-          <View nav={routes.main.view} activePanel={activePanel}>
+          <View
+            nav={routes.main.view}
+            activePanel={activePanel}
+            onSwipeBack={activePanel === routes.shop.panel ? routeNavigator.back : noop}
+            history={panelsHistory}
+          >
             <Panel nav={routes.welcome.panel} className={bg}>
               <WelcomeLayout />
             </Panel>

@@ -1,4 +1,4 @@
-import { createHashRouter } from '@vkontakte/vk-mini-apps-router';
+import { createBrowserRouter } from '@vkontakte/vk-mini-apps-router';
 import { routes } from './routes';
 
-export const router = createHashRouter([routes.main, routes.welcome, routes.shop]);
+export const router = createBrowserRouter([routes.main, routes.welcome, routes.shop]);

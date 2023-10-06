@@ -24,11 +24,11 @@ vkBridge.subscribe(({ detail: { type, data } }) => {
   }
 
   // if (type === 'VKWebAppChangeFragment') {
-  //   const hashValue = Number((data as ChangeFragmentResponse).location);
+  //   const loc = (data as ChangeFragmentResponse).location;
+  //   const hashValue = Number(loc);
   //   if (isNaN(hashValue)) {
   //     return;
   //   }
-
   // }
 });
 
