@@ -13,6 +13,7 @@ const container = style({
   columnGap: '6px',
   rowGap: '6px',
   position: 'relative',
+  userSelect: 'none',
 });
 
 const box = style({
@@ -24,6 +25,7 @@ const box = style({
   width: '100%',
   height: '87px',
   position: 'relative',
+  userSelect: 'none',
   boxSizing: 'border-box',
 });
 
@@ -41,6 +43,7 @@ const score = style({
   alignItems: 'center',
   justifyContent: 'center',
   top: -4,
+  userSelect: 'none',
   right: -4,
 });
 

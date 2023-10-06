@@ -1,9 +1,9 @@
 import { vars } from '@ui/theme/theme.css';
-import { globalStyle, style } from '@vanilla-extract/css';
+import { ComplexStyleRule, globalStyle, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 export const btnBackStyle = style({
-  color: vars.palette.white,
+  color: `${vars.palette.white} !important`,
   textTransform: 'uppercase',
   fontSize: '1rem',
   fontFamily: vars.fonts.family,
@@ -24,17 +24,17 @@ globalStyle(`${btnBackStyle} > svg`, {
 export const headerStyle = recipe({
   base: {
     transition: 'background .25s ease-in-out',
-    position: 'sticky',
-    top: 0,
+    position: 'sticky !important',
+    top: 'var(--vkui_internal--safe_area_inset_top)',
     background: 'transparent !important',
-  },
+    zIndex: '10 !important',
+  } as unknown as ComplexStyleRule,
   variants: {
     onTop: {
       false: {
         background: 'rgba(255, 255, 255, 0.1) !important',
         backdropFilter: 'blur(15px)',
         boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-        zIndex: 5,
       },
     },
   },

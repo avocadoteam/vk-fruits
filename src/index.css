@@ -26,6 +26,9 @@ div#root {
   font-family: SF Pro Rounded !important;
 }
 
+body {
+  background: radial-gradient(78.87% 47.71% at 3.61% 9.35%, rgba(222, 251, 80, 0.15) 0%, rgba(215, 167, 142, 0.00) 100%), radial-gradient(69.42% 50.26% at -16.53% 93.46%, rgba(222, 251, 80, 0.15) 0%, rgba(215, 167, 142, 0.00) 100%), radial-gradient(50.07% 88.27% at 100% 64.84%, rgba(222, 251, 80, 0.20) 0%, rgba(215, 167, 142, 0.00) 100%), radial-gradient(83.57% 72.39% at 67.22% 100%, rgba(86, 75, 46, 0.25) 0%, rgba(215, 167, 142, 0.00) 100%), #357460;
+}
 
 .vkuiPanel:before,
 .vkuiPanel.vkuiPanel--sizeX-regular .vkuiPanel__in,
