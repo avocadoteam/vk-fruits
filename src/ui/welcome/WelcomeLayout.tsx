@@ -1,5 +1,6 @@
 import { finishWelcomeFX } from '@core/config/effects.config';
 import { isDev } from '@core/constants';
+import { wrapAsset } from '@core/utils';
 import { DemoBoard, DemoBoardProps } from '@ui/game/DemoBoard';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
@@ -19,35 +20,35 @@ const welcomeData: Record<
   }
 > = {
   step1: {
-    img: '/imgs/w_hi.png',
+    img: wrapAsset('/imgs/w_hi.png'),
     title: 'Салют!',
     subtitle: 'Мы ещё не знакомы? Так чего ждёшь?',
     btnText: 'Пройти обучение',
     nextStep: '/welcome/step2',
   },
   step2: {
-    img: '/imgs/w_tip.png',
+    img: wrapAsset('/imgs/w_tip.png'),
     title: 'Это игровое поле',
     subtitle: 'В каждой плитке появляются разные фрукты, которые дают определённое количество очков',
     btnText: 'Так, дальше',
     nextStep: '/welcome/step3',
   },
   step3: {
-    img: '/imgs/w_bow.png',
+    img: wrapAsset('/imgs/w_bow.png'),
     title: 'Опа, новый фрукт!',
     subtitle: 'Попробуй их соединить – перетащи один фрукт на другой',
     btnText: 'Что дальше?',
     nextStep: '/welcome/step4',
   },
   step4: {
-    img: '/imgs/w_bow.png',
+    img: wrapAsset('/imgs/w_bow.png'),
     title: 'Превращение!',
     subtitle: 'Фрукт первого уровня превратился в фрукт второго – теперь ты получаешь больше очков',
     btnText: 'Что дальше?',
     nextStep: '/welcome/step5',
   },
   step5: {
-    img: '/imgs/w_ok.png',
+    img: wrapAsset('/imgs/w_ok.png'),
     title: 'Как победить?',
     subtitle: 'Для победы нужно набрать 100 очков быстрее своего соперника',
     btnText: 'Всё понятно',

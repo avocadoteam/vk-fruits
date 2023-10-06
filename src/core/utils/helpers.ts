@@ -1,3 +1,4 @@
+import { isDev } from '@core/constants';
 import { mapVkError } from './vk-errors';
 
 export const anonAva = 'https://vk.app-dich.com/static/stickers/anon.png';
@@ -37,4 +38,4 @@ export const shapeTextSearch = (v: string) => {
 
 export const isODR = () => window.location.href.includes('file://');
 
-export const wrapAsset = (src: string) => `https://avocadoteam.github.io/vk-hot-or-not${src}`;
+export const wrapAsset = (src: string) => (isDev ? src : `https://avocadoteam.github.io/vk-fruits${src}`);

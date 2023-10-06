@@ -1,3 +1,4 @@
+import { wrapAsset } from '@core/utils';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
 import { btnSec, contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
@@ -39,7 +40,7 @@ export const ShopLayout = () => {
 
         <div className={sSt.box}>
           <div className={contentCenter({ direction: 'column', p: '1' })}>
-            <img width={32} style={{ marginTop: '1rem' }} height={32} src="/imgs/gift.png" alt="gift" />
+            <img width={32} style={{ marginTop: '1rem' }} height={32} src={wrapAsset('/imgs/gift.png')} alt="gift" />
             <p className={typography({ variant: 'head', m: 't', transform: 'up' })}>Подарок</p>
             <p className={typography({ variant: 'small', shadow: true })}>Случайный скин из коллекции</p>
           </div>
@@ -78,15 +79,30 @@ export const ShopLayout = () => {
           <HorizontalScroll style={{ width: '100%' }}>
             <div style={{ display: 'flex', padding: '0 1rem' }}>
               <div className={sSt.horCell}>
-                <Image style={{ background: 'transparent' }} borderRadius="l" src="/imgs/fruits.png" withBorder={false} />
+                <Image
+                  style={{ background: 'transparent' }}
+                  borderRadius="l"
+                  src={wrapAsset('/imgs/fruits.png')}
+                  withBorder={false}
+                />
                 <p className={typography({ variant: 'small', align: 'center' })}>Фрукты</p>
               </div>
               <div className={sSt.horCell}>
-                <Image style={{ background: 'transparent' }} borderRadius="l" src="/imgs/vegs.png" withBorder={false} />
+                <Image
+                  style={{ background: 'transparent' }}
+                  borderRadius="l"
+                  src={wrapAsset('/imgs/vegs.png')}
+                  withBorder={false}
+                />
                 <p className={typography({ variant: 'small', align: 'center' })}>Овощи</p>
               </div>
               <div className={sSt.horCell}>
-                <Image style={{ background: 'transparent' }} borderRadius="l" src="/imgs/sweets.png" withBorder={false} />
+                <Image
+                  style={{ background: 'transparent' }}
+                  borderRadius="l"
+                  src={wrapAsset('/imgs/sweets.png')}
+                  withBorder={false}
+                />
                 <p className={typography({ variant: 'small', align: 'center' })}>Сладости</p>
               </div>
             </div>

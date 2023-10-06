@@ -1,4 +1,5 @@
 import { $config } from '@core/config';
+import { wrapAsset } from '@core/utils';
 import { clsx } from '@core/utils/clsx';
 import { routes } from '@ui/layout/routes';
 import { btnSec, contentCenter, vars } from '@ui/theme/theme.css';
@@ -23,7 +24,7 @@ export const HomeLayout = () => {
             {user?.first_name} {user?.last_name}
           </p>
           <div className={contentCenter({ direction: 'row' })} style={{ marginBottom: '2rem' }}>
-            <img src="/imgs/trophy.png" alt="trophy" width="20" height="20" />
+            <img src={wrapAsset('/imgs/trophy.png')} alt="trophy" width="20" height="20" />
             <p className={typography({ variant: 'elo', m: 'l.5' })}>13645</p>
           </div>
 
@@ -36,7 +37,7 @@ export const HomeLayout = () => {
             disabled
           >
             <span className={homeStyles.btnContent}>
-              <img src="/imgs/gift.png" alt="gift" width="28" height="28" />
+              <img src={wrapAsset('/imgs/gift.png')} alt="gift" width="28" height="28" />
               Получить
             </span>
           </Button>
@@ -50,7 +51,7 @@ export const HomeLayout = () => {
             size="l"
           >
             <span className={homeStyles.btnContent}>
-              <img src="/imgs/money_bag.png" alt="gift" width="28" height="28" />
+              <img src={wrapAsset('/imgs/money_bag.png')} alt="gift" width="28" height="28" />
               Магазин
             </span>
           </Button>
@@ -62,7 +63,7 @@ export const HomeLayout = () => {
             size="l"
           >
             <span className={homeStyles.btnContent}>
-              <img src="/imgs/fire.png" alt="gift" width="28" height="28" />
+              <img src={wrapAsset('/imgs/fire.png')} alt="gift" width="28" height="28" />
               Рейтинг
             </span>
           </Button>
@@ -76,7 +77,7 @@ export const HomeLayout = () => {
             after={<Icon12Chevron fill={vars.palette.shade} />}
           >
             <span className={homeStyles.btnContent}>
-              <img src="/imgs/mag_glass.png" alt="gift" width="28" height="28" />
+              <img src={wrapAsset('/imgs/mag_glass.png')} alt="gift" width="28" height="28" />
               Найти игру
             </span>
           </Button>
@@ -89,7 +90,7 @@ export const HomeLayout = () => {
             after={<Icon12Chevron fill={vars.palette.shade} />}
           >
             <span className={homeStyles.btnContent}>
-              <img src="/imgs/wrestling.png" alt="gift" width="28" height="28" />
+              <img src={wrapAsset('/imgs/wrestling.png')} alt="gift" width="28" height="28" />
               Играть с другом
             </span>
           </Button>

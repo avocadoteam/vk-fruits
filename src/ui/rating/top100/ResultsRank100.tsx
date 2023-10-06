@@ -1,5 +1,5 @@
 import { $rating } from '@core/api/rating/store.rating';
-import { numberWithSpace } from '@core/utils';
+import { numberWithSpace, wrapAsset } from '@core/utils';
 import { typography } from '@ui/theme/typography.css';
 import { Avatar, Cell } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
@@ -34,7 +34,7 @@ export const ResultsRank100 = memo(() => {
         >
           <div>
             {top100r.firstName ?? top100r.lastName}
-            <img src="/imgs/trophy.png" alt="trophy" width="20" height="20" />
+            <img src={wrapAsset('/imgs/trophy.png')} alt="trophy" width="20" height="20" />
             <p className={typography({ variant: 'elo', m: 'l.5' })}>{numberWithSpace(top100r.points)}</p>
           </div>
         </Cell>
