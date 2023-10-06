@@ -1,4 +1,5 @@
 import { finishWelcomeFX } from '@core/config/effects.config';
+import { isDev } from '@core/constants';
 import { DemoBoard, DemoBoardProps } from '@ui/game/DemoBoard';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
@@ -63,6 +64,7 @@ export const WelcomeLayout = () => {
   const stepData = welcomeData[step];
 
   const onBtnClick = useCallback(() => {
+    console.debug('isDev', isDev);
     if (stepData.shouldExit) {
       finishWelcomeFX();
     }

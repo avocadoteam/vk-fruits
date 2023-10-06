@@ -23,10 +23,10 @@ export const AppLayout = () => {
   const routeNavigator = useRouteNavigator();
 
   useEffect(() => {
-    if (!sawWelcome) {
+    if (!sawWelcome && !initialLoading) {
       routeNavigator.replace('/welcome/step1');
     }
-  }, [routeNavigator, sawWelcome]);
+  }, [routeNavigator, sawWelcome, initialLoading]);
 
   if (!online || !onlineHandleActivate) {
     return <Offline />;

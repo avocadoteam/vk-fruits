@@ -1,6 +1,7 @@
 import { itemsSkins } from '@core/game/constants';
 import { GameItemNames } from '@core/game/types';
 import { DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { memo, useEffect, useState } from 'react';
 import { DraggableItem } from './DraggableItem';
 import { DroppableBox } from './DroppableBox';
@@ -14,6 +15,7 @@ const dropBoxes = ['0', '1', '2', '3'];
 
 export const DemoBoard = memo<DemoBoardProps>(({ step }) => {
   const [gameItems, setGameItems] = useState<(GameItemNames | null)[]>(['watermelon', 'watermelon', null, null]);
+  const routeNavigator = useRouteNavigator();
 
   const mouseSensor = useSensor(MouseSensor);
   const touchSensor = useSensor(TouchSensor);
@@ -32,6 +34,7 @@ export const DemoBoard = memo<DemoBoardProps>(({ step }) => {
       const neeGameItems: (GameItemNames | null)[] = [null, null, null, null];
       neeGameItems[Number(over?.id)] = 'green_apple';
       setGameItems(neeGameItems);
+      routeNavigator.replace('/welcome/step4');
     } else if (over?.id) {
       setGameItems(v => {
         const newV = [...v];
