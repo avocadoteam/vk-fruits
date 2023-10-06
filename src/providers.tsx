@@ -1,7 +1,6 @@
 import { $config } from '@core/config';
 import { isDev } from '@core/constants';
 import { vkBridge } from '@core/vk-bridge/instance';
-import { ErrorBoundary } from '@ui/error-bound';
 import { router } from '@ui/layout/router';
 import { RouterProvider } from '@vkontakte/vk-mini-apps-router';
 import { AdaptivityProvider, ConfigProvider } from '@vkontakte/vkui';
@@ -18,11 +17,9 @@ export const Providers = () => {
   return (
     <ConfigProvider appearance={appearance} isWebView={vkBridge.isWebView()}>
       <AdaptivityProvider>
-        <ErrorBoundary>
-          <RouterProvider router={router}>
-            <App />
-          </RouterProvider>
-        </ErrorBoundary>
+        <RouterProvider router={router}>
+          <App />
+        </RouterProvider>
       </AdaptivityProvider>
     </ConfigProvider>
   );
