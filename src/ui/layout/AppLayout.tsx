@@ -3,6 +3,7 @@ import { getStorageKeys, getUserDataFX } from '@core/config/effects.config';
 import { noop } from '@core/utils/noop';
 import { HomeLayout } from '@ui/home/HomeLayout';
 import { Offline } from '@ui/offline/Offline';
+import { RatingLayout } from '@ui/rating/RatingLayout';
 import { ShopLayout } from '@ui/shop/ShopLayout';
 import { bg } from '@ui/theme/theme.css';
 import { WelcomeLayout } from '@ui/welcome/WelcomeLayout';
@@ -52,9 +53,9 @@ export const AppLayout = () => {
             <Panel nav={routes.shop.panel} className={bg}>
               <ShopLayout />
             </Panel>
-            {/* <Panel nav={routes.rating.panel} className={bg}>
+            <Panel nav={routes.rating.panel} className={bg}>
               <RatingLayout />
-            </Panel> */}
+            </Panel>
           </View>
         </Root>
       </SplitCol>
