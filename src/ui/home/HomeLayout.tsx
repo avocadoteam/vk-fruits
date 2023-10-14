@@ -1,6 +1,4 @@
 import { $config } from '@core/config';
-import { qVK } from '@core/data/q-params';
-import { connectWS, joinRoom } from '@core/sockets/game';
 import { wrapAsset } from '@core/utils';
 import { clsx } from '@core/utils/clsx';
 import { routes } from '@ui/layout/routes';
@@ -10,27 +8,11 @@ import { Icon12Chevron } from '@vkontakte/icons';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Avatar, Button, PanelHeader } from '@vkontakte/vkui';
 import { useStore } from 'effector-react';
-import { useCallback } from 'react';
 import { homeStyles } from './style.css';
-const exroomId = '21688415-1c16-479d-ac89-c1def304edbb';
 
 export const HomeLayout = () => {
   const { user } = useStore($config);
   const routeNavigator = useRouteNavigator();
-
-  const jj = useCallback(() => {
-    if (!user) return;
-    joinRoom(exroomId, {
-      avatar: user.photo_100 ?? '',
-      firstName: user.first_name ?? '',
-      lastName: user.last_name,
-      selectedSkin: 'skin__fruits',
-    });
-  }, [user]);
-
-  const connect = useCallback(() => {
-    connectWS(qVK);
-  }, []);
 
   return (
     <>
@@ -52,7 +34,7 @@ export const HomeLayout = () => {
             stretched
             size="l"
             after={<span className={typography({ variant: 'small' })}>Осталось 3 игры</span>}
-            onClick={jj}
+            disabled
           >
             <span className={homeStyles.btnContent}>
               <img src={wrapAsset('/imgs/gift.png')} alt="gift" width="28" height="28" />
@@ -93,7 +75,6 @@ export const HomeLayout = () => {
             stretched
             size="l"
             after={<Icon12Chevron fill={vars.palette.shade} />}
-            onClick={connect}
           >
             <span className={homeStyles.btnContent}>
               <img src={wrapAsset('/imgs/mag_glass.png')} alt="gift" width="28" height="28" />

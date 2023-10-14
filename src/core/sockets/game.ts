@@ -3,7 +3,7 @@ import { FruitsGameAction, PlayerJoinPayload } from '@core/game/player';
 import io, { Socket } from 'socket.io-client';
 import { initCallbacks } from './callbacks';
 
-const ns = `http://192.168.0.143:3000/fruits`;
+const ns = `http://localhost:3001/fruits`;
 
 let connected = false;
 
@@ -17,7 +17,6 @@ export const connectWS = (query: string) => {
     query: {
       sign: query.replace(/\?vk_/g, 'vk_'),
     },
-    transports: ['websocket'],
   });
 
   initCallbacks(socket);

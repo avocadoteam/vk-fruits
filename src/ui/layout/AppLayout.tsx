@@ -1,6 +1,5 @@
 import { $config } from '@core/config';
 import { getStorageKeys, getUserDataFX } from '@core/config/effects.config';
-import { client } from '@core/sockets/receiver';
 import { noop } from '@core/utils/noop';
 import { HomeLayout } from '@ui/home/HomeLayout';
 import { Offline } from '@ui/offline/Offline';
@@ -16,10 +15,6 @@ import { useEffect } from 'react';
 import { routes } from './routes';
 
 const initialLoadingCombine = combine([getStorageKeys.pending, getUserDataFX.pending], ([a, b]) => a || b);
-
-client.playerJoined = d => {
-  console.debug('playerJoined', d);
-};
 
 export const AppLayout = () => {
   const { online, onlineHandleActivate, sawWelcome } = useStore($config);
