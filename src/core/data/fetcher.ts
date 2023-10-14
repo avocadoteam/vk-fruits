@@ -1,5 +1,6 @@
+import { BASE_URL } from '@core/constants';
 import axios from 'axios';
 
 export const AX = axios.create({
-  baseURL: 'https://showtime.app-dich.com/api',
+  baseURL: `${BASE_URL}/api`,
 });

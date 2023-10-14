@@ -15,6 +15,7 @@ export type ConfigType = {
   hasFriends: boolean;
   skipFriends: boolean;
   taptic: boolean;
+  wsConnected: boolean;
 };
 
 export const setAppearance = appConfigDomain.createEvent<AppearanceType>();
@@ -23,6 +24,7 @@ export const setOffline = appConfigDomain.createEvent();
 export const onlineHandleActivate = appConfigDomain.createEvent();
 export const setFriendsAllowed = appConfigDomain.createEvent();
 export const setFriendsSkip = appConfigDomain.createEvent();
+export const setWSConnected = appConfigDomain.createEvent<boolean>();
 
 export const $config = appConfigDomain.createStore<ConfigType>({
   appearance: 'light',
@@ -34,6 +36,7 @@ export const $config = appConfigDomain.createStore<ConfigType>({
   hasFriends: !!getSearchParams().get('vk_access_token_settings')?.includes('friends'),
   skipFriends: false,
   taptic: true,
+  wsConnected: false,
 });
 
 $config
@@ -58,6 +61,10 @@ $config
   .on(setFriendsAllowed, state => ({
     ...state,
     hasFriends: true,
+  }))
+  .on(setWSConnected, (state, wsConnected) => ({
+    ...state,
+    wsConnected,
   }))
   .on(setFriendsSkip, state => ({
     ...state,
