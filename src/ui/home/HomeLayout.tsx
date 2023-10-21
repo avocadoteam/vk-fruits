@@ -1,3 +1,4 @@
+import { $game } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { wrapAsset } from '@core/utils';
 import { clsx } from '@core/utils/clsx';
@@ -7,11 +8,20 @@ import { typography } from '@ui/theme/typography.css';
 import { Icon12Chevron } from '@vkontakte/icons';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Avatar, Button, PanelHeader } from '@vkontakte/vkui';
-import { useStore } from 'effector-react';
+import { useStore, useStoreMap } from 'effector-react';
 import { homeStyles } from './style.css';
 
 export const HomeLayout = () => {
   const { user } = useStore($config);
+  const { pts } = useStoreMap({
+    store: $game,
+    keys: [],
+    fn: g => {
+      return {
+        pts: g.userInfo.pts,
+      };
+    },
+  });
   const routeNavigator = useRouteNavigator();
 
   return (
@@ -25,7 +35,7 @@ export const HomeLayout = () => {
           </p>
           <div className={contentCenter({ direction: 'row' })} style={{ marginBottom: '2rem' }}>
             <img src={wrapAsset('/imgs/trophy.png')} alt="trophy" width="20" height="20" />
-            <p className={typography({ variant: 'elo', m: 'l.5' })}>13645</p>
+            <p className={typography({ variant: 'elo', m: 'l.5' })}>{pts}</p>
           </div>
 
           <Button
