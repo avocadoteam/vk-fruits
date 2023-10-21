@@ -1,10 +1,11 @@
 import { $game, removePlayerLobby } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { PlayerJoinPayload } from '@core/game/player';
-import { joinRoom, leaveRoom } from '@core/sockets/game';
+import { confirmReady, joinRoom, leaveRoom } from '@core/sockets/game';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
+import { Icon24CheckCircleFillGreen } from '@vkontakte/icons';
 import { useParams } from '@vkontakte/vk-mini-apps-router';
 import { Avatar, Button, FixedLayout } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
@@ -44,6 +45,8 @@ export const LobbyLayoutInvited = memo(() => {
   });
 
   const opponent = gameRoom.find(g => g.userId !== userId);
+  const me = gameRoom.find(g => g.userId === userId);
+  const isPlayerReady = !!me?.confirmed;
 
   useEffect(
     () => () => {
@@ -94,12 +97,32 @@ export const LobbyLayoutInvited = memo(() => {
 
           <div className={contentCenter({ direction: 'row' })}>
             <div className={contentCenter({ gap: '1' })}>
-              <Avatar size={96} src={gameRoom.find(g => g.userId === userId)?.avatar} />
+              <Avatar
+                size={96}
+                src={me?.avatar}
+                children={
+                  isPlayerReady ? (
+                    <Avatar.Badge>
+                      <Icon24CheckCircleFillGreen />
+                    </Avatar.Badge>
+                  ) : null
+                }
+              />
               <p className={typography({ variant: 'small' })}>Вы</p>
             </div>
             <p>vs</p>
             <div className={contentCenter({ gap: '1' })}>
-              <Avatar size={96} src={opponent?.avatar} />
+              <Avatar
+                size={96}
+                src={opponent?.avatar}
+                children={
+                  opponent?.confirmed ? (
+                    <Avatar.Badge>
+                      <Icon24CheckCircleFillGreen />
+                    </Avatar.Badge>
+                  ) : null
+                }
+              />
               <p className={typography({ variant: 'small' })}>
                 {opponent ? opponent.firstName || opponent.lastName : 'Друг'}
               </p>
@@ -110,8 +133,15 @@ export const LobbyLayoutInvited = memo(() => {
 
       <FixedLayout vertical="bottom">
         <div className={contentCenter()}>
-          <Button style={{ margin: '1rem 0 3rem' }} size="l" stretched mode="primary">
-            Начать игру
+          <Button
+            disabled={isPlayerReady}
+            onClick={() => confirmReady(lobbyId)}
+            style={{ margin: '1rem 0 3rem' }}
+            size="l"
+            stretched
+            mode="primary"
+          >
+            {isPlayerReady ? 'Ожидание других участников' : 'Начать игру'}
           </Button>
         </div>
       </FixedLayout>

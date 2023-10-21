@@ -4,11 +4,12 @@ import { $config } from '@core/config';
 import { appId } from '@core/constants';
 import { PlayerJoinPayload } from '@core/game/player';
 import { useOpenWallShare } from '@core/hooks/useShareWall';
-import { joinRoom, leaveRoom } from '@core/sockets/game';
+import { confirmReady, joinRoom, leaveRoom } from '@core/sockets/game';
 import { wrapAsset } from '@core/utils';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
+import { Icon24CheckCircleFillGreen } from '@vkontakte/icons';
 import { Avatar, Button, FixedLayout } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
 import { memo, useCallback, useEffect } from 'react';
@@ -46,6 +47,7 @@ export const LobbyLayout = memo(() => {
   });
 
   const opponent = gameRoom.find(g => g.userId !== userId);
+  const me = gameRoom.find(g => g.userId === userId);
 
   useEffect(
     () => () => {
@@ -86,7 +88,17 @@ export const LobbyLayout = memo(() => {
 
           <div className={contentCenter({ direction: 'row' })}>
             <div className={contentCenter({ gap: '1' })}>
-              <Avatar size={96} src={gameRoom.find(g => g.userId === userId)?.avatar} />
+              <Avatar
+                size={96}
+                src={me?.avatar}
+                children={
+                  me?.confirmed ? (
+                    <Avatar.Badge>
+                      <Icon24CheckCircleFillGreen />
+                    </Avatar.Badge>
+                  ) : null
+                }
+              />
               <p className={typography({ variant: 'small' })}>Вы</p>
             </div>
             <p>vs</p>
@@ -98,6 +110,13 @@ export const LobbyLayout = memo(() => {
                   backgroundColor: 'transparent',
                 }}
                 onClick={addFriend}
+                children={
+                  opponent?.confirmed ? (
+                    <Avatar.Badge>
+                      <Icon24CheckCircleFillGreen />
+                    </Avatar.Badge>
+                  ) : null
+                }
               />
               <p className={typography({ variant: 'small' })}>
                 {opponent ? opponent.firstName || opponent.lastName : 'Пригласить'}
@@ -109,7 +128,14 @@ export const LobbyLayout = memo(() => {
 
       <FixedLayout vertical="bottom">
         <div className={contentCenter()}>
-          <Button disabled={gameRoom.length < 2} style={{ margin: '1rem 0 3rem' }} size="l" stretched mode="primary">
+          <Button
+            onClick={() => confirmReady(lobbyId)}
+            disabled={gameRoom.length < 2 || !!me?.confirmed}
+            style={{ margin: '1rem 0 3rem' }}
+            size="l"
+            stretched
+            mode="primary"
+          >
             Начать игру
           </Button>
         </div>

@@ -5,6 +5,7 @@ import { getUserInfoFX, getUserLobbyFX } from './effects.game';
 import { GameState } from './type';
 
 const addPlayerLobby = gameDomain.createEvent<FruitsGameUserData[]>();
+const setPlayerReady = gameDomain.createEvent<number>();
 export const removePlayerLobby = gameDomain.createEvent<number>();
 const setWrongRoom = gameDomain.createEvent<boolean>();
 
@@ -32,6 +33,10 @@ $game.on(addPlayerLobby, (state, users) => ({
   gameRoom: users,
   wrongRoom: false,
 }));
+$game.on(setPlayerReady, (state, userId) => ({
+  ...state,
+  gameRoom: state.gameRoom.map(g => (g.userId === userId ? { ...g, confirmed: true } : g)),
+}));
 $game.on(setWrongRoom, (state, wrongRoom) => ({
   ...state,
   wrongRoom,
@@ -49,4 +54,7 @@ client.playerLeft = data => {
 };
 client.wrongRoom = () => {
   setWrongRoom(true);
+};
+client.playerConfirmed = data => {
+  setPlayerReady(data.userId);
 };
