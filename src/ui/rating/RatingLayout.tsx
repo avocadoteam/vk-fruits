@@ -3,12 +3,13 @@ import { getFriendsRatingFX, getTop100RankFX } from '@core/api/rating/effects.ra
 import { $rating, changeRatingActiveTab } from '@core/api/rating/store.rating';
 import { $config } from '@core/config';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
-import { Div, Tabs, TabsItem } from '@vkontakte/vkui';
+import { Tabs, TabsItem } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
 import { memo, useCallback } from 'react';
 import { RatingFriendsPermissions } from './friends/FriendsPermissions';
 import { RefreshRatingFriends } from './friends/RefreshRatingFriends';
 import { ResultsFriends } from './friends/ResultsFriends';
+import { ratingSt } from './style.css';
 import { RefreshRank100 } from './top100/RefreshRank100';
 import { ResultsRank100 } from './top100/ResultsRank100';
 
@@ -56,9 +57,9 @@ export const RatingLayout = memo(() => {
   return (
     <>
       <PanelHeaderBack />
-      <Div>
+      <div>
         <Tabs>
-          <TabsItem onClick={selectTop100} selected={selectedTop100}>
+          <TabsItem onClick={selectTop100} selected={selectedTop100} className={ratingSt.tab}>
             Все
           </TabsItem>
           <TabsItem onClick={selectFriends} selected={selectedFriends}>
@@ -76,7 +77,7 @@ export const RatingLayout = memo(() => {
         ) : (
           <RatingFriendsPermissions />
         )}
-      </Div>
+      </div>
     </>
   );
 });

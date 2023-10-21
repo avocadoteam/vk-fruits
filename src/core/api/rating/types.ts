@@ -8,7 +8,7 @@ export type RatingState = {
 export type RatingResult = {
   id: string;
   avatar?: string;
-  points: number;
+  pts: number;
   vkUserId: number;
   firstName?: string;
   lastName?: string;

@@ -1,10 +1,11 @@
+import { getFriendsRatingFX } from '@core/api/rating/effects.rating';
 import { $rating } from '@core/api/rating/store.rating';
 import { numberWithSpace, wrapAsset } from '@core/utils';
 import { typography } from '@ui/theme/typography.css';
 import { Avatar, Cell } from '@vkontakte/vkui';
-import { useStoreMap } from 'effector-react';
+import { useStore, useStoreMap } from 'effector-react';
 import { memo } from 'react';
-import { NoResultsRatingFriends } from './NoResults';
+import { NoResults } from '../NoResults';
 
 export const ResultsFriends = memo(() => {
   const { friends } = useStoreMap({
@@ -16,8 +17,9 @@ export const ResultsFriends = memo(() => {
       };
     },
   });
+  const listFetching = useStore(getFriendsRatingFX.pending);
 
-  if (!friends.length) return <NoResultsRatingFriends />;
+  if (!friends.length) return <NoResults listFetching={listFetching} />;
 
   return (
     <>
@@ -35,7 +37,7 @@ export const ResultsFriends = memo(() => {
           <div>
             {friendsr.firstName ?? friendsr.lastName}
             <img src={wrapAsset('/imgs/trophy.png')} alt="trophy" width="20" height="20" />
-            <p className={typography({ variant: 'elo', m: 'l.5' })}>{numberWithSpace(friendsr.points)}</p>
+            <p className={typography({ variant: 'elo', m: 'l.5' })}>{numberWithSpace(friendsr.pts)}</p>
           </div>
         </Cell>
       ))}

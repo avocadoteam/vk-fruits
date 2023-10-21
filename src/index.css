@@ -49,3 +49,11 @@ body {
 .vkuiRadio__title {
   margin: 0 !important
 }
+
+.vkuiTabsItem--selected .vkuiTabsItem__label {
+  color: #fff !important
+}
+
+.vkuiTabsItem__underline {
+  background-color: #fff !important
+}

@@ -1,9 +1,10 @@
 import { setWSConnected } from '@core/config';
+import { BASE_URL, isDev } from '@core/constants';
 import { FruitsGameAction, PlayerJoinPayload } from '@core/game/player';
 import io, { Socket } from 'socket.io-client';
 import { initCallbacks } from './callbacks';
 
-const ns = `http://localhost:3001/fruits`;
+const ns = `${isDev ? 'http://localhost:3000' : BASE_URL}/fruits`;
 
 let connected = false;
 
