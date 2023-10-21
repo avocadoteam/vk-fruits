@@ -4,6 +4,7 @@ import { noop } from '@core/utils/noop';
 import { HomeLayout } from '@ui/home/HomeLayout';
 import { Offline } from '@ui/offline/Offline';
 import { RatingLayout } from '@ui/rating/RatingLayout';
+import { SearchLayout } from '@ui/search/SearchLayout';
 import { ShopLayout } from '@ui/shop/ShopLayout';
 import { bg } from '@ui/theme/theme.css';
 import { WelcomeLayout } from '@ui/welcome/WelcomeLayout';
@@ -55,6 +56,9 @@ export const AppLayout = () => {
             </Panel>
             <Panel nav={routes.rating.panel} className={bg}>
               <RatingLayout />
+            </Panel>
+            <Panel nav={routes.search.panel} className={bg}>
+              <SearchLayout />
             </Panel>
           </View>
         </Root>

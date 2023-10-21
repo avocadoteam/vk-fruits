@@ -39,6 +39,10 @@ export const searchGame = () => {
   socket.emit('searchGame');
 };
 
+export const cancelSearch = () => {
+  socket.emit('cancelSearch');
+};
+
 export const joinRoom = (roomId: string, userInfo: PlayerJoinPayload) => {
   socket.emit('joinRoom', { roomId, userInfo });
 };

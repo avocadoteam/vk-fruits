@@ -19,4 +19,9 @@ export const routes = {
     panel: 'rating_panel',
     view: 'home_view',
   },
+  search: {
+    path: '/search',
+    panel: 'search_panel',
+    view: 'home_view',
+  },
 };
