@@ -4,9 +4,10 @@ import { gameDomain } from './domain';
 
 export const getUserLobbyFX = gameDomain.createEffect(async () => {
   const { data } = await AX.post('/fruits/lobby' + qVK);
-  return data;
+
+  return data.data.roomId;
 });
 export const getUserInfoFX = gameDomain.createEffect(async () => {
   const { data } = await AX.get('/fruits/user-info' + qVK);
-  return data;
+  return data.data;
 });

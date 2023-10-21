@@ -24,4 +24,14 @@ export const routes = {
     panel: 'search_panel',
     view: 'home_view',
   },
+  lobby: {
+    path: '/lobby',
+    panel: 'lobby_panel',
+    view: 'home_view',
+  },
+  lobbyInvited: {
+    path: '/lobby/:id',
+    panel: 'lobbyid_panel',
+    view: 'home_view',
+  },
 };

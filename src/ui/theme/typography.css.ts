@@ -58,6 +58,9 @@ export const typography = recipe({
       },
     },
     m: {
+      b: {
+        marginBottom: '1rem',
+      },
       't.5': {
         marginTop: '.5rem',
       },

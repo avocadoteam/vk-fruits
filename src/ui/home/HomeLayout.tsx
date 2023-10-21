@@ -89,6 +89,7 @@ export const HomeLayout = () => {
             stretched
             size="l"
             after={<Icon12Chevron fill={vars.palette.shade} />}
+            onClick={() => routeNavigator.push(routes.lobby.path)}
           >
             <span className={homeStyles.btnContent}>
               <img src={wrapAsset('/imgs/wrestling.png')} alt="gift" width="28" height="28" />

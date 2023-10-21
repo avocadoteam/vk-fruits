@@ -22,3 +22,14 @@ export type TableData = {
   table: number[];
   fruitPrices: number[];
 };
+
+export type FruitsGameUserData = {
+  userId: number;
+  avatar: string;
+  firstName: string;
+  lastName: string;
+  selectedSkin: FruitsItemName;
+  confirmed: boolean;
+  points: number;
+  pts: number;
+};

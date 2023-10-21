@@ -1,4 +1,4 @@
-import { FruitsItemName } from '@core/game/player';
+import { FruitsGameUserData, FruitsItemName } from '@core/game/player';
 
 export type GameState = {
   userInfo: {
@@ -6,4 +6,7 @@ export type GameState = {
     pts: number;
     lvl: number;
   };
+  lobbyId: string;
+  gameRoom: FruitsGameUserData[];
+  wrongRoom: boolean;
 };

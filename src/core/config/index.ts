@@ -1,5 +1,6 @@
 import { getUserFriendsFX } from '@core/api/friends/effects.config';
 import { getSearchParams } from '@core/data/searchParams';
+import { FruitsItemName } from '@core/game/player';
 import { AppearanceType, UserInfo } from '@vkontakte/vk-bridge';
 import { forward } from 'effector';
 import { appConfigDomain } from './domain';
@@ -16,6 +17,7 @@ export type ConfigType = {
   skipFriends: boolean;
   taptic: boolean;
   wsConnected: boolean;
+  selectedSkin: FruitsItemName;
 };
 
 export const setAppearance = appConfigDomain.createEvent<AppearanceType>();
@@ -25,6 +27,7 @@ export const onlineHandleActivate = appConfigDomain.createEvent();
 export const setFriendsAllowed = appConfigDomain.createEvent();
 export const setFriendsSkip = appConfigDomain.createEvent();
 export const setWSConnected = appConfigDomain.createEvent<boolean>();
+export const setSelectedSkin = appConfigDomain.createEvent<FruitsItemName>();
 
 export const $config = appConfigDomain.createStore<ConfigType>({
   appearance: 'light',
@@ -37,6 +40,7 @@ export const $config = appConfigDomain.createStore<ConfigType>({
   skipFriends: false,
   taptic: true,
   wsConnected: false,
+  selectedSkin: 'skin__fruits',
 });
 
 $config
@@ -65,6 +69,10 @@ $config
   .on(setWSConnected, (state, wsConnected) => ({
     ...state,
     wsConnected,
+  }))
+  .on(setSelectedSkin, (state, selectedSkin) => ({
+    ...state,
+    selectedSkin,
   }))
   .on(setFriendsSkip, state => ({
     ...state,

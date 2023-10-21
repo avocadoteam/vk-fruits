@@ -1,7 +1,10 @@
+import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $config } from '@core/config';
 import { getStorageKeys, getUserDataFX } from '@core/config/effects.config';
 import { noop } from '@core/utils/noop';
 import { HomeLayout } from '@ui/home/HomeLayout';
+import { LobbyLayout } from '@ui/lobby/LobbyLayout';
+import { LobbyLayoutInvited } from '@ui/lobby/LobbyLayoutInvited';
 import { Offline } from '@ui/offline/Offline';
 import { RatingLayout } from '@ui/rating/RatingLayout';
 import { SearchLayout } from '@ui/search/SearchLayout';
@@ -15,10 +18,13 @@ import { useStore } from 'effector-react';
 import { useEffect } from 'react';
 import { routes } from './routes';
 
-const initialLoadingCombine = combine([getStorageKeys.pending, getUserDataFX.pending], ([a, b]) => a || b);
+const initialLoadingCombine = combine(
+  [getStorageKeys.pending, getUserDataFX.pending, getUserInfoFX.pending],
+  ([a, b, c]) => a || b || c,
+);
 
 export const AppLayout = () => {
-  const { online, onlineHandleActivate, sawWelcome } = useStore($config);
+  const { online, onlineHandleActivate, sawWelcome, wsConnected } = useStore($config);
   const initialLoading = useStore(initialLoadingCombine);
 
   const { view: activeView, panelsHistory } = useActiveVkuiLocation();
@@ -36,7 +42,7 @@ export const AppLayout = () => {
   }
 
   return (
-    <SplitLayout popout={initialLoading ? <ScreenSpinner /> : null}>
+    <SplitLayout popout={initialLoading || !wsConnected ? <ScreenSpinner /> : null}>
       <SplitCol>
         <Root activeView={activeView!}>
           <View
@@ -59,6 +65,12 @@ export const AppLayout = () => {
             </Panel>
             <Panel nav={routes.search.panel} className={bg}>
               <SearchLayout />
+            </Panel>
+            <Panel nav={routes.lobby.panel} className={bg}>
+              <LobbyLayout />
+            </Panel>
+            <Panel nav={routes.lobbyInvited.panel} className={bg}>
+              <LobbyLayoutInvited />
             </Panel>
           </View>
         </Root>

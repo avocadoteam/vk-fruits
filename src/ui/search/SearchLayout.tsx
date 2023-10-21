@@ -32,8 +32,8 @@ export const SearchLayout = memo(() => {
           }}
           className={contentCenter()}
         >
-          <p className={typography({ variant: 'head' })}>Поиск</p>
-          <p className={typography({ variant: 'head', m: 't.5' })}>соперника</p>
+          <p className={typography({ variant: 'head', transform: 'up' })}>Поиск</p>
+          <p className={typography({ variant: 'head', m: 't.5', transform: 'up' })}>соперника</p>
           <p className={typography({ variant: 'head', m: 't' })}>
             {minutes}:{seconds <= 9 ? `0${seconds}` : seconds}
           </p>
