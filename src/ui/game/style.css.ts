@@ -48,7 +48,7 @@ const opponentContainer = style({
   userSelect: 'none',
   gridTemplateColumns: '1fr 1fr 1fr',
   opacity: 0.5,
-  borderTop: '2px stroke #E8E8E8',
+  borderTop: '2px dashed #E8E8E8',
 });
 
 const box = style({

@@ -5,7 +5,7 @@ import { $config } from '@core/config';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
 import { Tabs, TabsItem } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { RatingFriendsPermissions } from './friends/FriendsPermissions';
 import { RefreshRatingFriends } from './friends/RefreshRatingFriends';
 import { ResultsFriends } from './friends/ResultsFriends';
@@ -38,6 +38,12 @@ export const RatingLayout = memo(() => {
       };
     },
   });
+
+  useEffect(() => {
+    if (hasFriends) {
+      getUserTokenFX();
+    }
+  }, [hasFriends]);
 
   const selectTop100 = useCallback(() => {
     changeRatingActiveTab('100');
