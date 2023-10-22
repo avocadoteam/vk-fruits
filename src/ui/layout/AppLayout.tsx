@@ -2,6 +2,7 @@ import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $config } from '@core/config';
 import { getStorageKeys, getUserDataFX } from '@core/config/effects.config';
 import { noop } from '@core/utils/noop';
+import { GameFoundLayout } from '@ui/game/GameFoundLayout';
 import { GameLayout } from '@ui/game/GameLayout';
 import { HomeLayout } from '@ui/home/HomeLayout';
 import { LobbyLayout } from '@ui/lobby/LobbyLayout';
@@ -76,6 +77,9 @@ export const AppLayout = () => {
             </Panel>
             <Panel nav={routes.game.panel} className={bg}>
               <GameLayout />
+            </Panel>
+            <Panel nav={routes.gameFound.panel} className={bg}>
+              <GameFoundLayout />
             </Panel>
           </View>
         </Root>

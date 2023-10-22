@@ -59,7 +59,7 @@ export const HomeLayout = () => {
         </div>
         <div className={homeStyles.grid}>
           <Button
-            onClick={() => routeNavigator.push(routes.game.path)}
+            onClick={() => routeNavigator.push(routes.shop.path)}
             className={clsx(btnSec.secHome, homeStyles.btnWide)}
             mode="secondary"
             stretched

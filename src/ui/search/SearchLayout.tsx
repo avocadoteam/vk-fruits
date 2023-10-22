@@ -1,6 +1,8 @@
 import { useInterval } from '@core/hooks/useInterval';
 import { cancelSearch, searchGame } from '@core/sockets/game';
+import { client } from '@core/sockets/receiver';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
+import { routes } from '@ui/layout/routes';
 import { btnSec, contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
@@ -17,6 +19,9 @@ export const SearchLayout = memo(() => {
 
   useEffect(() => {
     searchGame();
+    client.foundGameId = () => {
+      routeNavigator.push(routes.game.path);
+    };
 
     return () => {
       cancelSearch();
