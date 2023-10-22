@@ -7,6 +7,6 @@ export const getTop100RankFX = ratingDomain.createEffect(async () => {
   return data.data;
 });
 export const getFriendsRatingFX = ratingDomain.createEffect(async (ids: number[]) => {
-  const { data } = await AX.post('/fruits/rating/friends' + qVK, { data: { ids } });
+  const { data } = await AX.post('/fruits/rating/friends' + qVK, { ids });
   return data.data;
 });
