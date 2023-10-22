@@ -10,6 +10,7 @@ export const resetGame = gameDomain.createEvent();
 export const removePlayerLobby = gameDomain.createEvent<number>();
 export const setLobbyId = gameDomain.createEvent<string>();
 export const updateTables = gameDomain.createEvent<TableData[]>();
+export const setGameResult = gameDomain.createEvent<GameState['gameResult']>();
 const addPlayerLobby = gameDomain.createEvent<FruitsGameUserData[]>();
 const setPlayerReady = gameDomain.createEvent<number>();
 const setWrongRoom = gameDomain.createEvent<boolean>();
@@ -24,6 +25,7 @@ export const $game = gameDomain.createStore<GameState>({
   gameRoom: [],
   wrongRoom: false,
   tables: [],
+  gameResult: null,
 });
 
 $game.on(getUserInfoFX.doneData, (state, data) => ({
@@ -61,6 +63,7 @@ $game.on(resetGame, state => ({
   lobbyId: '',
   tables: [],
   wrongRoom: false,
+  gameResult: null,
 }));
 
 $game.on(updateTables, (state, tables) => ({

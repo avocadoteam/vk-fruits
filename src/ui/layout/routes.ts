@@ -44,4 +44,9 @@ export const routes = {
     panel: 'game_panel',
     view: 'home_view',
   },
+  gameResults: {
+    path: '/game-results',
+    panel: 'gameresults_panel',
+    view: 'home_view',
+  },
 };

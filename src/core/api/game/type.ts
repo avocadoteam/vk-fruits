@@ -13,4 +13,9 @@ export type GameState = {
   tables: (TableData & {
     uiTable: ({ name: GameItemNames; points: number; src: string } | null)[];
   })[];
+  gameResult: {
+    gameType: 'duo' | 'rank';
+    isDraw: boolean;
+    result: [winner: number, looser: number];
+  } | null;
 };

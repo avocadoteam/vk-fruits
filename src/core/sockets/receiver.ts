@@ -7,7 +7,15 @@ export const client = clientPerformCallback(m => ({
   playerLeft: m<(data: { userId: number }) => void>(),
   playerConfirmed: m<(data: { userId: number }) => void>(),
   updateTable: m<(data: { tables: TableData[] }) => void>(),
-  gameResults: m<(data: { tables: TableData[] }) => void>(),
+  gameResults:
+    m<
+      (data: {
+        tables: TableData[];
+        gameType: 'duo' | 'rank';
+        isDraw: boolean;
+        result: [winner: number, looser: number];
+      }) => void
+    >(),
   errorMessage: m<(error: string) => void>(),
   activeDevice: m<() => void>(),
   wrongRoom: m<() => void>(),

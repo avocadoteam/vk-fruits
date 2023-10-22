@@ -11,4 +11,5 @@ export const router = createHashRouter([
   routes.lobbyInvited,
   routes.game,
   routes.gameFound,
+  routes.gameResults,
 ]);
