@@ -1,5 +1,5 @@
 import { getTop100RankFX } from '@core/api/rating/effects.rating';
-import { Div, PullToRefresh } from '@vkontakte/vkui';
+import { PullToRefresh } from '@vkontakte/vkui';
 import { useStore } from 'effector-react';
 import { memo, useCallback } from 'react';
 
@@ -16,7 +16,7 @@ export const RefreshRank100 = memo<Props>(({ children }) => {
 
   return (
     <PullToRefresh onRefresh={refreshListOfTop100} isFetching={listFetching}>
-      <Div style={{ padding: '0', minHeight: '50vh' }}>{children}</Div>
+      <div style={{ minHeight: '50vh' }}>{children}</div>
     </PullToRefresh>
   );
 });

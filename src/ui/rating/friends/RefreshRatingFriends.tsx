@@ -1,6 +1,6 @@
 import { getFriendsRatingFX } from '@core/api/rating/effects.rating';
 import { $rating } from '@core/api/rating/store.rating';
-import { Div, PullToRefresh } from '@vkontakte/vkui';
+import { PullToRefresh } from '@vkontakte/vkui';
 import { useStore, useStoreMap } from 'effector-react';
 import { memo, useCallback } from 'react';
 
@@ -26,7 +26,7 @@ export const RefreshRatingFriends = memo<Props>(({ children }) => {
 
   return (
     <PullToRefresh onRefresh={refresh} isFetching={listFetching}>
-      <Div style={{ padding: '0', minHeight: '50vh' }}>{children}</Div>
+      <div style={{ minHeight: '50vh' }}>{children}</div>
     </PullToRefresh>
   );
 });
