@@ -60,6 +60,9 @@ export const contentCenter = recipe({
       start: {
         justifyContent: 'flex-start',
       },
+      sb: {
+        justifyContent: 'space-between',
+      },
     },
     direction: {
       column: {

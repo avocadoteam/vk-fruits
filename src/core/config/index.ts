@@ -2,7 +2,7 @@ import { getUserFriendsFX } from '@core/api/friends/effects.config';
 import { getSearchParams } from '@core/data/searchParams';
 import { FruitsItemName } from '@core/game/player';
 import { AppearanceType, UserInfo } from '@vkontakte/vk-bridge';
-import { forward } from 'effector';
+import { combine, forward } from 'effector';
 import { appConfigDomain } from './domain';
 import { finishWelcomeFX, getStorageKeys, getUserDataFX, setTapticVibration } from './effects.config';
 
@@ -42,6 +42,8 @@ export const $config = appConfigDomain.createStore<ConfigType>({
   wsConnected: false,
   selectedSkin: 'skin__fruits',
 });
+
+export const $userId = combine([$config], ([a]) => a.user?.id ?? 0);
 
 $config
   .on(setAppearance, (state, appearance) => ({

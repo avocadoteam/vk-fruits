@@ -2,6 +2,7 @@ import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $config } from '@core/config';
 import { getStorageKeys, getUserDataFX } from '@core/config/effects.config';
 import { noop } from '@core/utils/noop';
+import { GameLayout } from '@ui/game/GameLayout';
 import { HomeLayout } from '@ui/home/HomeLayout';
 import { LobbyLayout } from '@ui/lobby/LobbyLayout';
 import { LobbyLayoutInvited } from '@ui/lobby/LobbyLayoutInvited';
@@ -11,7 +12,7 @@ import { SearchLayout } from '@ui/search/SearchLayout';
 import { ShopLayout } from '@ui/shop/ShopLayout';
 import { bg } from '@ui/theme/theme.css';
 import { WelcomeLayout } from '@ui/welcome/WelcomeLayout';
-import { useActiveVkuiLocation, useGetPanelForView, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
+import { useActiveVkuiLocation, useGetPanelForView, usePopout, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Panel, Root, ScreenSpinner, SplitCol, SplitLayout, View } from '@vkontakte/vkui';
 import { combine } from 'effector';
 import { useStore } from 'effector-react';
@@ -27,6 +28,7 @@ export const AppLayout = () => {
   const { online, onlineHandleActivate, sawWelcome, wsConnected } = useStore($config);
   const initialLoading = useStore(initialLoadingCombine);
 
+  const routerPopout = usePopout();
   const { view: activeView, panelsHistory } = useActiveVkuiLocation();
   const activePanel = useGetPanelForView(routes.main.view)!;
   const routeNavigator = useRouteNavigator();
@@ -42,7 +44,7 @@ export const AppLayout = () => {
   }
 
   return (
-    <SplitLayout popout={initialLoading || !wsConnected ? <ScreenSpinner /> : null}>
+    <SplitLayout popout={initialLoading || !wsConnected ? <ScreenSpinner /> : routerPopout}>
       <SplitCol>
         <Root activeView={activeView!}>
           <View
@@ -71,6 +73,9 @@ export const AppLayout = () => {
             </Panel>
             <Panel nav={routes.lobbyInvited.panel} className={bg}>
               <LobbyLayoutInvited />
+            </Panel>
+            <Panel nav={routes.game.panel} className={bg}>
+              <GameLayout />
             </Panel>
           </View>
         </Root>

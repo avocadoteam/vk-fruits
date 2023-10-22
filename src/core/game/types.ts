@@ -10,9 +10,9 @@ export type Sea = 'oyster' | 'shrimp' | 'fried_shrimp' | 'squid' | 'crab' | 'lob
 export type GameItemNames = Fruits | Vegs | Sweets | Junks | Sea;
 
 export type FruitItems = {
-  fruits: { name: Fruits; src: string; score: number }[];
-  veg: { name: Vegs; src: string; score: number }[];
-  sweets: { name: Sweets; src: string; score: number }[];
-  junk: { name: Junks; src: string; score: number }[];
-  sea: { name: Sea; src: string; score: number }[];
+  fruits: { name: Fruits; src: string; points: number }[];
+  veg: { name: Vegs; src: string; points: number }[];
+  sweets: { name: Sweets; src: string; points: number }[];
+  junk: { name: Junks; src: string; points: number }[];
+  sea: { name: Sea; src: string; points: number }[];
 };

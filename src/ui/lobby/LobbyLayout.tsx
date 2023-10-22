@@ -25,7 +25,7 @@ export const LobbyLayout = memo(() => {
       };
     },
   });
-  const { shareWall } = useOpenWallShare(`https://vk.com/app${appId}#/lobby${lobbyId}`);
+  const { shareWall } = useOpenWallShare(`https://vk.com/app${appId}#/lobby/${lobbyId}`);
 
   const { userInfo, wsConnected, userId } = useStoreMap({
     store: $config,

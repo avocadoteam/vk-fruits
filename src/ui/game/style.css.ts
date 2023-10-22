@@ -1,19 +1,54 @@
 import { vars } from '@ui/theme/theme.css';
 import { style } from '@vanilla-extract/css';
+import { recipe } from '@vanilla-extract/recipes';
 
-const container = style({
-  margin: '1rem auto',
-  display: 'grid',
-  padding: '10px',
+const container = recipe({
+  base: {
+    display: 'grid',
+
+    width: '100%',
+    columnGap: '6px',
+    rowGap: '6px',
+    position: 'relative',
+    userSelect: 'none',
+  },
+  variants: {
+    isDemo: {
+      true: {
+        gridTemplateColumns: '1fr 1fr',
+        maxWidth: '228px',
+        borderRadius: '24px',
+        backgroundColor: 'rgba(255, 255, 255, 0.15)',
+        padding: '10px',
+        margin: '1rem auto',
+      },
+      false: {
+        gridTemplateColumns: '1fr 1fr 1fr',
+      },
+    },
+  },
+});
+
+const gameBoard = style({
   borderRadius: '24px',
   backgroundColor: 'rgba(255, 255, 255, 0.15)',
-  gridTemplateColumns: '1fr 1fr',
+  padding: '10px',
+  maxWidth: '335px',
   width: '100%',
-  maxWidth: '228px',
+  margin: '1rem auto',
+});
+const opponentContainer = style({
+  marginTop: '1rem',
+  paddingTop: '1rem',
+  display: 'grid',
+  width: '100%',
   columnGap: '6px',
   rowGap: '6px',
   position: 'relative',
   userSelect: 'none',
+  gridTemplateColumns: '1fr 1fr 1fr',
+  opacity: 0.5,
+  borderTop: '2px stroke #E8E8E8',
 });
 
 const box = style({
@@ -49,6 +84,8 @@ const score = style({
 
 export const gSt = {
   container,
+  opponentContainer,
   box,
   score,
+  gameBoard,
 };

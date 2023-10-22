@@ -4,7 +4,7 @@ import { PropsWithChildren } from 'react';
 import { gSt } from './style.css';
 
 type Props = PropsWithChildren<{
-  id: string;
+  id: number | string;
 }>;
 
 export const DroppableBox = ({ id, children }: Props) => {

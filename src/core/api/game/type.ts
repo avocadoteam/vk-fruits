@@ -1,4 +1,5 @@
-import { FruitsGameUserData, FruitsItemName } from '@core/game/player';
+import { FruitsGameUserData, FruitsItemName, TableData } from '@core/game/player';
+import { GameItemNames } from '@core/game/types';
 
 export type GameState = {
   userInfo: {
@@ -9,4 +10,7 @@ export type GameState = {
   lobbyId: string;
   gameRoom: FruitsGameUserData[];
   wrongRoom: boolean;
+  tables: (TableData & {
+    uiTable: ({ name: GameItemNames; points: number; src: string } | null)[];
+  })[];
 };

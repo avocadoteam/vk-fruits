@@ -34,4 +34,9 @@ export const routes = {
     panel: 'lobbyid_panel',
     view: 'home_view',
   },
+  game: {
+    path: '/game',
+    panel: 'game_panel',
+    view: 'home_view',
+  },
 };

@@ -1,4 +1,4 @@
-import { $game } from '@core/api/game/store.game';
+import { $game, resetGame } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { wrapAsset } from '@core/utils';
 import { clsx } from '@core/utils/clsx';
@@ -9,6 +9,7 @@ import { Icon12Chevron } from '@vkontakte/icons';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Avatar, Button, PanelHeader } from '@vkontakte/vkui';
 import { useStore, useStoreMap } from 'effector-react';
+import { useEffect } from 'react';
 import { homeStyles } from './style.css';
 
 export const HomeLayout = () => {
@@ -23,6 +24,10 @@ export const HomeLayout = () => {
     },
   });
   const routeNavigator = useRouteNavigator();
+
+  useEffect(() => {
+    resetGame();
+  }, []);
 
   return (
     <>
@@ -54,7 +59,7 @@ export const HomeLayout = () => {
         </div>
         <div className={homeStyles.grid}>
           <Button
-            onClick={() => routeNavigator.push(routes.shop.path)}
+            onClick={() => routeNavigator.push(routes.game.path)}
             className={clsx(btnSec.secHome, homeStyles.btnWide)}
             mode="secondary"
             stretched

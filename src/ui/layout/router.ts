@@ -9,4 +9,5 @@ export const router = createHashRouter([
   routes.search,
   routes.lobby,
   routes.lobbyInvited,
+  routes.game,
 ]);

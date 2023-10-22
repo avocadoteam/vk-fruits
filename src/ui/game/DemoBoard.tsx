@@ -52,10 +52,10 @@ export const DemoBoard = memo<DemoBoardProps>(({ step }) => {
   switch (step) {
     case 'step2':
       return (
-        <div className={gSt.container}>
+        <div className={gSt.container({ isDemo: true })}>
           <div className={gSt.box}>
             <img src={watermelon.src} width={56} height={56} alt={watermelon.name} />
-            <div className={gSt.score}>+{watermelon.score}</div>
+            <div className={gSt.score}>+{watermelon.points}</div>
           </div>
           <div className={gSt.box} />
           <div className={gSt.box} />
@@ -65,7 +65,7 @@ export const DemoBoard = memo<DemoBoardProps>(({ step }) => {
     case 'step3':
     case 'step4':
       return (
-        <div className={gSt.container}>
+        <div className={gSt.container({ isDemo: true })}>
           <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
             {dropBoxes.map((db, index) => (
               <DroppableBox key={db} id={db}>
