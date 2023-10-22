@@ -20,7 +20,7 @@ export const SearchLayout = memo(() => {
   useEffect(() => {
     searchGame();
     client.foundGameId = () => {
-      routeNavigator.push(routes.game.path);
+      routeNavigator.push(routes.gameFound.path);
     };
 
     return () => {

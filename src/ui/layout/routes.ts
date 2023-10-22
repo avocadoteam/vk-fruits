@@ -35,12 +35,12 @@ export const routes = {
     view: 'home_view',
   },
   gameFound: {
-    path: '/game',
+    path: '/game/:id',
     panel: 'gameFound_panel',
     view: 'home_view',
   },
   game: {
-    path: '/game/:id',
+    path: '/game',
     panel: 'game_panel',
     view: 'home_view',
   },
