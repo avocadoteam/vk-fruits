@@ -1,9 +1,10 @@
-import { $game, removePlayerLobby } from '@core/api/game/store.game';
+import { $game } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { PlayerJoinPayload } from '@core/game/player';
-import { confirmReady, joinRoom, leaveRoom } from '@core/sockets/game';
+import { confirmReady, joinRoom } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
+import { routes } from '@ui/layout/routes';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Icon24CheckCircleFillGreen } from '@vkontakte/icons';
@@ -54,15 +55,9 @@ export const GameFoundLayout = memo(() => {
       routeNavigator.back();
     };
     client.updateTable = () => {
-      routeNavigator.replace(`/game/${lobbyId}`);
+      routeNavigator.replace(routes.game.path);
     };
-    return () => {
-      if (lobbyId) {
-        removePlayerLobby(userId);
-        leaveRoom(lobbyId);
-      }
-    };
-  }, [lobbyId, userId, routeNavigator]);
+  }, []);
 
   useEffect(() => {
     if (lobbyId) {
