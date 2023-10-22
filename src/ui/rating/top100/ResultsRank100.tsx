@@ -4,7 +4,7 @@ import { numberWithSpace, wrapAsset } from '@core/utils';
 import { typography } from '@ui/theme/typography.css';
 import { Avatar, Cell } from '@vkontakte/vkui';
 import { useStore, useStoreMap } from 'effector-react';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { NoResults } from '../NoResults';
 
 export const ResultsRank100 = memo(() => {
@@ -18,6 +18,10 @@ export const ResultsRank100 = memo(() => {
     },
   });
   const listFetching = useStore(getTop100RankFX.pending);
+
+  useEffect(() => {
+    getTop100RankFX();
+  }, []);
 
   if (!top100.length) return <NoResults listFetching={listFetching} />;
 
