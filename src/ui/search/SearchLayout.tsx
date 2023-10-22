@@ -1,3 +1,4 @@
+import { setLobbyId } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { useInterval } from '@core/hooks/useInterval';
 import { cancelSearch, searchGame } from '@core/sockets/game';
@@ -30,6 +31,8 @@ export const SearchLayout = memo(() => {
   useEffect(() => {
     searchGame();
     client.foundGameId = data => {
+      setLobbyId(data.roomId);
+
       routeNavigator.push(`/game/${data.roomId}`);
     };
 

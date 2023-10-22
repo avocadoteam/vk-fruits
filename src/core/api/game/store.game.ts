@@ -8,11 +8,11 @@ import { GameState } from './type';
 
 export const resetGame = gameDomain.createEvent();
 export const removePlayerLobby = gameDomain.createEvent<number>();
+export const setLobbyId = gameDomain.createEvent<string>();
+export const updateTables = gameDomain.createEvent<TableData[]>();
 const addPlayerLobby = gameDomain.createEvent<FruitsGameUserData[]>();
 const setPlayerReady = gameDomain.createEvent<number>();
 const setWrongRoom = gameDomain.createEvent<boolean>();
-const updateTables = gameDomain.createEvent<TableData[]>();
-const setLobbyId = gameDomain.createEvent<string>();
 
 export const $game = gameDomain.createStore<GameState>({
   userInfo: {
@@ -79,18 +79,10 @@ $game.on(updateTables, (state, tables) => ({
 client.playerJoined = data => {
   addPlayerLobby(data.users);
 };
-client.playerLeft = data => {
-  removePlayerLobby(data.userId);
-};
+
 client.wrongRoom = () => {
   setWrongRoom(true);
 };
 client.playerConfirmed = data => {
   setPlayerReady(data.userId);
-};
-client.updateTable = data => {
-  updateTables(data.tables);
-};
-client.foundGameId = data => {
-  setLobbyId(data.roomId);
 };
