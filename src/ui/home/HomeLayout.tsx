@@ -1,3 +1,4 @@
+import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $game, resetGame } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { wrapAsset } from '@core/utils';
@@ -27,6 +28,7 @@ export const HomeLayout = () => {
 
   useEffect(() => {
     resetGame();
+    getUserInfoFX();
   }, []);
 
   return (
