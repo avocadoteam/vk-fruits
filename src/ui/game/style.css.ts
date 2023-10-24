@@ -82,10 +82,24 @@ const score = style({
   right: -4,
 });
 
+const grBadge = style({
+  backgroundColor: vars.palette.white,
+  color: vars.palette.grey,
+  padding: '4px 6px',
+  borderRadius: '8px',
+});
+const grBadgeConatiner = style({
+  ':before': {
+    boxShadow: 'none',
+  },
+});
+
 export const gSt = {
   container,
   opponentContainer,
   box,
   score,
   gameBoard,
+  grBadge,
+  grBadgeConatiner,
 };

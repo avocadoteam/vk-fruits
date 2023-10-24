@@ -19,6 +19,7 @@ const root = createGlobalTheme('#app', {
     error: '#FF726E',
     shade: '#BCBCBC',
     primary: '#407860',
+    grey: '#515151',
   },
 });
 export const vars = { ...root };

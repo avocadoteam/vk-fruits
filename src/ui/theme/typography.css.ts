@@ -28,6 +28,13 @@ export const typography = recipe({
         letterSpacing: '-0.24px',
         color: vars.palette.warn,
       },
+      eloB: {
+        fontSize: '2rem',
+        lineHeight: '38px',
+        fontWeight: 600,
+        letterSpacing: '-0.24px',
+        color: vars.palette.warn,
+      },
       small: {
         fontSize: '1rem',
         lineHeight: '19px',
@@ -105,6 +112,11 @@ export const typography = recipe({
     shadow: {
       true: {
         opacity: 0.5,
+      },
+    },
+    mix: {
+      true: {
+        mixBlendMode: 'soft-light',
       },
     },
     color: {
