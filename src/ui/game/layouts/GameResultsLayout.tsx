@@ -13,6 +13,7 @@ import { PanelHeaderBackGR } from './PanelBackGR';
 export const GameResultsLayout = () => {
   const routeNavigator = useRouteNavigator();
 
+  const userId = useStore($userId);
   const { gameRoom, gameResult, tables } = useStoreMap({
     store: $game,
     keys: [],
@@ -26,7 +27,6 @@ export const GameResultsLayout = () => {
   });
   const myTable = tables.find(g => g.userId === userId);
   const opponentTable = tables.find(g => g.userId !== userId);
-  const userId = useStore($userId);
   const isWinner = gameResult?.result[0] === userId;
 
   const opponent = gameRoom.find(g => g.userId !== userId);
