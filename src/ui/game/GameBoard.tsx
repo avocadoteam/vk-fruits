@@ -45,7 +45,16 @@ export const GameBoard = memo(() => {
         tickActionEvent({
           actionType: 'unite',
           roomId: lobbyId,
-          uniteFruits: [onDropItem.points, dragItem.points],
+          uniteFruits: [
+            {
+              points: onDropItem.points,
+              position: Number(over.id),
+            },
+            {
+              points: dragItem.points,
+              position: Number(index),
+            },
+          ],
         });
       }
     }

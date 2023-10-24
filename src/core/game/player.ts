@@ -12,7 +12,7 @@ export type PlayerJoinPayload = {
 export type FruitsGameAction = {
   roomId: string;
   actionType: 'unite' | 'buy';
-  uniteFruits?: [number, number];
+  uniteFruits?: [{ points: number; position: number }, { points: number; position: number }];
   product?: 1 | 2 | 3 | 4 | 5 | 6;
 };
 
