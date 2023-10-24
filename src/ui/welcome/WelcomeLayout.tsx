@@ -50,7 +50,7 @@ const welcomeData: Record<
   step5: {
     img: wrapAsset('/imgs/w_ok.png'),
     title: 'Как победить?',
-    subtitle: 'Для победы нужно набрать 100 очков быстрее своего соперника',
+    subtitle: 'Для победы нужно набрать 1000 очков быстрее своего соперника',
     btnText: 'Всё понятно',
     nextStep: '/',
     shouldExit: true,

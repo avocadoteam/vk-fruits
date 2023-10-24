@@ -90,7 +90,7 @@ const grBadge = style({
 });
 const grBadgeConatiner = style({
   ':before': {
-    boxShadow: 'none',
+    boxShadow: 'none !important',
   },
 });
 
