@@ -21,7 +21,7 @@ export const GameLayout = memo(() => {
         result: data.result,
       });
       updateTables(data.tables);
-      routeNavigator.push(`/${FPanel.GameResults}`);
+      routeNavigator.replace(`/${FPanel.GameResults}`);
     };
   }, []);
   return (

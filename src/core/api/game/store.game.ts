@@ -57,6 +57,10 @@ $game.on(setLobbyId, (state, lobbyId) => ({
   ...state,
   lobbyId,
 }));
+$game.on(setGameResult, (state, gameResult) => ({
+  ...state,
+  gameResult,
+}));
 $game.on(resetGame, state => ({
   ...state,
   gameRoom: [],
