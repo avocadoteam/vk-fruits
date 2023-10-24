@@ -1,6 +1,9 @@
 import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $config } from '@core/config';
 import { getStorageKeys, getUserDataFX } from '@core/config/effects.config';
+import { qVK } from '@core/data/q-params';
+import { connectWS } from '@core/sockets/game';
+import { client } from '@core/sockets/receiver';
 import { GameFoundLayout } from '@ui/game/layouts/GameFoundLayout';
 import { GameLayout } from '@ui/game/layouts/GameLayout';
 import { GameResultsLayout } from '@ui/game/layouts/GameResultsLayout';
@@ -14,7 +17,7 @@ import { ShopLayout } from '@ui/shop/ShopLayout';
 import { bg } from '@ui/theme/theme.css';
 import { WelcomeLayout } from '@ui/welcome/WelcomeLayout';
 import { useActiveVkuiLocation, usePopout, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
-import { Panel, Root, ScreenSpinner, SplitCol, SplitLayout, View } from '@vkontakte/vkui';
+import { Alert, Panel, Root, ScreenSpinner, SplitCol, SplitLayout, View } from '@vkontakte/vkui';
 import { combine } from 'effector';
 import { useStore } from 'effector-react';
 import { useCallback, useEffect } from 'react';
@@ -34,6 +37,34 @@ export const AppLayout = () => {
 
   const routeNavigator = useRouteNavigator();
   const onSwipeBack = useCallback(() => routeNavigator.back(), [routeNavigator]);
+
+  const popup = (
+    <Alert
+      actions={[
+        {
+          title: 'Нет',
+          autoClose: true,
+          mode: 'cancel',
+        },
+        {
+          title: 'Переподключиться',
+          autoClose: true,
+          mode: 'default',
+          action: () => {
+            connectWS(qVK);
+          },
+        },
+      ]}
+      onClose={() => routeNavigator.hidePopout()}
+      text="Вы подключились с другого устройства. Хотите переподключиться?"
+    />
+  );
+
+  useEffect(() => {
+    client.activeDevice = () => {
+      routeNavigator.showPopout(popup);
+    };
+  }, []);
 
   useEffect(() => {
     if (!sawWelcome && !initialLoading) {
