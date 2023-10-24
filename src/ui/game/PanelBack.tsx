@@ -1,5 +1,5 @@
 import { useEventListener } from '@core/hooks/useEventListener';
-import { routes } from '@ui/layout/routes';
+import { INITIAL_URL } from '@ui/layout/router';
 import { btnBackStyle, headerStyle } from '@ui/layout/style.css';
 import { Icon24ChevronCompactLeft } from '@vkontakte/icons';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
@@ -29,7 +29,7 @@ export const PanelHeaderBackInGame = () => {
           title: 'Покинуть',
           autoClose: true,
           mode: 'destructive',
-          action: () => setTimeout(() => routeNavigator.replace(routes.main.path), 100),
+          action: () => setTimeout(() => routeNavigator.replace(INITIAL_URL), 100),
         },
       ]}
       onClose={() => routeNavigator.hidePopout()}

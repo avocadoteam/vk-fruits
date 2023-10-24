@@ -1,7 +1,6 @@
 import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $config } from '@core/config';
 import { getStorageKeys, getUserDataFX } from '@core/config/effects.config';
-import { noop } from '@core/utils/noop';
 import { GameFoundLayout } from '@ui/game/layouts/GameFoundLayout';
 import { GameLayout } from '@ui/game/layouts/GameLayout';
 import { GameResultsLayout } from '@ui/game/layouts/GameResultsLayout';
@@ -14,12 +13,12 @@ import { SearchLayout } from '@ui/search/SearchLayout';
 import { ShopLayout } from '@ui/shop/ShopLayout';
 import { bg } from '@ui/theme/theme.css';
 import { WelcomeLayout } from '@ui/welcome/WelcomeLayout';
-import { useActiveVkuiLocation, useGetPanelForView, usePopout, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
+import { useActiveVkuiLocation, usePopout, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Panel, Root, ScreenSpinner, SplitCol, SplitLayout, View } from '@vkontakte/vkui';
 import { combine } from 'effector';
 import { useStore } from 'effector-react';
-import { useEffect } from 'react';
-import { routes } from './routes';
+import { useCallback, useEffect } from 'react';
+import { FPanel, FView } from './router';
 
 const initialLoadingCombine = combine(
   [getStorageKeys.pending, getUserDataFX.pending, getUserInfoFX.pending],
@@ -27,17 +26,18 @@ const initialLoadingCombine = combine(
 );
 
 export const AppLayout = () => {
-  const { online, onlineHandleActivate, sawWelcome, wsConnected } = useStore($config);
+  const { online, onlineHandleActivate, sawWelcome } = useStore($config);
   const initialLoading = useStore(initialLoadingCombine);
 
   const routerPopout = usePopout();
-  const { view: activeView, panelsHistory } = useActiveVkuiLocation();
-  const activePanel = useGetPanelForView(routes.main.view)!;
+  const { panelsHistory, view: activeView = FPanel.Home, panel: activePanel = FView.Main } = useActiveVkuiLocation();
+
   const routeNavigator = useRouteNavigator();
+  const onSwipeBack = useCallback(() => routeNavigator.back(), [routeNavigator]);
 
   useEffect(() => {
     if (!sawWelcome && !initialLoading) {
-      routeNavigator.replace('/welcome/step1');
+      routeNavigator.replace(`/${FPanel.Welcome}/step1`);
     }
   }, [routeNavigator, sawWelcome, initialLoading]);
 
@@ -46,43 +46,38 @@ export const AppLayout = () => {
   }
 
   return (
-    <SplitLayout popout={initialLoading || !wsConnected ? <ScreenSpinner /> : routerPopout}>
+    <SplitLayout popout={initialLoading ? <ScreenSpinner /> : routerPopout}>
       <SplitCol>
-        <Root activeView={activeView!}>
-          <View
-            nav={routes.main.view}
-            activePanel={activePanel}
-            onSwipeBack={activePanel === routes.shop.panel ? routeNavigator.back : noop}
-            history={panelsHistory}
-          >
-            <Panel nav={routes.welcome.panel} className={bg}>
+        <Root activeView={activeView}>
+          <View nav={FView.Main} activePanel={activePanel} onSwipeBack={onSwipeBack} history={panelsHistory}>
+            <Panel nav={FPanel.Welcome} className={bg}>
               <WelcomeLayout />
             </Panel>
-            <Panel nav={routes.main.panel} className={bg}>
+            <Panel nav={FPanel.Home} className={bg}>
               <HomeLayout />
             </Panel>
-            <Panel nav={routes.shop.panel} className={bg}>
+            <Panel nav={FPanel.Shop} className={bg}>
               <ShopLayout />
             </Panel>
-            <Panel nav={routes.rating.panel} className={bg}>
+            <Panel nav={FPanel.Rating} className={bg}>
               <RatingLayout />
             </Panel>
-            <Panel nav={routes.search.panel} className={bg}>
+            <Panel nav={FPanel.Search} className={bg}>
               <SearchLayout />
             </Panel>
-            <Panel nav={routes.lobby.panel} className={bg}>
+            <Panel nav={FPanel.Lobby} className={bg}>
               <LobbyLayout />
             </Panel>
-            <Panel nav={routes.lobbyInvited.panel} className={bg}>
+            <Panel nav={FPanel.LobbyInvited} className={bg}>
               <LobbyLayoutInvited />
             </Panel>
-            <Panel nav={routes.game.panel} className={bg}>
+            <Panel nav={FPanel.Game} className={bg}>
               <GameLayout />
             </Panel>
-            <Panel nav={routes.gameFound.panel} className={bg}>
+            <Panel nav={FPanel.GameFound} className={bg}>
               <GameFoundLayout />
             </Panel>
-            <Panel nav={routes.gameResults.panel} className={bg}>
+            <Panel nav={FPanel.GameResults} className={bg}>
               <GameResultsLayout />
             </Panel>
           </View>

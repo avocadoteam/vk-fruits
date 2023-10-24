@@ -1,7 +1,7 @@
 import { $game } from '@core/api/game/store.game';
 import { $userId } from '@core/config';
 import { wrapAsset } from '@core/utils';
-import { routes } from '@ui/layout/routes';
+import { FPanel } from '@ui/layout/router';
 import { btnSec, contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
@@ -40,12 +40,14 @@ export const GameResultsLayout = () => {
           <p className={typography({ variant: 'head1', transform: 'up' })}>
             {gameResult?.isDraw ? 'НИЧЬЯ' : isWinner ? 'ПОБЕДА' : 'ПОРАЖЕНИЕ'}
           </p>
-          <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
-            <p className={typography({ variant: 'eloB', transform: 'up' })} style={{ marginBottom: '2px' }}>
-              {gameResult?.isDraw ? '+1' : isWinner ? '+27' : '-27'}
-            </p>
-            <img src={wrapAsset('/imgs/trophy.png')} alt="trophy" width="28" height="28" />
-          </div>
+          {gameResult?.gameType === 'rank' ? (
+            <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
+              <p className={typography({ variant: 'eloB', transform: 'up' })} style={{ marginBottom: '2px' }}>
+                {gameResult?.isDraw ? '+1' : isWinner ? '+27' : '-27'}
+              </p>
+              <img src={wrapAsset('/imgs/trophy.png')} alt="trophy" width="28" height="28" />
+            </div>
+          ) : null}
           <div className={contentCenter({ direction: 'row' })}>
             <div className={contentCenter({ gap: '1' })}>
               <Avatar
@@ -59,7 +61,7 @@ export const GameResultsLayout = () => {
               />
               <p className={typography({ variant: 'small' })}>Вы</p>
             </div>
-            <p className={typography({ variant: 'head', mix: true })}>vs</p>
+            <p className={typography({ variant: 'head', transform: 'up', mix: true })}>vs</p>
             <div className={contentCenter({ gap: '1' })}>
               <Avatar
                 size={96}
@@ -79,17 +81,10 @@ export const GameResultsLayout = () => {
       </div>
       <FixedLayout vertical="bottom">
         <div className={contentCenter({ gap: '1' })}>
-          <Button onClick={() => routeNavigator.replace(routes.search.path)} size="l" stretched mode="primary">
+          <Button onClick={() => routeNavigator.replace(`/${FPanel.Search}`)} size="l" stretched mode="primary">
             Играть ещё раз
           </Button>
-          <Button
-            onClick={() => routeNavigator.replace(routes.search.path)}
-            style={{ marginBottom: '3rem' }}
-            size="l"
-            stretched
-            mode="secondary"
-            className={btnSec.secBase}
-          >
+          <Button style={{ marginBottom: '3rem' }} size="l" stretched mode="secondary" className={btnSec.secBase}>
             Поделиться
           </Button>
         </div>

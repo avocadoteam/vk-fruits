@@ -28,7 +28,7 @@ export const GamePlayers = () => {
         <Avatar size={48} src={me?.avatar} />
         <p className={typography({ variant: 'head' })}>{myTable?.points ?? 0}</p>
       </div>
-      <p className={typography({ variant: 'head', transform: 'up' })}>vs</p>
+      <p className={typography({ variant: 'head', transform: 'up', mix: true })}>vs</p>
 
       <div className={contentCenter({ direction: 'row', gap: '1' })}>
         <p className={typography({ variant: 'head' })}>{opponentTable?.points ?? 0}</p>

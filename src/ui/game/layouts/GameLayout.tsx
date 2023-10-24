@@ -1,6 +1,6 @@
 import { setGameResult, updateTables } from '@core/api/game/store.game';
 import { client } from '@core/sockets/receiver';
-import { routes } from '@ui/layout/routes';
+import { FPanel } from '@ui/layout/router';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { memo, useEffect } from 'react';
 import { GameBoard } from '../GameBoard';
@@ -21,7 +21,7 @@ export const GameLayout = memo(() => {
         result: data.result,
       });
       updateTables(data.tables);
-      routeNavigator.push(routes.gameResults.path);
+      routeNavigator.push(`/${FPanel.GameResults}`);
     };
   }, []);
   return (

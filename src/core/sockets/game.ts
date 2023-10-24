@@ -11,8 +11,8 @@ let connected = false;
 let socket: Socket;
 
 export const connectWS = (query: string) => {
-  console.debug('connecting');
   if (connected) return;
+  console.debug('connecting');
 
   socket = io(ns, {
     query: {

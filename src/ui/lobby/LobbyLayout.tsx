@@ -1,20 +1,26 @@
 import { getUserLobbyFX } from '@core/api/game/effects.game';
-import { $game, removePlayerLobby } from '@core/api/game/store.game';
+import { $game, removePlayerLobby, updateTables } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { appId } from '@core/constants';
+import { qVK } from '@core/data/q-params';
 import { PlayerJoinPayload } from '@core/game/player';
 import { useOpenWallShare } from '@core/hooks/useShareWall';
-import { confirmReady, joinRoom, leaveRoom } from '@core/sockets/game';
+import { confirmReady, connectWS, joinRoom } from '@core/sockets/game';
+import { client } from '@core/sockets/receiver';
 import { wrapAsset } from '@core/utils';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
+import { FPanel } from '@ui/layout/router';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Icon24CheckCircleFillGreen } from '@vkontakte/icons';
+import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Avatar, Button, FixedLayout } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
 import { memo, useCallback, useEffect } from 'react';
 
 export const LobbyLayout = memo(() => {
+  const routeNavigator = useRouteNavigator();
+
   const { lobbyId, gameRoom } = useStoreMap({
     store: $game,
     keys: [],
@@ -25,7 +31,7 @@ export const LobbyLayout = memo(() => {
       };
     },
   });
-  const { shareWall } = useOpenWallShare(`https://vk.com/app${appId}#/lobby/${lobbyId}`);
+  const { shareWall } = useOpenWallShare(`https://vk.com/app${appId}#/${FPanel.LobbyInvited}/${lobbyId}`);
 
   const { userInfo, wsConnected, userId } = useStoreMap({
     store: $config,
@@ -48,15 +54,20 @@ export const LobbyLayout = memo(() => {
 
   const opponent = gameRoom.find(g => g.userId !== userId);
   const me = gameRoom.find(g => g.userId === userId);
-
-  useEffect(
-    () => () => {
-      removePlayerLobby(userId);
-      leaveRoom(lobbyId);
-    },
-    [lobbyId, userId],
-  );
   useEffect(() => {
+    client.playerLeft = data => {
+      removePlayerLobby(data.userId);
+      routeNavigator.back();
+    };
+    client.updateTable = data => {
+      updateTables(data.tables);
+
+      routeNavigator.replace(`/${FPanel.Game}`);
+    };
+  }, []);
+
+  useEffect(() => {
+    connectWS(qVK);
     if (wsConnected) {
       getUserLobbyFX();
     }
@@ -101,7 +112,7 @@ export const LobbyLayout = memo(() => {
               />
               <p className={typography({ variant: 'small' })}>Вы</p>
             </div>
-            <p>vs</p>
+            <p className={typography({ variant: 'head', transform: 'up', mix: true })}>vs</p>
             <div className={contentCenter({ gap: '1' })}>
               <Avatar
                 size={96}

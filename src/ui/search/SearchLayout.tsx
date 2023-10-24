@@ -1,9 +1,11 @@
 import { setLobbyId } from '@core/api/game/store.game';
 import { $config } from '@core/config';
+import { qVK } from '@core/data/q-params';
 import { useInterval } from '@core/hooks/useInterval';
-import { cancelSearch, searchGame } from '@core/sockets/game';
+import { cancelSearch, connectWS, searchGame } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
+import { FPanel } from '@ui/layout/router';
 import { btnSec, contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
@@ -29,11 +31,12 @@ export const SearchLayout = memo(() => {
   const seconds = time - minutes * 60;
 
   useEffect(() => {
+    connectWS(qVK);
     searchGame();
     client.foundGameId = data => {
       setLobbyId(data.roomId);
 
-      routeNavigator.push(`/game/${data.roomId}`);
+      routeNavigator.push(`/${FPanel.GameFound}/${data.roomId}`);
     };
 
     return () => {

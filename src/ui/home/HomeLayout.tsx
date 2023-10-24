@@ -3,7 +3,7 @@ import { $game, resetGame } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { wrapAsset } from '@core/utils';
 import { clsx } from '@core/utils/clsx';
-import { routes } from '@ui/layout/routes';
+import { FPanel } from '@ui/layout/router';
 import { btnSec, contentCenter, vars } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Icon12Chevron } from '@vkontakte/icons';
@@ -61,7 +61,7 @@ export const HomeLayout = () => {
         </div>
         <div className={homeStyles.grid}>
           <Button
-            onClick={() => routeNavigator.push(routes.shop.path)}
+            onClick={() => routeNavigator.push(`/${FPanel.Shop}`)}
             className={clsx(btnSec.secHome, homeStyles.btnWide)}
             mode="secondary"
             stretched
@@ -73,7 +73,7 @@ export const HomeLayout = () => {
             </span>
           </Button>
           <Button
-            onClick={() => routeNavigator.push(routes.rating.path)}
+            onClick={() => routeNavigator.push(`/${FPanel.Rating}`)}
             className={clsx(btnSec.secHome, homeStyles.btnWide)}
             mode="secondary"
             stretched
@@ -92,7 +92,7 @@ export const HomeLayout = () => {
             stretched
             size="l"
             after={<Icon12Chevron fill={vars.palette.shade} />}
-            onClick={() => routeNavigator.push(routes.search.path)}
+            onClick={() => routeNavigator.push(`/${FPanel.Search}`)}
           >
             <span className={homeStyles.btnContent}>
               <img src={wrapAsset('/imgs/mag_glass.png')} alt="gift" width="28" height="28" />
@@ -106,7 +106,7 @@ export const HomeLayout = () => {
             stretched
             size="l"
             after={<Icon12Chevron fill={vars.palette.shade} />}
-            onClick={() => routeNavigator.push(routes.lobby.path)}
+            onClick={() => routeNavigator.push(`/${FPanel.Lobby}`)}
           >
             <span className={homeStyles.btnContent}>
               <img src={wrapAsset('/imgs/wrestling.png')} alt="gift" width="28" height="28" />

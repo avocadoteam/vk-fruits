@@ -4,7 +4,7 @@ import { PlayerJoinPayload } from '@core/game/player';
 import { confirmReady, joinRoom } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
-import { routes } from '@ui/layout/routes';
+import { FPanel } from '@ui/layout/router';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Icon24CheckCircleFillGreen } from '@vkontakte/icons';
@@ -58,15 +58,15 @@ export const GameFoundLayout = memo(() => {
     client.updateTable = data => {
       updateTables(data.tables);
 
-      routeNavigator.replace(routes.game.path);
+      routeNavigator.replace(`/${FPanel.Game}`);
     };
   }, []);
 
   useEffect(() => {
-    if (lobbyId) {
+    if (lobbyId && userId) {
       joinRoom(lobbyId, userInfo);
     }
-  }, [lobbyId]);
+  }, [lobbyId, userId]);
 
   if (!lobbyId || wrongRoom) {
     return (
@@ -114,7 +114,7 @@ export const GameFoundLayout = memo(() => {
               />
               <p className={typography({ variant: 'small' })}>Вы</p>
             </div>
-            <p>vs</p>
+            <p className={typography({ variant: 'head', transform: 'up', mix: true })}>vs</p>
             <div className={contentCenter({ gap: '1' })}>
               <Avatar
                 size={96}
