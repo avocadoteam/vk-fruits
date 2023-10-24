@@ -5,6 +5,7 @@ import { confirmReady, joinRoom } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
 import { FPanel } from '@ui/layout/router';
+import { NoResults } from '@ui/rating/NoResults';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Icon24CheckCircleFillGreen } from '@vkontakte/icons';
@@ -73,17 +74,7 @@ export const LobbyLayoutInvited = memo(() => {
     return (
       <>
         <PanelHeaderBack />
-
-        <div>
-          <div
-            style={{
-              height: '40vh',
-            }}
-            className={contentCenter()}
-          >
-            <p className={typography({ variant: 'head', transform: 'up', m: 'b' })}>Такого лобби не существует</p>
-          </div>
-        </div>
+        <NoResults listFetching={false} textEmpty="Такого лобби не существует" />
       </>
     );
   }

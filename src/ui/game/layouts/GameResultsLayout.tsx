@@ -2,6 +2,7 @@ import { $game } from '@core/api/game/store.game';
 import { $userId } from '@core/config';
 import { wrapAsset } from '@core/utils';
 import { FPanel } from '@ui/layout/router';
+import { NoResults } from '@ui/rating/NoResults';
 import { btnSec, contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
@@ -31,6 +32,15 @@ export const GameResultsLayout = () => {
 
   const opponent = gameRoom.find(g => g.userId !== userId);
   const me = gameRoom.find(g => g.userId === userId);
+
+  if (!gameResult) {
+    return (
+      <>
+        <PanelHeaderBackGR />
+        <NoResults listFetching={false} textEmpty="Такой игры не существует" />
+      </>
+    );
+  }
 
   return (
     <>
