@@ -88,6 +88,12 @@ const grBadge = style({
   padding: '4px 6px',
   borderRadius: '8px',
 });
+const grBadge2 = style({
+  backgroundColor: vars.palette.white,
+  color: vars.palette.primary,
+  padding: '4px 6px',
+  borderRadius: '23px',
+});
 const grBadgeConatiner = style({
   ':before': {
     boxShadow: 'none !important',
@@ -101,6 +107,22 @@ const buyItem = style({
   gap: '12px',
   borderRadius: '32px',
   backgroundColor: 'rgba(255, 255, 255, 0.10)',
+  minWidth: 'max-content',
+  cursor: 'pointer',
+  transition: 'all .2s ease',
+  ':hover': {
+    backgroundColor: 'rgba(255, 255, 255, 0.40)',
+  },
+  ':active': {
+    transform: 'translateY(2px)',
+  },
+});
+
+const horizContainer = style({
+  display: 'flex',
+  gap: '1rem',
+  marginBottom: '3rem',
+  padding: '0 1rem',
 });
 
 export const gSt = {
@@ -112,4 +134,6 @@ export const gSt = {
   grBadge,
   grBadgeConatiner,
   buyItem,
+  grBadge2,
+  horizContainer,
 };

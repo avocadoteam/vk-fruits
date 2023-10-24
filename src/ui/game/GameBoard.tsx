@@ -1,11 +1,13 @@
 import { $game } from '@core/api/game/store.game';
 import { $userId } from '@core/config';
 import { itemsSkins } from '@core/game/constants';
+import { FruitsGameAction } from '@core/game/player';
 import { FruitItems, GameItemNames } from '@core/game/types';
 import { tickActionEvent } from '@core/sockets/game';
+import { wrapAsset } from '@core/utils';
 import { DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { typography } from '@ui/theme/typography.css';
-import { FixedLayout } from '@vkontakte/vkui';
+import { FixedLayout, HorizontalScroll } from '@vkontakte/vkui';
 import { useStore, useStoreMap } from 'effector-react';
 import { memo } from 'react';
 import { DraggableItem } from './DraggableItem';
@@ -66,7 +68,7 @@ export const GameBoard = memo(() => {
     return null;
   }
 
-  const firstItemInSkinPack = itemsSkins[mySkinName as keyof FruitItems][0];
+  const skinPack = itemsSkins[mySkinName as keyof FruitItems];
 
   return (
     <>
@@ -95,20 +97,32 @@ export const GameBoard = memo(() => {
         </div>
       </div>
       <FixedLayout vertical="bottom">
-        <div
-          className={gSt.buyItem}
-          onClick={() => {
-            tickActionEvent({
-              actionType: 'buy',
-              roomId: lobbyId,
-              product: 1,
-            });
-          }}
-        >
-          <img src={firstItemInSkinPack.src} width={24} height={24} />
-          <p className={typography({ variant: 'small' })}>Новый фрукт</p>
-          <div className={gSt.grBadge}>-{myTable.fruitPrices[0]}</div>
-        </div>
+        <HorizontalScroll>
+          <div className={gSt.horizContainer}>
+            <div className={gSt.buyItem}>
+              <img src={wrapAsset('/imgs/ice.png')} width={24} height={24} />
+              <p className={typography({ variant: 'small' })}>Заморозка</p>
+              <div className={gSt.grBadge2}>-3</div>
+            </div>
+            {skinPack.map((skin, index) => (
+              <div
+                className={gSt.buyItem}
+                key={skin.name}
+                onClick={() => {
+                  tickActionEvent({
+                    actionType: 'buy',
+                    roomId: lobbyId,
+                    product: (index + 1) as FruitsGameAction['product'],
+                  });
+                }}
+              >
+                <img src={skin.src} width={24} height={24} />
+                <p className={typography({ variant: 'small' })}>Новый фрукт</p>
+                <div className={gSt.grBadge2}>-{skin.points * 2}</div>
+              </div>
+            ))}
+          </div>
+        </HorizontalScroll>
       </FixedLayout>
     </>
   );
