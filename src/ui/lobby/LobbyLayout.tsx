@@ -55,6 +55,7 @@ export const LobbyLayout = memo(() => {
   const opponent = gameRoom.find(g => g.userId !== userId);
   const me = gameRoom.find(g => g.userId === userId);
   useEffect(() => {
+    connectWS(qVK);
     client.playerLeft = data => {
       removePlayerLobby(data.userId);
       routeNavigator.back();
@@ -67,7 +68,6 @@ export const LobbyLayout = memo(() => {
   }, []);
 
   useEffect(() => {
-    connectWS(qVK);
     if (wsConnected) {
       getUserLobbyFX();
     }

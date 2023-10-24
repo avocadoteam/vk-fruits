@@ -1,5 +1,4 @@
 import { setLobbyId } from '@core/api/game/store.game';
-import { $config } from '@core/config';
 import { qVK } from '@core/data/q-params';
 import { useInterval } from '@core/hooks/useInterval';
 import { cancelSearch, connectWS, searchGame } from '@core/sockets/game';
@@ -10,21 +9,11 @@ import { btnSec, contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Button, FixedLayout } from '@vkontakte/vkui';
-import { useStoreMap } from 'effector-react';
 import { memo, useEffect, useState } from 'react';
 
 export const SearchLayout = memo(() => {
   const [time, setTime] = useState(0);
   const routeNavigator = useRouteNavigator();
-  const { wsConnected } = useStoreMap({
-    store: $config,
-    keys: [],
-    fn: c => {
-      return {
-        wsConnected: c.wsConnected,
-      };
-    },
-  });
   useInterval(() => setTime(t => t + 1), 1000);
 
   const minutes = Math.floor(time / 60);
@@ -42,7 +31,7 @@ export const SearchLayout = memo(() => {
     return () => {
       cancelSearch();
     };
-  }, [wsConnected]);
+  }, []);
   return (
     <>
       <PanelHeaderBack />
