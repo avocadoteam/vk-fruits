@@ -94,6 +94,15 @@ const grBadgeConatiner = style({
   },
 });
 
+const buyItem = style({
+  display: 'flex',
+  padding: '12px 14px 12px 16px',
+  alignItems: 'center',
+  gap: '12px',
+  borderRadius: '32px',
+  backgroundColor: 'rgba(255, 255, 255, 0.10)',
+});
+
 export const gSt = {
   container,
   opponentContainer,
@@ -102,4 +111,5 @@ export const gSt = {
   gameBoard,
   grBadge,
   grBadgeConatiner,
+  buyItem,
 };
