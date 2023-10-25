@@ -1,4 +1,4 @@
-import { $game, removePlayerLobby, updateTables } from '@core/api/game/store.game';
+import { $game, updateTables } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { PlayerJoinPayload } from '@core/game/player';
 import { confirmReady, joinRoom } from '@core/sockets/game';
@@ -51,10 +51,6 @@ export const GameFoundLayout = memo(() => {
   const isPlayerReady = !!me?.confirmed;
 
   useEffect(() => {
-    client.playerLeft = data => {
-      removePlayerLobby(data.userId);
-      routeNavigator.back();
-    };
     client.updateTable = data => {
       updateTables(data.tables);
 

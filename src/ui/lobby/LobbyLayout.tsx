@@ -1,5 +1,5 @@
 import { getUserLobbyFX } from '@core/api/game/effects.game';
-import { $game, removePlayerLobby, updateTables } from '@core/api/game/store.game';
+import { $game, updateTables } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { appId } from '@core/constants';
 import { qVK } from '@core/data/q-params';
@@ -56,10 +56,6 @@ export const LobbyLayout = memo(() => {
   const me = gameRoom.find(g => g.userId === userId);
   useEffect(() => {
     connectWS(qVK);
-    client.playerLeft = data => {
-      removePlayerLobby(data.userId);
-      routeNavigator.back();
-    };
     client.updateTable = data => {
       updateTables(data.tables);
 

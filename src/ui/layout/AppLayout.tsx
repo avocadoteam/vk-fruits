@@ -22,7 +22,6 @@ import { combine } from 'effector';
 import { useStore } from 'effector-react';
 import { useCallback, useEffect } from 'react';
 import { FPanel, FView } from './router';
-import { useWatchLeftRoom } from './useWatchLeftRoom';
 
 const initialLoadingCombine = combine(
   [getStorageKeys.pending, getUserDataFX.pending, getUserInfoFX.pending],
@@ -32,7 +31,6 @@ const initialLoadingCombine = combine(
 export const AppLayout = () => {
   const { online, onlineHandleActivate, sawWelcome } = useStore($config);
   const initialLoading = useStore(initialLoadingCombine);
-  useWatchLeftRoom();
 
   const routerPopout = usePopout();
   const { panelsHistory, view: activeView = FView.Main, panel: activePanel = FPanel.Home } = useActiveVkuiLocation();
