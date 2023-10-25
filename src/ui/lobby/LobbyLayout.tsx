@@ -63,7 +63,7 @@ export const LobbyLayout = memo(() => {
     client.updateTable = data => {
       updateTables(data.tables);
 
-      routeNavigator.replace(`/${FPanel.Game}`);
+      routeNavigator.replace(`/${FPanel.Game}/${lobbyId}`);
     };
   }, []);
 

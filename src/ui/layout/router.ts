@@ -31,7 +31,7 @@ export const routes = RoutesConfig.create([
       createPanel(FPanel.Lobby, `/${FPanel.Lobby}`, []),
       createPanel(FPanel.LobbyInvited, `/${FPanel.LobbyInvited}/:id`, []),
       createPanel(FPanel.GameFound, `/${FPanel.GameFound}/:id`, []),
-      createPanel(FPanel.Game, `/${FPanel.Game}`, []),
+      createPanel(FPanel.Game, `/${FPanel.Game}/:id`, []),
       createPanel(FPanel.GameResults, `/${FPanel.GameResults}`, []),
     ]),
   ]),

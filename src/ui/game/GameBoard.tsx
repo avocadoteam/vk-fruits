@@ -7,6 +7,7 @@ import { tickActionEvent } from '@core/sockets/game';
 import { wrapAsset } from '@core/utils';
 import { DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { typography } from '@ui/theme/typography.css';
+import { useParams } from '@vkontakte/vk-mini-apps-router';
 import { FixedLayout, HorizontalScroll } from '@vkontakte/vkui';
 import { useStore, useStoreMap } from 'effector-react';
 import { memo } from 'react';
@@ -15,14 +16,16 @@ import { DroppableBox } from './DroppableBox';
 import { gSt } from './style.css';
 
 export const GameBoard = memo(() => {
-  const { tables, gameRoom, lobbyId } = useStoreMap({
+  const params = useParams();
+  const lobbyId = params?.id ?? '';
+
+  const { tables, gameRoom } = useStoreMap({
     store: $game,
     keys: [],
     fn: g => {
       return {
         tables: g.tables,
         gameRoom: g.gameRoom,
-        lobbyId: g.lobbyId,
       };
     },
   });
