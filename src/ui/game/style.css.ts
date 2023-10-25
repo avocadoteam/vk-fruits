@@ -35,7 +35,7 @@ const gameBoard = style({
   padding: '10px',
   maxWidth: '335px',
   width: '100%',
-  margin: '1rem auto',
+  margin: '1rem auto 100px',
 });
 const opponentContainer = style({
   marginTop: '1rem',
