@@ -57,3 +57,6 @@ export const confirmReady = (roomId: string) => {
 export const tickActionEvent = (payload: FruitsGameAction) => {
   socket.emit('actionEvent', payload);
 };
+export const endGame = (roomId: string) => {
+  socket.emit('endGame', { roomId });
+};

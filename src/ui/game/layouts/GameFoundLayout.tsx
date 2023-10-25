@@ -15,8 +15,8 @@ import { memo, useEffect } from 'react';
 
 export const GameFoundLayout = memo(() => {
   const params = useParams();
-  const routeNavigator = useRouteNavigator();
   const lobbyId = params?.id;
+  const routeNavigator = useRouteNavigator();
   const { gameRoom, wrongRoom } = useStoreMap({
     store: $game,
     keys: [],

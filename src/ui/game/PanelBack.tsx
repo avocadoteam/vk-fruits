@@ -1,16 +1,17 @@
 import { useEventListener } from '@core/hooks/useEventListener';
+import { endGame } from '@core/sockets/game';
 import { INITIAL_URL } from '@ui/layout/router';
 import { btnBackStyle, headerStyle } from '@ui/layout/style.css';
 import { Icon24ChevronCompactLeft } from '@vkontakte/icons';
-import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
+import { useParams, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Alert, PanelHeader, PanelHeaderButton } from '@vkontakte/vkui';
 import { useEffect, useState } from 'react';
 
-// TODO: if user left during the game, so end it and show results
 export const PanelHeaderBackInGame = () => {
   const routeNavigator = useRouteNavigator();
   const [onTop, setOnTop] = useState(true);
-
+  const params = useParams();
+  const lobbyId = params?.id;
   useEffect(() => {
     setOnTop(document.documentElement.scrollTop === 0);
   }, []);
@@ -29,7 +30,13 @@ export const PanelHeaderBackInGame = () => {
           title: 'Покинуть',
           autoClose: true,
           mode: 'destructive',
-          action: () => setTimeout(() => routeNavigator.replace(INITIAL_URL), 100),
+          action: () => {
+            if (lobbyId) {
+              endGame(lobbyId);
+            } else {
+              setTimeout(() => routeNavigator.replace(INITIAL_URL), 100);
+            }
+          },
         },
       ]}
       onClose={() => routeNavigator.hidePopout()}
