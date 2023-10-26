@@ -1,5 +1,7 @@
 import { FruitItems } from './types';
 
+export const baseFruitPrices = [1, 4, 6, 16, 30, 60];
+
 export const itemsSkins: FruitItems = {
   fruits: [
     {

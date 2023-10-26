@@ -21,7 +21,6 @@ export const connectWS = (query: string) => {
   });
 
   initCallbacks(socket);
-  console.debug(socket);
   socket.on('connect', () => {
     console.debug('ws connected');
     setWSConnected(true);
