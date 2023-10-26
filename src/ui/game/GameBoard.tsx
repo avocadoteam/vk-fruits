@@ -80,7 +80,13 @@ export const GameBoard = memo(() => {
           <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
             {myTable.uiTable.map((uit, index) => (
               <DroppableBox key={index} id={index}>
-                {uit ? <DraggableItem id={uit.name + '__' + String(index)} skin={mySkinName as keyof FruitItems} /> : null}
+                {uit ? (
+                  <DraggableItem
+                    id={uit.name + '__' + String(index)}
+                    skin={mySkinName as keyof FruitItems}
+                    freezed={uit.isFreezed}
+                  />
+                ) : null}
               </DroppableBox>
             ))}
           </DndContext>
@@ -92,7 +98,9 @@ export const GameBoard = memo(() => {
               {t ? (
                 <div>
                   <img src={t.src} width={56} height={56} />
-                  <div className={gSt.score}>+{t.points}</div>
+                  <div className={gSt.score}>
+                    {t.isFreezed ? <img src={wrapAsset('/imgs/ice.png')} width={16} height={16} /> : `+${t.points}`}
+                  </div>
                 </div>
               ) : null}
             </div>
@@ -105,7 +113,7 @@ export const GameBoard = memo(() => {
             <div className={gSt.buyItem}>
               <img src={wrapAsset('/imgs/ice.png')} width={24} height={24} />
               <p className={typography({ variant: 'small' })}>Заморозка</p>
-              <div className={gSt.grBadge2}>-3</div>
+              <div className={gSt.grBadge2}>-16</div>
             </div>
             {skinPack.map((skin, index) => (
               <div

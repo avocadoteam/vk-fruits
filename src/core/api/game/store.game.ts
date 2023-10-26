@@ -1,5 +1,5 @@
 import { itemsSkins } from '@core/game/constants';
-import { FruitsGameUserData, TableData } from '@core/game/player';
+import { FruitsGameTable, FruitsGameUserData } from '@core/game/player';
 import { FruitItems } from '@core/game/types';
 import { client } from '@core/sockets/receiver';
 import { gameDomain } from './domain';
@@ -9,7 +9,7 @@ import { GameState } from './type';
 export const resetGame = gameDomain.createEvent();
 export const removePlayerLobby = gameDomain.createEvent<number>();
 export const setLobbyId = gameDomain.createEvent<string>();
-export const updateTables = gameDomain.createEvent<TableData[]>();
+export const updateTables = gameDomain.createEvent<FruitsGameTable[]>();
 export const setGameResult = gameDomain.createEvent<GameState['gameResult']>();
 const addPlayerLobby = gameDomain.createEvent<FruitsGameUserData[]>();
 const setPlayerReady = gameDomain.createEvent<number>();
@@ -78,7 +78,20 @@ $game.on(updateTables, (state, tables) => ({
     const pack = itemsSkins[skinName as keyof FruitItems];
     return {
       ...t,
-      uiTable: t.table.map(p => pack.find(s => s.points === p) ?? null),
+      uiTable: t.table.map(p => {
+        if (typeof p === 'number') {
+          return pack.find(s => s.points === p) ?? null;
+        }
+
+        const freezedFruit = pack.find(s => s.points === p.freezingFruit);
+        if (freezedFruit) {
+          return {
+            ...freezedFruit,
+            isFreezed: true,
+          };
+        }
+        return null;
+      }),
     };
   }),
 }));

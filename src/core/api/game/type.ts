@@ -1,4 +1,4 @@
-import { FruitsGameUserData, FruitsItemName, TableData } from '@core/game/player';
+import { FruitsGameTable, FruitsGameUserData, FruitsItemName } from '@core/game/player';
 import { GameItemNames } from '@core/game/types';
 
 export type GameState = {
@@ -10,8 +10,8 @@ export type GameState = {
   lobbyId: string;
   gameRoom: FruitsGameUserData[];
   wrongRoom: boolean;
-  tables: (TableData & {
-    uiTable: ({ name: GameItemNames; points: number; src: string } | null)[];
+  tables: (FruitsGameTable & {
+    uiTable: ({ name: GameItemNames; points: number; src: string; isFreezed?: boolean } | null)[];
   })[];
   gameResult: {
     gameType: 'duo' | 'rank';
