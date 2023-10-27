@@ -46,20 +46,18 @@ export const ShopLayout = () => {
     },
   });
 
-  const buyGift = useCallback(() => {
-    buyPaidFeatureFX(selectedGifts === '3' ? FruitsPaidFeatureTypeUI.FruitsGift3x : FruitsPaidFeatureTypeUI.FruitsGift).then(
-      r => {
-        addToastToQueue({
-          id: ToastId.BuyItem,
-          toast: {
-            type: r === 'success' ? 'success' : 'error',
-            title: r === 'success' ? 'Спасибо за покупку' : 'Покупка не удалась',
-          },
-        });
-        getUserInfoFX();
-      },
-    );
-  }, [selectedGifts]);
+  const buyGift = useCallback((item: FruitsPaidFeatureTypeUI) => {
+    buyPaidFeatureFX(item).then(r => {
+      addToastToQueue({
+        id: ToastId.BuyItem,
+        toast: {
+          type: r === 'success' ? 'success' : 'error',
+          title: r === 'success' ? 'Спасибо за покупку' : 'Покупка не удалась',
+        },
+      });
+      getUserInfoFX();
+    });
+  }, []);
 
   return (
     <>
@@ -82,10 +80,16 @@ export const ShopLayout = () => {
           </div>
 
           <div className={sSt.btnContainer}>
-            <Button className={btnSec.secBase} mode="secondary" stretched size="l">
+            <Button
+              className={btnSec.secBase}
+              mode="secondary"
+              stretched
+              size="l"
+              onClick={() => buyGift(FruitsPaidFeatureTypeUI.FruitsSubMonth)}
+            >
               Получить на месяц 20 голосов
             </Button>
-            <Button mode="primary" stretched size="l">
+            <Button mode="primary" stretched size="l" onClick={() => buyGift(FruitsPaidFeatureTypeUI.FruitsSubFV)}>
               Получить навсегда 80 голосов
             </Button>
           </div>
@@ -130,7 +134,15 @@ export const ShopLayout = () => {
               ) : null}
             </div>
             <div className={sSt.btnContainer}>
-              <Button mode="primary" stretched size="l" onClick={buyGift} loading={loadingBuy}>
+              <Button
+                mode="primary"
+                stretched
+                size="l"
+                onClick={() =>
+                  buyGift(selectedGifts === '3' ? FruitsPaidFeatureTypeUI.FruitsGift3x : FruitsPaidFeatureTypeUI.FruitsGift)
+                }
+                loading={loadingBuy}
+              >
                 Купить за{' '}
                 <span className={typography({ variant: 'small', shadow: true, color: 'primary' })}>
                   {selectedGifts === '3' ? '50' : '20'} голосов
