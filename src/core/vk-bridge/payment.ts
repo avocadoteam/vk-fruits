@@ -8,4 +8,4 @@ export const buyPaidFeature = (feature: FruitsPaidFeatureTypeUI): Promise<{ stat
 export const buySub = (): Promise<ShowSubscriptionBoxResponse> =>
   isDev
     ? Promise.resolve({ subscriptionId: '1', success: true })
-    : vkBridge.send('VKWebAppShowSubscriptionBox', { action: 'create', item: FruitsPaidFeatureTypeUI.FruitsSubFV });
+    : vkBridge.send('VKWebAppShowSubscriptionBox', { action: 'create', item: FruitsPaidFeatureTypeUI.FruitsSubMonth });
