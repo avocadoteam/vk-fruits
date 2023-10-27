@@ -1,8 +1,7 @@
 import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $game } from '@core/api/game/store.game';
 import { buyPaidFeatureFX, buySubFX } from '@core/api/shop/effects.shop';
-import { $config } from '@core/config';
-import { setUserSkin } from '@core/config/effects.config';
+import { $config, setSelectedSkin } from '@core/config';
 import { FruitsPaidFeatureTypeUI } from '@core/game/types';
 import { addToastToQueue } from '@core/ui-config/effects.uic';
 import { ToastId } from '@core/ui-config/types';
@@ -24,7 +23,7 @@ export const ShopLayout = () => {
   const [selectedGifts, selectGift] = useState('1');
   const loadingBuy = useStore(loadingBuyCombine);
 
-  const { hasAllSkins, skinsToBuyMaxCount, skins } = useStoreMap({
+  const { hasAllSkins, skinsToBuyMaxCount, skins, hasPremium } = useStoreMap({
     store: $game,
     keys: [],
     fn: g => {
@@ -32,6 +31,7 @@ export const ShopLayout = () => {
         hasAllSkins: g.userInfo.hasAllSkins,
         skinsToBuyMaxCount: g.userInfo.skinsToBuyMaxCount,
         skins: g.userInfo.skins,
+        hasPremium: g.userInfo.hasPremium,
       };
     },
   });
@@ -64,7 +64,7 @@ export const ShopLayout = () => {
         id: ToastId.BuyItem,
         toast: {
           type: r ? 'success' : 'error',
-          title: r ? 'Спасибо за покупку' : 'Покупка не удалась',
+          title: r ? 'Вы получили все скины и х2 кубков за победу' : 'Покупка не удалась',
         },
       });
       getUserInfoFX();
@@ -92,12 +92,18 @@ export const ShopLayout = () => {
           </div>
 
           <div className={sSt.btnContainer}>
-            <Button className={btnSec.secBase} mode="secondary" stretched size="l" onClick={buySubscription}>
-              Получить на месяц 20 голосов
-            </Button>
-            <Button mode="primary" stretched size="l" onClick={() => buyGift(FruitsPaidFeatureTypeUI.FruitsSubFV)}>
-              Получить навсегда 80 голосов
-            </Button>
+            {hasPremium ? (
+              <p className={typography({ variant: 'small', transform: 'up' })}>Вы уже купили премиум</p>
+            ) : (
+              <>
+                <Button className={btnSec.secBase} mode="secondary" stretched size="l" onClick={buySubscription}>
+                  Получить на месяц 20 голосов
+                </Button>
+                <Button mode="primary" stretched size="l" onClick={() => buyGift(FruitsPaidFeatureTypeUI.FruitsSubFV)}>
+                  Получить навсегда 80 голосов
+                </Button>
+              </>
+            )}
           </div>
         </div>
 
@@ -173,7 +179,7 @@ export const ShopLayout = () => {
                 <div
                   className={sSt.horCell({ selectedSkin: selectedSkin === skin })}
                   key={skin}
-                  onClick={() => setUserSkin(skin)}
+                  onClick={() => setSelectedSkin(skin)}
                 >
                   <Image
                     style={{ background: 'transparent' }}
@@ -186,11 +192,7 @@ export const ShopLayout = () => {
             </div>
           </HorizontalScroll>
 
-          <div className={sSt.btnContainer}>
-            <Button mode="primary" stretched size="l">
-              Выбрать
-            </Button>
-          </div>
+          <div className={sSt.btnContainer} />
         </div>
       </div>
     </>

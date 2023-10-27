@@ -27,6 +27,7 @@ export const onlineHandleActivate = appConfigDomain.createEvent();
 export const setFriendsAllowed = appConfigDomain.createEvent();
 export const setFriendsSkip = appConfigDomain.createEvent();
 export const setWSConnected = appConfigDomain.createEvent<boolean>();
+export const setSelectedSkin = appConfigDomain.createEvent<FruitsItemName>();
 
 export const $config = appConfigDomain.createStore<ConfigType>({
   appearance: 'light',
@@ -95,12 +96,16 @@ $config.on(setTapticVibration.done, (state, { params }) => ({
   ...state,
   taptic: params === 'yes',
 }));
-$config.on(setUserSkin.done, (state, { params }) => ({
+$config.on(setSelectedSkin, (state, selectedSkin) => ({
   ...state,
-  selectedSkin: params,
+  selectedSkin,
 }));
 
 forward({
   from: getUserFriendsFX.doneData,
   to: setFriendsAllowed,
+});
+forward({
+  from: setSelectedSkin,
+  to: setUserSkin,
 });

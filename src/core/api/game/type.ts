@@ -7,6 +7,7 @@ export type GameState = {
     pts: number;
     lvl: number;
     hasAllSkins: boolean;
+    hasPremium: boolean;
     countGifts: number;
     skinsToBuyMaxCount: number;
   };
