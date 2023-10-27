@@ -1,13 +1,17 @@
+import { buyPaidFeatureFX } from '@core/api/shop/effects.shop';
+import { FruitsPaidFeatureTypeUI } from '@core/game/types';
 import { wrapAsset } from '@core/utils';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
-import { btnSec, contentCenter } from '@ui/theme/theme.css';
+import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Button, HorizontalScroll, Image, Radio } from '@vkontakte/vkui';
+import { useState } from 'react';
 import { MultipleGifts } from 'src/assets/svg/MultipleGifts';
 import { RoundGift } from 'src/assets/svg/RoundGift';
 import { sSt } from './style.css';
 
 export const ShopLayout = () => {
+  const [selectedGifts, selectGift] = useState('1');
   return (
     <>
       <PanelHeaderBack />
@@ -15,7 +19,7 @@ export const ShopLayout = () => {
       <div className={contentCenter({ direction: 'column', alignItems: 'start' })}>
         <p className={typography({ variant: 'small', shadow: true, transform: 'up', m: 'l' })}>Покупки</p>
 
-        <div className={sSt.box}>
+        {/* <div className={sSt.box}>
           <div className={contentCenter({ direction: 'column', p: '1' })}>
             <img
               width={32}
@@ -36,7 +40,7 @@ export const ShopLayout = () => {
               Получить навсегда
             </Button>
           </div>
-        </div>
+        </div> */}
 
         <div className={sSt.box}>
           <div className={contentCenter({ direction: 'column', p: '1' })}>
@@ -46,13 +50,25 @@ export const ShopLayout = () => {
           </div>
 
           <div className={sSt.btnContainer}>
-            <Radio className={sSt.radio} name="gift" value="1">
+            <Radio
+              className={sSt.radio}
+              name="gift"
+              value="1"
+              onChange={e => selectGift(e.target.value)}
+              checked={selectedGifts === '1'}
+            >
               <div className={sSt.radioContent}>
                 <RoundGift />
                 <p className={typography({ variant: 'small' })}>1 подарок</p>
               </div>
             </Radio>
-            <Radio className={sSt.radio} name="gift" value="3">
+            <Radio
+              className={sSt.radio}
+              name="gift"
+              value="3"
+              onChange={e => selectGift(e.target.value)}
+              checked={selectedGifts === '3'}
+            >
               <div className={sSt.radioContent}>
                 <MultipleGifts />
                 <p className={typography({ variant: 'small' })}>3 подарка</p>
@@ -61,8 +77,18 @@ export const ShopLayout = () => {
           </div>
 
           <div className={sSt.btnContainer}>
-            <Button mode="primary" stretched size="l">
-              Купить <span className={typography({ variant: 'small', shadow: true, color: 'primary' })}>249 Р</span>
+            <Button
+              mode="primary"
+              stretched
+              size="l"
+              onClick={() =>
+                buyPaidFeatureFX(selectedGifts === '3' ? FruitsPaidFeatureTypeUI.Gift3x : FruitsPaidFeatureTypeUI.Gift)
+              }
+            >
+              Купить за{' '}
+              <span className={typography({ variant: 'small', shadow: true, color: 'primary' })}>
+                {selectedGifts === '3' ? '50' : '20'} голосов
+              </span>
             </Button>
           </div>
         </div>

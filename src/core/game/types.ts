@@ -16,3 +16,8 @@ export type FruitItems = {
   junk: { name: Junks; src: string; points: number }[];
   sea: { name: Sea; src: string; points: number }[];
 };
+
+export enum FruitsPaidFeatureTypeUI {
+  Gift = 'gift',
+  Gift3x = 'gift_3x',
+}
