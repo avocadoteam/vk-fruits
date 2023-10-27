@@ -3,6 +3,7 @@ import { $game, resetGame } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { wrapAsset } from '@core/utils';
 import { clsx } from '@core/utils/clsx';
+import { checkAdsBanner, showAdsBanner } from '@core/vk-bridge/ads';
 import { FPanel } from '@ui/layout/router';
 import { btnSec, contentCenter, vars } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
@@ -15,12 +16,13 @@ import { homeStyles } from './style.css';
 
 export const HomeLayout = () => {
   const { user } = useStore($config);
-  const { pts } = useStoreMap({
+  const { pts, hasPremium } = useStoreMap({
     store: $game,
     keys: [],
     fn: g => {
       return {
         pts: g.userInfo.pts,
+        hasPremium: g.userInfo.hasPremium,
       };
     },
   });
@@ -30,6 +32,15 @@ export const HomeLayout = () => {
     resetGame();
     getUserInfoFX();
   }, []);
+
+  useEffect(() => {
+    if (hasPremium) return;
+    checkAdsBanner().then(r => {
+      if (!r.result) {
+        showAdsBanner();
+      }
+    });
+  }, [hasPremium]);
 
   return (
     <>
