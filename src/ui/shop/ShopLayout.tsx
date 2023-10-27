@@ -1,6 +1,6 @@
 import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $game } from '@core/api/game/store.game';
-import { buyPaidFeatureFX } from '@core/api/shop/effects.shop';
+import { buyPaidFeatureFX, buySubFX } from '@core/api/shop/effects.shop';
 import { $config } from '@core/config';
 import { setUserSkin } from '@core/config/effects.config';
 import { FruitsPaidFeatureTypeUI } from '@core/game/types';
@@ -18,7 +18,7 @@ import { MultipleGifts } from 'src/assets/svg/MultipleGifts';
 import { RoundGift } from 'src/assets/svg/RoundGift';
 import { sSt } from './style.css';
 
-const loadingBuyCombine = combine([buyPaidFeatureFX.pending, getUserInfoFX.pending], ([a, b]) => a || b);
+const loadingBuyCombine = combine([buyPaidFeatureFX.pending, getUserInfoFX.pending, buySubFX.pending], ([a, b]) => a || b);
 
 export const ShopLayout = () => {
   const [selectedGifts, selectGift] = useState('1');
@@ -58,6 +58,18 @@ export const ShopLayout = () => {
       getUserInfoFX();
     });
   }, []);
+  const buySubscription = useCallback(() => {
+    buySubFX().then(r => {
+      addToastToQueue({
+        id: ToastId.BuyItem,
+        toast: {
+          type: r ? 'success' : 'error',
+          title: r ? 'Спасибо за покупку' : 'Покупка не удалась',
+        },
+      });
+      getUserInfoFX();
+    });
+  }, []);
 
   return (
     <>
@@ -80,13 +92,7 @@ export const ShopLayout = () => {
           </div>
 
           <div className={sSt.btnContainer}>
-            <Button
-              className={btnSec.secBase}
-              mode="secondary"
-              stretched
-              size="l"
-              onClick={() => buyGift(FruitsPaidFeatureTypeUI.FruitsSubMonth)}
-            >
+            <Button className={btnSec.secBase} mode="secondary" stretched size="l" onClick={buySubscription}>
               Получить на месяц 20 голосов
             </Button>
             <Button mode="primary" stretched size="l" onClick={() => buyGift(FruitsPaidFeatureTypeUI.FruitsSubFV)}>
