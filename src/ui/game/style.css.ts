@@ -5,7 +5,7 @@ import { recipe } from '@vanilla-extract/recipes';
 const container = recipe({
   base: {
     display: 'grid',
-
+    transition: 'all .2s ease',
     width: '100%',
     columnGap: '6px',
     rowGap: '6px',
@@ -24,6 +24,13 @@ const container = recipe({
       },
       false: {
         gridTemplateColumns: '1fr 1fr 1fr',
+        borderBottom: '2px dashed #E8E8E8',
+        paddingBottom: '1rem',
+      },
+    },
+    isActiveFreeze: {
+      true: {
+        opacity: 0.5,
       },
     },
   },
@@ -35,20 +42,29 @@ const gameBoard = style({
   padding: '10px',
   maxWidth: '335px',
   width: '100%',
-  margin: '1rem auto 100px',
+  margin: '1rem auto 120px',
 });
-const opponentContainer = style({
-  marginTop: '1rem',
-  paddingTop: '1rem',
-  display: 'grid',
-  width: '100%',
-  columnGap: '6px',
-  rowGap: '6px',
-  position: 'relative',
-  userSelect: 'none',
-  gridTemplateColumns: '1fr 1fr 1fr',
-  opacity: 0.5,
-  borderTop: '2px dashed #E8E8E8',
+const opponentContainer = recipe({
+  base: {
+    marginTop: '1rem',
+    display: 'grid',
+    width: '100%',
+    columnGap: '6px',
+    rowGap: '6px',
+    position: 'relative',
+    userSelect: 'none',
+    gridTemplateColumns: '1fr 1fr 1fr',
+    opacity: 0.5,
+    transition: 'all .2s ease',
+  },
+  variants: {
+    isActiveFreeze: {
+      true: {
+        opacity: 1,
+        transform: 'scale(1.08)',
+      },
+    },
+  },
 });
 
 const box = style({
@@ -101,6 +117,7 @@ const grBadgeConatiner = style({
 });
 
 const buyItem = style({
+  userSelect: 'none',
   display: 'flex',
   padding: '12px 14px 12px 16px',
   alignItems: 'center',

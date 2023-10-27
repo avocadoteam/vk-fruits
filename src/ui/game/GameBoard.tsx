@@ -10,7 +10,7 @@ import { typography } from '@ui/theme/typography.css';
 import { useParams } from '@vkontakte/vk-mini-apps-router';
 import { FixedLayout, HorizontalScroll } from '@vkontakte/vkui';
 import { useStore, useStoreMap } from 'effector-react';
-import { memo } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { DraggableItem } from './DraggableItem';
 import { DroppableBox } from './DroppableBox';
 import { gSt } from './style.css';
@@ -18,6 +18,8 @@ import { gSt } from './style.css';
 export const GameBoard = memo(() => {
   const params = useParams();
   const lobbyId = params?.id ?? '';
+
+  const [isActiveFreeze, activateFreeze] = useState(false);
 
   const { tables, gameRoom } = useStoreMap({
     store: $game,
@@ -46,7 +48,7 @@ export const GameBoard = memo(() => {
     if (typeof over?.id === 'number' && myTable?.uiTable[Number(over.id)] && over.id !== Number(index)) {
       const onDropItem = myTable?.uiTable[Number(over.id)];
       const dragItem = myTable?.uiTable[Number(index)];
-      if (onDropItem && dragItem) {
+      if (onDropItem && dragItem && !onDropItem.isFreezed) {
         tickActionEvent({
           actionType: 'unite',
           roomId: lobbyId,
@@ -67,6 +69,13 @@ export const GameBoard = memo(() => {
     // }
   }
 
+  const toggleFreeze = useCallback(() => {
+    activateFreeze(v => !v);
+  }, []);
+  const deactiateFreeze = useCallback(() => {
+    activateFreeze(false);
+  }, []);
+
   if (!myTable || !opponentTable) {
     return null;
   }
@@ -76,7 +85,7 @@ export const GameBoard = memo(() => {
   return (
     <>
       <div className={gSt.gameBoard}>
-        <div className={gSt.container({ isDemo: false })}>
+        <div className={gSt.container({ isDemo: false, isActiveFreeze })} onClick={deactiateFreeze}>
           <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
             {myTable.uiTable.map((uit, index) => (
               <DroppableBox key={index} id={index}>
@@ -92,11 +101,22 @@ export const GameBoard = memo(() => {
           </DndContext>
         </div>
 
-        <div className={gSt.opponentContainer}>
+        <div className={gSt.opponentContainer({ isActiveFreeze })}>
           {opponentTable.uiTable.map((t, index) => (
-            <div className={gSt.box} key={index}>
+            <div className={gSt.box} key={index} style={{ cursor: isActiveFreeze && t ? 'pointer' : 'not-allowed' }}>
               {t ? (
-                <div>
+                <div
+                  onClick={() => {
+                    if (isActiveFreeze) {
+                      tickActionEvent({
+                        actionType: 'freeze',
+                        roomId: lobbyId,
+                        target: index as FruitsGameAction['target'],
+                      });
+                      deactiateFreeze();
+                    }
+                  }}
+                >
                   <img src={t.src} width={56} height={56} />
                   <div className={gSt.score}>
                     {t.isFreezed ? <img src={wrapAsset('/imgs/ice.png')} width={16} height={16} /> : `+${t.points}`}
@@ -110,10 +130,10 @@ export const GameBoard = memo(() => {
       <FixedLayout vertical="bottom">
         <HorizontalScroll showArrows={false}>
           <div className={gSt.horizContainer}>
-            <div className={gSt.buyItem}>
+            <div className={gSt.buyItem} onClick={toggleFreeze}>
               <img src={wrapAsset('/imgs/ice.png')} width={24} height={24} />
               <p className={typography({ variant: 'small' })}>Заморозка</p>
-              <div className={gSt.grBadge2}>-16</div>
+              <div className={gSt.grBadge2}>-{myTable.actionPrices[0]}</div>
             </div>
             {skinPack.map((skin, index) => (
               <div
