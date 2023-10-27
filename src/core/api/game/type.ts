@@ -6,6 +6,9 @@ export type GameState = {
     skins: FruitsItemName[];
     pts: number;
     lvl: number;
+    hasAllSkins: boolean;
+    countGifts: number;
+    skinsToBuyMaxCount: number;
   };
   lobbyId: string;
   gameRoom: FruitsGameUserData[];

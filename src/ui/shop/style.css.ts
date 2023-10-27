@@ -1,5 +1,6 @@
 import { vars } from '@ui/theme/theme.css';
 import { globalStyle, style } from '@vanilla-extract/css';
+import { recipe } from '@vanilla-extract/recipes';
 
 const box = style({
   borderRadius: '40px',
@@ -36,19 +37,25 @@ globalStyle(`${radio} > .vkuiRadio__container > svg`, {
   color: `${vars.palette.white} !important`,
 });
 
-const horCell = style({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  gap: '1rem',
-  padding: '16px 12px',
-  borderRadius: '1rem',
-  backgroundColor: 'rgba(255, 255, 255, 0.10)',
-  width: '77px',
-  minWidth: '77px',
-  maxWidth: '77px',
-  height: '83px',
-  marginRight: '.5rem',
+const horCell = recipe({
+  base: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '1rem',
+    padding: '16px 12px',
+    borderRadius: '1rem',
+    backgroundColor: 'rgba(255, 255, 255, 0.10)',
+    marginRight: '.5rem',
+    cursor: 'pointer',
+  },
+  variants: {
+    selectedSkin: {
+      true: {
+        backgroundColor: vars.palette.white,
+      },
+    },
+  },
 });
 
 export const sSt = {

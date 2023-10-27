@@ -4,7 +4,7 @@ import { FruitsItemName } from '@core/game/player';
 import { AppearanceType, UserInfo } from '@vkontakte/vk-bridge';
 import { combine, forward } from 'effector';
 import { appConfigDomain } from './domain';
-import { finishWelcomeFX, getStorageKeys, getUserDataFX, setTapticVibration } from './effects.config';
+import { finishWelcomeFX, getStorageKeys, getUserDataFX, setTapticVibration, setUserSkin } from './effects.config';
 
 export type ConfigType = {
   appearance: AppearanceType;
@@ -27,7 +27,6 @@ export const onlineHandleActivate = appConfigDomain.createEvent();
 export const setFriendsAllowed = appConfigDomain.createEvent();
 export const setFriendsSkip = appConfigDomain.createEvent();
 export const setWSConnected = appConfigDomain.createEvent<boolean>();
-export const setSelectedSkin = appConfigDomain.createEvent<FruitsItemName>();
 
 export const $config = appConfigDomain.createStore<ConfigType>({
   appearance: 'light',
@@ -72,10 +71,6 @@ $config
     ...state,
     wsConnected,
   }))
-  .on(setSelectedSkin, (state, selectedSkin) => ({
-    ...state,
-    selectedSkin,
-  }))
   .on(setFriendsSkip, state => ({
     ...state,
     skipFriends: true,
@@ -85,11 +80,11 @@ $config.on(getUserDataFX.doneData, (state, user) => ({
   ...state,
   user,
 }));
-$config.on(getStorageKeys.doneData, (state, { sawWelcome, secondVisit, taptic }) => ({
+$config.on(getStorageKeys.doneData, (state, { sawWelcome, secondVisit, selectedSkin }) => ({
   ...state,
   sawWelcome,
   secondVisit,
-  taptic,
+  selectedSkin,
 }));
 $config.on(finishWelcomeFX.done, state => ({
   ...state,
@@ -99,6 +94,10 @@ $config.on(finishWelcomeFX.done, state => ({
 $config.on(setTapticVibration.done, (state, { params }) => ({
   ...state,
   taptic: params === 'yes',
+}));
+$config.on(setUserSkin.done, (state, { params }) => ({
+  ...state,
+  selectedSkin: params,
 }));
 
 forward({
