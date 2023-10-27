@@ -11,6 +11,7 @@ export type Toast = {
 export enum ToastId {
   unknown = 'test',
   BuyItem = 'buy_item',
+  Gift = 'gift',
 }
 export type Form = 'location';
 export type ToastsState = {

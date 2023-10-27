@@ -1,6 +1,8 @@
 import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $game, resetGame } from '@core/api/game/store.game';
 import { $config } from '@core/config';
+import { addToastToQueue } from '@core/ui-config/effects.uic';
+import { ToastId } from '@core/ui-config/types';
 import { wrapAsset } from '@core/utils';
 import { clsx } from '@core/utils/clsx';
 import { checkAdsBanner, showAdsBanner } from '@core/vk-bridge/ads';
@@ -11,18 +13,19 @@ import { Icon12Chevron } from '@vkontakte/icons';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Avatar, Button, PanelHeader } from '@vkontakte/vkui';
 import { useStore, useStoreMap } from 'effector-react';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { homeStyles } from './style.css';
 
 export const HomeLayout = () => {
   const { user } = useStore($config);
-  const { pts, hasPremium } = useStoreMap({
+  const { pts, hasPremium, countGifts } = useStoreMap({
     store: $game,
     keys: [],
     fn: g => {
       return {
         pts: g.userInfo.pts,
         hasPremium: g.userInfo.hasPremium,
+        countGifts: g.userInfo.countGifts,
       };
     },
   });
@@ -41,6 +44,20 @@ export const HomeLayout = () => {
       }
     });
   }, [hasPremium]);
+
+  const activateGift = useCallback(() => {
+    if (!countGifts) {
+      addToastToQueue({
+        id: ToastId.Gift,
+        toast: {
+          type: 'warn',
+          title: 'Подарков пока нет',
+        },
+      });
+    } else {
+      // routeNavigator.push(`/${Routes}`)
+    }
+  }, [countGifts]);
 
   return (
     <>
@@ -61,8 +78,7 @@ export const HomeLayout = () => {
             mode="secondary"
             stretched
             size="l"
-            after={<span className={typography({ variant: 'small' })}>Осталось 3 игры</span>}
-            disabled
+            onClick={activateGift}
           >
             <span className={homeStyles.btnContent}>
               <img src={wrapAsset('/imgs/gift.png')} alt="gift" width="28" height="28" />
