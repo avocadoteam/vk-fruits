@@ -1,6 +1,6 @@
 import { $game } from '@core/api/game/store.game';
 import { $userId } from '@core/config';
-import { baseFruitPrices, itemsSkins } from '@core/game/constants';
+import { itemsSkins } from '@core/game/constants';
 import { FruitsGameAction } from '@core/game/player';
 import { FruitItems, GameItemNames } from '@core/game/types';
 import { tickActionEvent } from '@core/sockets/game';
@@ -108,7 +108,7 @@ export const GameBoard = memo(() => {
         </div>
       </div>
       <FixedLayout vertical="bottom">
-        <HorizontalScroll>
+        <HorizontalScroll showArrows={false}>
           <div className={gSt.horizContainer}>
             <div className={gSt.buyItem}>
               <img src={wrapAsset('/imgs/ice.png')} width={24} height={24} />
@@ -129,7 +129,7 @@ export const GameBoard = memo(() => {
               >
                 <img src={skin.src} width={24} height={24} />
                 <p className={typography({ variant: 'small' })}>Новый фрукт</p>
-                <div className={gSt.grBadge2}>-{baseFruitPrices[index]}</div>
+                <div className={gSt.grBadge2}>-{myTable.fruitPrices[index]}</div>
               </div>
             ))}
           </div>
