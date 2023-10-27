@@ -1,11 +1,12 @@
 import { appId, isDev, vkApiV } from '@core/constants';
+import { getSearchParams } from '@core/data/searchParams';
 import { UserInfo } from '@vkontakte/vk-bridge';
 import { vkBridge } from './instance';
 
 export const getUserData = () =>
   isDev
     ? Promise.resolve({
-        id: 11437372,
+        id: getSearchParams().has('vk_user_id') ? Number(getSearchParams().get('vk_user_id')) : 11437372,
         bdate: '6.11',
         bdate_visibility: 2,
         city: {
@@ -24,7 +25,7 @@ export const getUserData = () =>
         sex: 2,
         photo_100:
           'https://sun9-64.userapi.com/s/v1/ig2/nqDNvsAWj8qRejOkW_uQXEEHWsItDh4mvIv2sdqcozRtk57EYD3n1bUVH15uZ0WmPcvFR1ToYmMlRVkQ-UyfUUDZ.jpg?size=100x100&quality=96&crop=233,352,479,479&ava=1',
-        first_name: 'Константин',
+        first_name: 'Константин' + Number(getSearchParams().get('vk_user_id')),
         last_name: 'Михеев',
         can_access_closed: true,
         is_closed: false,
