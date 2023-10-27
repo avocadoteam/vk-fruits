@@ -18,6 +18,8 @@ export type FruitItems = {
 };
 
 export enum FruitsPaidFeatureTypeUI {
-  Gift = 'gift',
-  Gift3x = 'gift_3x',
+  FruitsGift = 'gift',
+  FruitsGift3x = 'gift_3x',
+  FruitsSubMonth = 'fruits_sub_month',
+  FruitsSubFV = 'fruits_sub_fv',
 }

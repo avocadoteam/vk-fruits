@@ -8,7 +8,7 @@ import { addToastToQueue } from '@core/ui-config/effects.uic';
 import { ToastId } from '@core/ui-config/types';
 import { wrapAsset } from '@core/utils';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
-import { contentCenter } from '@ui/theme/theme.css';
+import { btnSec, contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Button, HorizontalScroll, Image, Radio } from '@vkontakte/vkui';
 import { combine } from 'effector';
@@ -47,16 +47,18 @@ export const ShopLayout = () => {
   });
 
   const buyGift = useCallback(() => {
-    buyPaidFeatureFX(selectedGifts === '3' ? FruitsPaidFeatureTypeUI.Gift3x : FruitsPaidFeatureTypeUI.Gift).then(r => {
-      addToastToQueue({
-        id: ToastId.BuyItem,
-        toast: {
-          type: r === 'success' ? 'success' : 'error',
-          title: r === 'success' ? 'Спасибо за покупку' : 'Покупка не удалась',
-        },
-      });
-      getUserInfoFX();
-    });
+    buyPaidFeatureFX(selectedGifts === '3' ? FruitsPaidFeatureTypeUI.FruitsGift3x : FruitsPaidFeatureTypeUI.FruitsGift).then(
+      r => {
+        addToastToQueue({
+          id: ToastId.BuyItem,
+          toast: {
+            type: r === 'success' ? 'success' : 'error',
+            title: r === 'success' ? 'Спасибо за покупку' : 'Покупка не удалась',
+          },
+        });
+        getUserInfoFX();
+      },
+    );
   }, [selectedGifts]);
 
   return (
@@ -66,7 +68,7 @@ export const ShopLayout = () => {
       <div className={contentCenter({ direction: 'column', alignItems: 'start' })}>
         <p className={typography({ variant: 'small', shadow: true, transform: 'up', m: 'l' })}>Покупки</p>
 
-        {/* <div className={sSt.box}>
+        <div className={sSt.box}>
           <div className={contentCenter({ direction: 'column', p: '1' })}>
             <img
               width={32}
@@ -75,19 +77,19 @@ export const ShopLayout = () => {
               src="https://showtime.app-dich.com/imgs/emoji/veg/avocado.png"
               alt="avocado"
             />
-            <p className={typography({ variant: 'head', m: 't', transform: 'up' })}>Avocado+</p>
+            <p className={typography({ variant: 'head', m: 't', transform: 'up' })}>Fruit Pass</p>
             <p className={typography({ variant: 'small', shadow: true })}>Содержит премиальные функции</p>
           </div>
 
           <div className={sSt.btnContainer}>
             <Button className={btnSec.secBase} mode="secondary" stretched size="l">
-              Получить на месяц
+              Получить на месяц 20 голосов
             </Button>
             <Button mode="primary" stretched size="l">
-              Получить навсегда
+              Получить навсегда 80 голосов
             </Button>
           </div>
-        </div> */}
+        </div>
 
         {hasAllSkins ? null : (
           <div className={sSt.box}>
