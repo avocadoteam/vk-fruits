@@ -1,6 +1,7 @@
 import { getUserFriendsFX, getUserTokenFX } from '@core/api/friends/effects.config';
 import { btnSec } from '@ui/theme/theme.css';
-import { Button, Div, Placeholder, Title } from '@vkontakte/vkui';
+import { typography } from '@ui/theme/typography.css';
+import { Button, Div, Placeholder } from '@vkontakte/vkui';
 import { combine } from 'effector';
 import { useStore } from 'effector-react';
 import { memo, useCallback } from 'react';
@@ -17,11 +18,7 @@ export const RatingFriendsPermissions = memo(() => {
   return (
     <Div>
       <Placeholder
-        header={
-          <Title weight="3" level="3">
-            Разрешите доступ к списку друзей
-          </Title>
-        }
+        header={<p className={typography({ variant: 'head1', transform: 'up' })}>Разрешите доступ к списку друзей</p>}
         action={
           <Button
             loading={tokenFetching}
