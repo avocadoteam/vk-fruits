@@ -18,6 +18,7 @@ export enum FPanel {
   Game = 'game',
   GameFound = 'game-found',
   GameResults = 'game-results',
+  Gift = 'gift',
 }
 
 export const routes = RoutesConfig.create([
@@ -33,6 +34,7 @@ export const routes = RoutesConfig.create([
       createPanel(FPanel.GameFound, `/${FPanel.GameFound}/:id`, []),
       createPanel(FPanel.Game, `/${FPanel.Game}/:id`, []),
       createPanel(FPanel.GameResults, `/${FPanel.GameResults}`, []),
+      createPanel(FPanel.Gift, `/${FPanel.Gift}`, []),
     ]),
   ]),
 ]);

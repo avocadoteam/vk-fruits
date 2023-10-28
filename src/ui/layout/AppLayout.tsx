@@ -7,6 +7,7 @@ import { client } from '@core/sockets/receiver';
 import { GameFoundLayout } from '@ui/game/layouts/GameFoundLayout';
 import { GameLayout } from '@ui/game/layouts/GameLayout';
 import { GameResultsLayout } from '@ui/game/layouts/GameResultsLayout';
+import { GiftPanel } from '@ui/gifts/GiftPanel';
 import { HomeLayout } from '@ui/home/HomeLayout';
 import { LobbyLayout } from '@ui/lobby/LobbyLayout';
 import { LobbyLayoutInvited } from '@ui/lobby/LobbyLayoutInvited';
@@ -81,34 +82,35 @@ export const AppLayout = () => {
       <SplitCol>
         <Root activeView={activeView}>
           <View nav={FView.Main} activePanel={activePanel} onSwipeBack={onSwipeBack} history={panelsHistory}>
-            <Panel nav={FPanel.Welcome} className={bg}>
+            <Panel nav={FPanel.Welcome} className={bg()}>
               <WelcomeLayout />
             </Panel>
-            <Panel nav={FPanel.Home} className={bg}>
+            <Panel nav={FPanel.Home} className={bg()}>
               <HomeLayout />
             </Panel>
-            <Panel nav={FPanel.Shop} className={bg}>
+            <Panel nav={FPanel.Shop} className={bg()}>
               <ShopLayout />
             </Panel>
-            <Panel nav={FPanel.Rating} className={bg}>
+            <GiftPanel nav={FPanel.Gift} />
+            <Panel nav={FPanel.Rating} className={bg()}>
               <RatingLayout />
             </Panel>
-            <Panel nav={FPanel.Search} className={bg}>
+            <Panel nav={FPanel.Search} className={bg()}>
               <SearchLayout />
             </Panel>
-            <Panel nav={FPanel.Lobby} className={bg}>
+            <Panel nav={FPanel.Lobby} className={bg()}>
               <LobbyLayout />
             </Panel>
-            <Panel nav={FPanel.LobbyInvited} className={bg}>
+            <Panel nav={FPanel.LobbyInvited} className={bg()}>
               <LobbyLayoutInvited />
             </Panel>
-            <Panel nav={FPanel.Game} className={bg}>
+            <Panel nav={FPanel.Game} className={bg()}>
               <GameLayout />
             </Panel>
-            <Panel nav={FPanel.GameFound} className={bg}>
+            <Panel nav={FPanel.GameFound} className={bg()}>
               <GameFoundLayout />
             </Panel>
-            <Panel nav={FPanel.GameResults} className={bg}>
+            <Panel nav={FPanel.GameResults} className={bg()}>
               <GameResultsLayout />
             </Panel>
           </View>

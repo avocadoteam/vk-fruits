@@ -55,9 +55,9 @@ export const HomeLayout = () => {
         },
       });
     } else {
-      // routeNavigator.push(`/${Routes}`)
+      routeNavigator.push(`/${FPanel.Gift}`);
     }
-  }, [countGifts]);
+  }, [countGifts, routeNavigator]);
 
   return (
     <>
