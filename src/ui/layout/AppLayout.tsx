@@ -11,6 +11,7 @@ import { GiftPanel } from '@ui/gifts/GiftPanel';
 import { HomeLayout } from '@ui/home/HomeLayout';
 import { LobbyLayout } from '@ui/lobby/LobbyLayout';
 import { LobbyLayoutInvited } from '@ui/lobby/LobbyLayoutInvited';
+import { ModalRoots } from '@ui/modals/ModalsRoot';
 import { Offline } from '@ui/offline/Offline';
 import { RatingLayout } from '@ui/rating/RatingLayout';
 import { SearchLayout } from '@ui/search/SearchLayout';
@@ -84,7 +85,7 @@ export const AppLayout = () => {
   }
 
   return (
-    <SplitLayout popout={initialLoading ? <ScreenSpinner /> : routerPopout}>
+    <SplitLayout modal={<ModalRoots />} popout={initialLoading ? <ScreenSpinner /> : routerPopout}>
       <SplitCol>
         <Root activeView={activeView}>
           <View nav={FView.Main} activePanel={activePanel} onSwipeBack={onSwipeBack} history={panelsHistory}>

@@ -24,6 +24,7 @@ export const $game = gameDomain.createStore<GameState>({
     hasAllSkins: false,
     skinsToBuyMaxCount: 2,
     hasPremium: false,
+    daysInRow: 1,
   },
   lobbyId: '',
   gameRoom: [],

@@ -10,6 +10,7 @@ export type GameState = {
     hasPremium: boolean;
     countGifts: number;
     skinsToBuyMaxCount: number;
+    daysInRow: number;
   };
   lobbyId: string;
   gameRoom: FruitsGameUserData[];

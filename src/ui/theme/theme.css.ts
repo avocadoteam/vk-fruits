@@ -81,9 +81,17 @@ export const contentCenter = recipe({
         padding: '0',
       },
     },
+    m: {
+      auto: {
+        margin: 'auto',
+      },
+    },
     gap: {
       '1': {
         gap: '1rem',
+      },
+      '.5': {
+        gap: '.5rem',
       },
     },
   },

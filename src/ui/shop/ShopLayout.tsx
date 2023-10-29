@@ -97,10 +97,10 @@ export const ShopLayout = () => {
             ) : (
               <>
                 <Button className={btnSec.secBase} mode="secondary" stretched size="l" onClick={buySubscription}>
-                  Получить на месяц 20 голосов
+                  На месяц за 20 голосов
                 </Button>
                 <Button mode="primary" stretched size="l" onClick={() => buyGift(FruitsPaidFeatureTypeUI.FruitsSubFV)}>
-                  Получить навсегда 80 голосов
+                  Навсегда за 80 голосов
                 </Button>
               </>
             )}

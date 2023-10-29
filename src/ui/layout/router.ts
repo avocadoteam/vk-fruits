@@ -21,6 +21,10 @@ export enum FPanel {
   Gift = 'gift',
 }
 
+export enum FModal {
+  DaysInRow = 'days_in_row',
+}
+
 export const routes = RoutesConfig.create([
   createRoot(APP_ROOT, [
     createView(FView.Main, [

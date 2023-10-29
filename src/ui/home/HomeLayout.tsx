@@ -1,12 +1,10 @@
 import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $game, resetGame } from '@core/api/game/store.game';
 import { $config } from '@core/config';
-import { addToastToQueue } from '@core/ui-config/effects.uic';
-import { ToastId } from '@core/ui-config/types';
 import { wrapAsset } from '@core/utils';
 import { clsx } from '@core/utils/clsx';
 import { checkAdsBanner, showAdsBanner } from '@core/vk-bridge/ads';
-import { FPanel } from '@ui/layout/router';
+import { FModal, FPanel } from '@ui/layout/router';
 import { btnSec, contentCenter, vars } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Icon12Chevron } from '@vkontakte/icons';
@@ -47,13 +45,7 @@ export const HomeLayout = () => {
 
   const activateGift = useCallback(() => {
     if (!countGifts) {
-      addToastToQueue({
-        id: ToastId.Gift,
-        toast: {
-          type: 'warn',
-          title: 'Подарков пока нет',
-        },
-      });
+      routeNavigator.showModal(FModal.DaysInRow);
     } else {
       routeNavigator.push(`/${FPanel.Gift}`);
     }
