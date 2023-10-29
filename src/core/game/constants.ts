@@ -161,4 +161,324 @@ export const itemsSkins: FruitItems = {
       points: 66,
     },
   ],
+  airs: [
+    {
+      name: 'parachute',
+      src: 'https://showtime.app-dich.com/imgs/emoji/airs/parachute.png',
+      points: 1,
+    },
+    {
+      name: 'small_plane',
+      src: 'https://showtime.app-dich.com/imgs/emoji/airs/small_plane.png',
+      points: 3,
+    },
+    {
+      name: 'plane',
+      src: 'https://showtime.app-dich.com/imgs/emoji/airs/plane.png',
+      points: 7,
+    },
+    {
+      name: 'helicopter',
+      src: 'https://showtime.app-dich.com/imgs/emoji/airs/helicopter.png',
+      points: 15,
+    },
+    {
+      name: 'rocket',
+      src: 'https://showtime.app-dich.com/imgs/emoji/airs/rocket.png',
+      points: 32,
+    },
+    {
+      name: 'ufo',
+      src: 'https://showtime.app-dich.com/imgs/emoji/airs/ufo.png',
+      points: 66,
+    },
+  ],
+  balls: [
+    {
+      name: 'football',
+      src: 'https://showtime.app-dich.com/imgs/emoji/balls/football.png',
+      points: 1,
+    },
+    {
+      name: 'baseball',
+      src: 'https://showtime.app-dich.com/imgs/emoji/balls/baseball.png',
+      points: 3,
+    },
+    {
+      name: 'softball',
+      src: 'https://showtime.app-dich.com/imgs/emoji/balls/softball.png',
+      points: 7,
+    },
+    {
+      name: 'basketball',
+      src: 'https://showtime.app-dich.com/imgs/emoji/balls/basketball.png',
+      points: 15,
+    },
+    {
+      name: 'volleyball',
+      src: 'https://showtime.app-dich.com/imgs/emoji/balls/volleyball.png',
+      points: 32,
+    },
+    {
+      name: 'pool_ball',
+      src: 'https://showtime.app-dich.com/imgs/emoji/balls/pool_ball.png',
+      points: 66,
+    },
+  ],
+  buildings: [
+    {
+      name: 'hut',
+      src: 'https://showtime.app-dich.com/imgs/emoji/buildings/hut.png',
+      points: 1,
+    },
+    {
+      name: 'house',
+      src: 'https://showtime.app-dich.com/imgs/emoji/buildings/house.png',
+      points: 3,
+    },
+    {
+      name: 'office',
+      src: 'https://showtime.app-dich.com/imgs/emoji/buildings/office.png',
+      points: 7,
+    },
+    {
+      name: 'store',
+      src: 'https://showtime.app-dich.com/imgs/emoji/buildings/store.png',
+      points: 15,
+    },
+    {
+      name: 'bank',
+      src: 'https://showtime.app-dich.com/imgs/emoji/buildings/bank.png',
+      points: 32,
+    },
+    {
+      name: 'stadium',
+      src: 'https://showtime.app-dich.com/imgs/emoji/buildings/stadium.png',
+      points: 66,
+    },
+  ],
+  candies: [
+    {
+      name: 'candy',
+      src: 'https://showtime.app-dich.com/imgs/emoji/candies/candy.png',
+      points: 1,
+    },
+    {
+      name: 'lollipop',
+      src: 'https://showtime.app-dich.com/imgs/emoji/candies/lollipop.png',
+      points: 3,
+    },
+    {
+      name: 'chocolate',
+      src: 'https://showtime.app-dich.com/imgs/emoji/candies/chocolate.png',
+      points: 7,
+    },
+    {
+      name: 'pie',
+      src: 'https://showtime.app-dich.com/imgs/emoji/candies/pie.png',
+      points: 15,
+    },
+    {
+      name: 'shortcake',
+      src: 'https://showtime.app-dich.com/imgs/emoji/candies/shortcake.png',
+      points: 32,
+    },
+    {
+      name: 'cake',
+      src: 'https://showtime.app-dich.com/imgs/emoji/candies/cake.png',
+      points: 66,
+    },
+  ],
+  cars: [
+    {
+      name: 'kick_scooter',
+      src: 'https://showtime.app-dich.com/imgs/emoji/cars/kick_scooter.png',
+      points: 1,
+    },
+    {
+      name: 'motorcycle',
+      src: 'https://showtime.app-dich.com/imgs/emoji/cars/motorcycle.png',
+      points: 3,
+    },
+    {
+      name: 'car',
+      src: 'https://showtime.app-dich.com/imgs/emoji/cars/car.png',
+      points: 7,
+    },
+    {
+      name: 'motor_scooter',
+      src: 'https://showtime.app-dich.com/imgs/emoji/cars/motor_scooter.png',
+      points: 15,
+    },
+    {
+      name: 'bus',
+      src: 'https://showtime.app-dich.com/imgs/emoji/cars/bus.png',
+      points: 32,
+    },
+    {
+      name: 'racing_car',
+      src: 'https://showtime.app-dich.com/imgs/emoji/cars/racing_car.png',
+      points: 66,
+    },
+  ],
+  clouds: [
+    {
+      name: 'cloud',
+      src: 'https://showtime.app-dich.com/imgs/emoji/clouds/cloud.png',
+      points: 1,
+    },
+    {
+      name: 'cloud_rain',
+      src: 'https://showtime.app-dich.com/imgs/emoji/clouds/cloud_rain.png',
+      points: 3,
+    },
+    {
+      name: 'cloud_snow',
+      src: 'https://showtime.app-dich.com/imgs/emoji/clouds/cloud_snow.png',
+      points: 7,
+    },
+    {
+      name: 'cloud_lightning',
+      src: 'https://showtime.app-dich.com/imgs/emoji/clouds/cloud_lightning.png',
+      points: 15,
+    },
+    {
+      name: 'cloud_lightning_rain',
+      src: 'https://showtime.app-dich.com/imgs/emoji/clouds/cloud_lightning_rain.png',
+      points: 32,
+    },
+    {
+      name: 'sun',
+      src: 'https://showtime.app-dich.com/imgs/emoji/clouds/sun.png',
+      points: 66,
+    },
+  ],
+  evolutions: [
+    {
+      name: 'microbe',
+      src: 'https://showtime.app-dich.com/imgs/emoji/evolutions/microbe.png',
+      points: 1,
+    },
+    {
+      name: 'coral',
+      src: 'https://showtime.app-dich.com/imgs/emoji/evolutions/coral.png',
+      points: 3,
+    },
+    {
+      name: 'ant',
+      src: 'https://showtime.app-dich.com/imgs/emoji/evolutions/ant.png',
+      points: 7,
+    },
+    {
+      name: 'lizard',
+      src: 'https://showtime.app-dich.com/imgs/emoji/evolutions/lizard.png',
+      points: 15,
+    },
+    {
+      name: 'goose',
+      src: 'https://showtime.app-dich.com/imgs/emoji/evolutions/goose.png',
+      points: 32,
+    },
+    {
+      name: 'cow',
+      src: 'https://showtime.app-dich.com/imgs/emoji/evolutions/cow.png',
+      points: 66,
+    },
+  ],
+  fears: [
+    {
+      name: 'alien_bit',
+      src: 'https://showtime.app-dich.com/imgs/emoji/fears/alien_bit.png',
+      points: 1,
+    },
+    {
+      name: 'clown',
+      src: 'https://showtime.app-dich.com/imgs/emoji/fears/clown.png',
+      points: 3,
+    },
+    {
+      name: 'robot',
+      src: 'https://showtime.app-dich.com/imgs/emoji/fears/robot.png',
+      points: 7,
+    },
+    {
+      name: 'alien',
+      src: 'https://showtime.app-dich.com/imgs/emoji/fears/alien.png',
+      points: 15,
+    },
+    {
+      name: 'ghost',
+      src: 'https://showtime.app-dich.com/imgs/emoji/fears/ghost.png',
+      points: 32,
+    },
+    {
+      name: 'dyno',
+      src: 'https://showtime.app-dich.com/imgs/emoji/fears/dyno.png',
+      points: 66,
+    },
+  ],
+  moons: [
+    {
+      name: 'moon_1',
+      src: 'https://showtime.app-dich.com/imgs/emoji/moons/moon_1.png',
+      points: 1,
+    },
+    {
+      name: 'moon_2',
+      src: 'https://showtime.app-dich.com/imgs/emoji/moons/moon_2.png',
+      points: 3,
+    },
+    {
+      name: 'moon_3',
+      src: 'https://showtime.app-dich.com/imgs/emoji/moons/moon_3.png',
+      points: 7,
+    },
+    {
+      name: 'moon_4',
+      src: 'https://showtime.app-dich.com/imgs/emoji/moons/moon_4.png',
+      points: 15,
+    },
+    {
+      name: 'moon_5',
+      src: 'https://showtime.app-dich.com/imgs/emoji/moons/moon_5.png',
+      points: 32,
+    },
+    {
+      name: 'saturn',
+      src: 'https://showtime.app-dich.com/imgs/emoji/moons/saturn.png',
+      points: 66,
+    },
+  ],
+  plants: [
+    {
+      name: 'seedling',
+      src: 'https://showtime.app-dich.com/imgs/emoji/plants/seedling.png',
+      points: 1,
+    },
+    {
+      name: 'rice',
+      src: 'https://showtime.app-dich.com/imgs/emoji/plants/rice.png',
+      points: 3,
+    },
+    {
+      name: 'blossom',
+      src: 'https://showtime.app-dich.com/imgs/emoji/plants/blossom.png',
+      points: 7,
+    },
+    {
+      name: 'hyacinth',
+      src: 'https://showtime.app-dich.com/imgs/emoji/plants/hyacinth.png',
+      points: 15,
+    },
+    {
+      name: 'sunflower',
+      src: 'https://showtime.app-dich.com/imgs/emoji/plants/sunflower.png',
+      points: 32,
+    },
+    {
+      name: 'cactus',
+      src: 'https://showtime.app-dich.com/imgs/emoji/plants/cactus.png',
+      points: 66,
+    },
+  ],
 };
