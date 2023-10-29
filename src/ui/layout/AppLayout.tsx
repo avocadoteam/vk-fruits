@@ -1,6 +1,6 @@
 import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $config } from '@core/config';
-import { getStorageKeys, getUserDataFX } from '@core/config/effects.config';
+import { getStorageKeys, getUserDataFX, setSecondVisitFX } from '@core/config/effects.config';
 import { qVK } from '@core/data/q-params';
 import { connectWS } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
@@ -30,7 +30,7 @@ const initialLoadingCombine = combine(
 );
 
 export const AppLayout = () => {
-  const { online, onlineHandleActivate, sawWelcome } = useStore($config);
+  const { online, onlineHandleActivate, sawWelcome, secondVisit } = useStore($config);
   const initialLoading = useStore(initialLoadingCombine);
 
   const routerPopout = usePopout();
@@ -66,6 +66,12 @@ export const AppLayout = () => {
       routeNavigator.showPopout(popup);
     };
   }, []);
+
+  useEffect(() => {
+    if (!secondVisit) {
+      setSecondVisitFX();
+    }
+  }, [secondVisit]);
 
   useEffect(() => {
     if (!sawWelcome && !initialLoading) {
