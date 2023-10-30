@@ -116,12 +116,12 @@ export const btnSec = styleVariants({
     minHeight: '52px !important',
     color: `${vars.palette.white} !important`,
     borderRadius: '1rem !important',
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    backgroundColor: 'rgba(255, 255, 255, 0.15) !important',
   },
   secBase: {
     color: `${vars.palette.white} !important`,
     borderRadius: '44px !important',
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    backgroundColor: 'rgba(255, 255, 255, 0.15) !important',
   },
 });
 

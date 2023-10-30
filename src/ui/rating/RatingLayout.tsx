@@ -3,7 +3,7 @@ import { getFriendsRatingFX, getTop100RankFX } from '@core/api/rating/effects.ra
 import { $rating, changeRatingActiveTab } from '@core/api/rating/store.rating';
 import { $config } from '@core/config';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
-import { Tabs, TabsItem } from '@vkontakte/vkui';
+import { Div, Tabs, TabsItem } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
 import { memo, useCallback, useEffect } from 'react';
 import { RatingFriendsPermissions } from './friends/FriendsPermissions';
@@ -64,14 +64,16 @@ export const RatingLayout = memo(() => {
     <>
       <PanelHeaderBack />
       <div>
-        <Tabs>
-          <TabsItem onClick={selectTop100} selected={selectedTop100} className={ratingSt.tab}>
-            Все
-          </TabsItem>
-          <TabsItem onClick={selectFriends} selected={selectedFriends}>
-            Друзья
-          </TabsItem>
-        </Tabs>
+        <Div>
+          <Tabs>
+            <TabsItem onClick={selectTop100} selected={selectedTop100} className={ratingSt.tab}>
+              Все
+            </TabsItem>
+            <TabsItem onClick={selectFriends} selected={selectedFriends}>
+              Друзья
+            </TabsItem>
+          </Tabs>
+        </Div>
         {selectedTop100 ? (
           <RefreshRank100>
             <ResultsRank100 />
