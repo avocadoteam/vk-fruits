@@ -1,6 +1,6 @@
 export enum FruitsPaidFeatureTypeUI {
-  FruitsGift = 'gift',
-  FruitsGift3x = 'gift_3x',
+  FruitsGift = 'fruits_gift',
+  FruitsGift3x = 'fruits_gift_3x',
   FruitsSubMonth = 'fruits_sub_month',
   FruitsSubFV = 'fruits_sub_fv',
 }
