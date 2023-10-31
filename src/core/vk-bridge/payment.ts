@@ -7,7 +7,7 @@ export const buyPaidFeature = (
   feature: FruitsPaidFeatureTypeUI,
 ): Promise<{ status: OrderBoxShowingStatus; success?: boolean }> =>
   isDev ? Promise.resolve({ status: 'success' }) : vkBridge.send('VKWebAppShowOrderBox', { type: 'item', item: feature });
-export const buySub = (): Promise<ShowSubscriptionBoxResponse & { success?: boolean }> =>
+export const buySub = (): Promise<ShowSubscriptionBoxResponse> =>
   isDev
     ? Promise.resolve({ subscriptionId: '1', success: true })
     : vkBridge.send('VKWebAppShowSubscriptionBox', { action: 'create', item: FruitsPaidFeatureTypeUI.FruitsSubMonth });

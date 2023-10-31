@@ -8,6 +8,5 @@ export const buyPaidFeatureFX = shopDomain.createEffect(async (feature: FruitsPa
 });
 export const buySubFX = shopDomain.createEffect(async () => {
   const data = await buySub();
-  console.debug('buySubFX', data);
   return data.success;
 });

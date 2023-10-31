@@ -59,12 +59,12 @@ export const ShopLayout = () => {
     });
   }, []);
   const buySubscription = useCallback(() => {
-    buySubFX().then(r => {
+    buySubFX().then(done => {
       addToastToQueue({
         id: ToastId.BuyItem,
         toast: {
-          type: r ? 'success' : 'error',
-          title: r ? 'Вы получили все скины и х2 кубков за победу' : 'Покупка не удалась',
+          type: done ? 'success' : 'error',
+          title: done ? 'Вы получили все скины и х2 кубков за победу' : 'Покупка не удалась',
         },
       });
       getUserInfoFX();
