@@ -1,5 +1,5 @@
 import { setWSConnected } from '@core/config';
-import { BASE_URL } from '@core/constants';
+import { BASE_URL, isDev } from '@core/constants';
 import { FruitsGameAction, PlayerJoinPayload } from '@core/game/player';
 import io, { Socket } from 'socket.io-client';
 import { initCallbacks } from './callbacks';
@@ -18,6 +18,7 @@ export const connectWS = (query: string) => {
     query: {
       sign: query.replace(/\?vk_/g, 'vk_'),
     },
+    transports: isDev ? ['websocket'] : ['polling'],
   });
 
   initCallbacks(socket);
