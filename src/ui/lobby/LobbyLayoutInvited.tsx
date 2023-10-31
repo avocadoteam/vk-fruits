@@ -53,18 +53,15 @@ export const LobbyLayoutInvited = memo(() => {
   const isPlayerReady = !!me?.confirmed;
 
   useEffect(() => {
-    client.updateTable = data => {
-      updateTables(data.tables);
-
-      routeNavigator.replace(`/${FPanel.Game}/${lobbyId}`);
-    };
-  }, []);
-
-  useEffect(() => {
     if (lobbyId && userId) {
       joinRoom(lobbyId, userInfo);
+      client.updateTable = data => {
+        updateTables(data.tables);
+
+        routeNavigator.replace(`/${FPanel.Game}/${lobbyId}`);
+      };
     }
-  }, [lobbyId, userId]);
+  }, [lobbyId, routeNavigator, userId, userInfo]);
 
   if (!lobbyId || wrongRoom) {
     return (

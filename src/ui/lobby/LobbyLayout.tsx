@@ -56,11 +56,6 @@ export const LobbyLayout = memo(() => {
   const me = gameRoom.find(g => g.userId === userId);
   useEffect(() => {
     connectWS(qVK);
-    client.updateTable = data => {
-      updateTables(data.tables);
-
-      routeNavigator.replace(`/${FPanel.Game}/${lobbyId}`);
-    };
   }, []);
 
   useEffect(() => {
@@ -72,8 +67,13 @@ export const LobbyLayout = memo(() => {
   useEffect(() => {
     if (lobbyId) {
       joinRoom(lobbyId, userInfo);
+      client.updateTable = data => {
+        updateTables(data.tables);
+
+        routeNavigator.replace(`/${FPanel.Game}/${lobbyId}`);
+      };
     }
-  }, [lobbyId]);
+  }, [lobbyId, routeNavigator, userInfo]);
 
   const addFriend = useCallback(() => {
     if (opponent && lobbyId) return;
