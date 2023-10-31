@@ -39,3 +39,10 @@ export const shapeTextSearch = (v: string) => {
 export const isODR = () => window.location.href.includes('file://');
 
 export const wrapAsset = (src: string) => (isDev ? src : `https://avocadoteam.github.io/vk-fruits${src}`);
+
+export const wrapThousands = (v: number) => {
+  if (v > 999_999) {
+    return `${Math.floor(v / 1_000_000)}KK`;
+  }
+  return String(v);
+};

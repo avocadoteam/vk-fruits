@@ -12,6 +12,7 @@ export enum ToastId {
   unknown = 'test',
   BuyItem = 'buy_item',
   Gift = 'gift',
+  StoryShare = 'story_share',
 }
 export type Form = 'location';
 export type ToastsState = {

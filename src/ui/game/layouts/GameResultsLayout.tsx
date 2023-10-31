@@ -1,5 +1,7 @@
+import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $game } from '@core/api/game/store.game';
 import { $userId } from '@core/config';
+import { useStoryShare } from '@core/hooks/useStoryShare';
 import { wrapAsset } from '@core/utils';
 import { FPanel } from '@ui/layout/router';
 import { NoResults } from '@ui/rating/NoResults';
@@ -8,14 +10,19 @@ import { typography } from '@ui/theme/typography.css';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Avatar, Button, FixedLayout } from '@vkontakte/vkui';
 import { useStore, useStoreMap } from 'effector-react';
+import { useEffect } from 'react';
 import { gSt } from '../style.css';
 import { PanelHeaderBackGR } from './PanelBackGR';
 
 export const GameResultsLayout = () => {
   const routeNavigator = useRouteNavigator();
 
+  useEffect(() => {
+    getUserInfoFX();
+  }, []);
+
   const userId = useStore($userId);
-  const { gameRoom, gameResult, tables } = useStoreMap({
+  const { gameRoom, gameResult, tables, pts } = useStoreMap({
     store: $game,
     keys: [],
     fn: g => {
@@ -23,9 +30,12 @@ export const GameResultsLayout = () => {
         gameRoom: g.gameRoom,
         gameResult: g.gameResult,
         tables: g.tables,
+        pts: g.userInfo.pts,
       };
     },
   });
+  const { clicked, shareStory } = useStoryShare(pts);
+
   const myTable = tables.find(g => g.userId === userId);
   const opponentTable = tables.find(g => g.userId !== userId);
   const isWinner = gameResult?.result[0] === userId;
@@ -94,7 +104,15 @@ export const GameResultsLayout = () => {
           <Button onClick={() => routeNavigator.replace(`/${FPanel.Search}`)} size="l" stretched mode="primary">
             Играть ещё раз
           </Button>
-          <Button style={{ marginBottom: '3rem' }} size="l" stretched mode="secondary" className={btnSec.secBase}>
+          <Button
+            style={{ marginBottom: '3rem' }}
+            size="l"
+            stretched
+            mode="secondary"
+            className={btnSec.secBase}
+            onClick={shareStory}
+            loading={clicked}
+          >
             Поделиться
           </Button>
         </div>
