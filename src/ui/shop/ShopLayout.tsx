@@ -47,12 +47,12 @@ export const ShopLayout = () => {
   });
 
   const buyGift = useCallback((item: FruitsPaidFeatureTypeUI) => {
-    buyPaidFeatureFX(item).then(r => {
+    buyPaidFeatureFX(item).then(done => {
       addToastToQueue({
         id: ToastId.BuyItem,
         toast: {
-          type: r === 'success' ? 'success' : 'error',
-          title: r === 'success' ? 'Спасибо за покупку' : 'Покупка не удалась',
+          type: done ? 'success' : 'error',
+          title: done ? 'Спасибо за покупку' : 'Покупка не удалась',
         },
       });
       getUserInfoFX();

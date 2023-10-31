@@ -4,10 +4,10 @@ import { shopDomain } from './domain';
 
 export const buyPaidFeatureFX = shopDomain.createEffect(async (feature: FruitsPaidFeatureTypeUI) => {
   const data = await buyPaidFeature(feature);
-  console.debug('buyPaidFeatureFX', data);
-  return data.status;
+  return data.success;
 });
 export const buySubFX = shopDomain.createEffect(async () => {
   const data = await buySub();
+  console.debug('buySubFX', data);
   return data.success;
 });
