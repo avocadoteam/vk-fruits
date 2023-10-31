@@ -2,10 +2,9 @@ import { getUserLobbyFX } from '@core/api/game/effects.game';
 import { $game, updateTables } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { appId } from '@core/constants';
-import { qVK } from '@core/data/q-params';
 import { PlayerJoinPayload } from '@core/game/player';
 import { useOpenWallShare } from '@core/hooks/useShareWall';
-import { confirmReady, connectWS, joinRoom } from '@core/sockets/game';
+import { confirmReady, joinRoom } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
 import { wrapAsset } from '@core/utils';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
@@ -54,9 +53,6 @@ export const LobbyLayout = memo(() => {
 
   const opponent = gameRoom.find(g => g.userId !== userId);
   const me = gameRoom.find(g => g.userId === userId);
-  useEffect(() => {
-    connectWS(qVK);
-  }, []);
 
   useEffect(() => {
     if (wsConnected) {

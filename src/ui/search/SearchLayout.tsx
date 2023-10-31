@@ -1,7 +1,6 @@
 import { setLobbyId } from '@core/api/game/store.game';
-import { qVK } from '@core/data/q-params';
 import { useInterval } from '@core/hooks/useInterval';
-import { cancelSearch, connectWS, searchGame } from '@core/sockets/game';
+import { cancelSearch, searchGame } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
 import { FPanel } from '@ui/layout/router';
@@ -20,7 +19,6 @@ export const SearchLayout = memo(() => {
   const seconds = time - minutes * 60;
 
   useEffect(() => {
-    connectWS(qVK);
     searchGame();
     client.foundGameId = data => {
       setLobbyId(data.roomId);
