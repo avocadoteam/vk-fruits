@@ -28,7 +28,9 @@ export const ResultsFriends = memo(() => {
       {friends.map((friend, index) => (
         <div key={friend.id} className={ratingSt.cell}>
           <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
-            <p className={typography({ variant: 'small' })}>{index + 1}</p>
+            <p className={typography({ variant: 'small' })} style={{ width: '28px' }}>
+              {index + 1}
+            </p>
             <Avatar size={40} src={friend.avatar} />
             <p className={typography({ variant: 'small', truncate: true })} style={{ maxWidth: '140px' }}>
               {friend.firstName ?? friend.lastName}

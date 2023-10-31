@@ -32,7 +32,9 @@ export const ResultsRank100 = memo(() => {
       {top100.map((top100r, index) => (
         <div key={top100r.id} className={ratingSt.cell}>
           <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
-            <p className={typography({ variant: 'small' })}>{index + 1}</p>
+            <p className={typography({ variant: 'small' })} style={{ width: '28px' }}>
+              {index + 1}
+            </p>
             <Avatar size={40} src={top100r.avatar} />
             <p className={typography({ variant: 'small', truncate: true })} style={{ maxWidth: '140px' }}>
               {top100r.firstName ?? top100r.lastName}
