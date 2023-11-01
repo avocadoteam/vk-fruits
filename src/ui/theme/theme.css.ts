@@ -123,6 +123,11 @@ export const btnSec = styleVariants({
     borderRadius: '44px !important',
     backgroundColor: 'rgba(255, 255, 255, 0.15) !important',
   },
+  green: {
+    color: `${vars.palette.white} !important`,
+    borderRadius: '44px !important',
+    backgroundColor: '#407860 !important',
+  },
 });
 
 export const bg = recipe({

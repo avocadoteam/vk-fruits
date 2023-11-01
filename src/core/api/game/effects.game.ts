@@ -17,3 +17,6 @@ export const getSkinFromGiftFX = gameDomain.createEffect(async () => {
   const { data } = await AX.get('/fruits/skin-from-gift' + qVK);
   return data.data as FruitsItemName;
 });
+export const getActivityGiftFX = gameDomain.createEffect(async () => {
+  await AX.post('/fruits/gift/sevendays' + qVK);
+});

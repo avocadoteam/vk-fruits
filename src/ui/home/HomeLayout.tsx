@@ -1,6 +1,8 @@
 import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $game, resetGame } from '@core/api/game/store.game';
 import { $config } from '@core/config';
+import { addToastToQueue } from '@core/ui-config/effects.uic';
+import { ToastId } from '@core/ui-config/types';
 import { wrapAsset } from '@core/utils';
 import { clsx } from '@core/utils/clsx';
 import { checkAdsBanner, showAdsBanner } from '@core/vk-bridge/ads';
@@ -16,7 +18,7 @@ import { homeStyles } from './style.css';
 
 export const HomeLayout = () => {
   const { user } = useStore($config);
-  const { pts, hasPremium, countGifts } = useStoreMap({
+  const { pts, hasPremium, countGifts, hasSevenDay } = useStoreMap({
     store: $game,
     keys: [],
     fn: g => {
@@ -24,6 +26,7 @@ export const HomeLayout = () => {
         pts: g.userInfo.pts,
         hasPremium: g.userInfo.hasPremium,
         countGifts: g.userInfo.countGifts,
+        hasSevenDay: g.userInfo.hasSevenDay,
       };
     },
   });
@@ -45,11 +48,21 @@ export const HomeLayout = () => {
 
   const activateGift = useCallback(() => {
     if (!countGifts) {
-      routeNavigator.showModal(FModal.DaysInRow);
+      if (hasSevenDay) {
+        addToastToQueue({
+          id: ToastId.Gift,
+          toast: {
+            type: 'warn',
+            title: 'Подарков больше нет',
+          },
+        });
+      } else {
+        routeNavigator.showModal(FModal.DaysInRow);
+      }
     } else {
       routeNavigator.push(`/${FPanel.Gift}`);
     }
-  }, [countGifts, routeNavigator]);
+  }, [countGifts, routeNavigator, hasSevenDay]);
 
   return (
     <>
