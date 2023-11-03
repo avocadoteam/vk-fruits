@@ -93,7 +93,7 @@ export const GameResultsLayout = () => {
                 }
               />
               <p className={typography({ variant: 'small' })}>
-                {opponent ? opponent.firstName || opponent.lastName : 'Опонент'}
+                {opponent ? opponent.firstName || opponent.lastName : 'Оппонент'}
               </p>
             </div>
           </div>
