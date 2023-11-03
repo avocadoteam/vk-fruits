@@ -99,7 +99,7 @@ export const GameFoundLayout = memo(() => {
   }, [isFirstPage, routeNavigator]);
 
   useEffect(() => {
-    if (lobbyId && userId) {
+    if (lobbyId) {
       joinRoom(lobbyId, userInfo);
       client.updateTable = data => {
         updateTables(data.tables);
@@ -107,7 +107,10 @@ export const GameFoundLayout = memo(() => {
         routeNavigator.replace(`/${FPanel.Game}/${lobbyId}`);
       };
     }
-  }, [lobbyId, routeNavigator, userId, userInfo]);
+    return () => {
+      client.updateTable = noop;
+    };
+  }, [lobbyId, routeNavigator, userInfo]);
 
   if (!lobbyId || wrongRoom) {
     return (

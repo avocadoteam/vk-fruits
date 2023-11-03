@@ -1,4 +1,4 @@
-import { setLobbyId } from '@core/api/game/store.game';
+import { resetGame, setLobbyId } from '@core/api/game/store.game';
 import { useInterval } from '@core/hooks/useInterval';
 import { cancelSearch, searchGame } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
@@ -19,6 +19,7 @@ export const SearchLayout = memo(() => {
   const seconds = time - minutes * 60;
 
   useEffect(() => {
+    resetGame();
     searchGame();
     client.foundGameId = data => {
       setLobbyId(data.roomId);

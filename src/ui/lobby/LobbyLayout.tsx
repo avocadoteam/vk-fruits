@@ -80,6 +80,10 @@ export const LobbyLayout = memo(() => {
         routeNavigator.replace(`/${FPanel.Game}/${lobbyId}`);
       };
     }
+
+    return () => {
+      client.updateTable = noop;
+    };
   }, [lobbyId, routeNavigator, userInfo]);
 
   const addFriend = useCallback(() => {
