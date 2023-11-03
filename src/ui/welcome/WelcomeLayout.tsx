@@ -1,7 +1,8 @@
 import { finishWelcomeFX } from '@core/config/effects.config';
 import { wrapAsset } from '@core/utils';
 import { DemoBoard, DemoBoardProps } from '@ui/game/DemoBoard';
-import { contentCenter } from '@ui/theme/theme.css';
+import { INITIAL_URL } from '@ui/layout/router';
+import { btnSec, contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { useParams, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Button, FixedLayout, PanelHeader } from '@vkontakte/vkui';
@@ -70,6 +71,11 @@ export const WelcomeLayout = () => {
     routeNavigator.replace(stepData.nextStep);
   }, [routeNavigator, stepData.nextStep, stepData.shouldExit]);
 
+  const skipTutorial = useCallback(() => {
+    finishWelcomeFX();
+    routeNavigator.replace(INITIAL_URL);
+  }, [routeNavigator]);
+
   return (
     <>
       <PanelHeader separator={false} />
@@ -83,6 +89,18 @@ export const WelcomeLayout = () => {
           <p className={typography({ variant: 'head1', m: 't', align: 'center' })}>{stepData.title}</p>
           <p className={typography({ variant: 'small', m: 't.5', align: 'center' })}>{stepData.subtitle}</p>
 
+          {step === 'step1' ? (
+            <Button
+              className={btnSec.secBase}
+              onClick={skipTutorial}
+              style={{ margin: '1rem 0 0' }}
+              size="l"
+              stretched
+              mode="secondary"
+            >
+              Пропустить обучение
+            </Button>
+          ) : null}
           <Button onClick={onBtnClick} style={{ margin: '1rem 0 3rem' }} size="l" stretched mode="primary">
             {stepData.btnText}
           </Button>
