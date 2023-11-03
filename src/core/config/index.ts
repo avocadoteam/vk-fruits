@@ -12,7 +12,6 @@ export type ConfigType = {
   onlineHandleActivate: boolean;
   user: UserInfo | null;
   sawWelcome: boolean;
-  secondVisit: boolean;
   hasFriends: boolean;
   skipFriends: boolean;
   taptic: boolean;
@@ -35,7 +34,6 @@ export const $config = appConfigDomain.createStore<ConfigType>({
   onlineHandleActivate: true,
   user: null,
   sawWelcome: false,
-  secondVisit: false,
   hasFriends: !!getSearchParams().get('vk_access_token_settings')?.includes('friends'),
   skipFriends: false,
   taptic: true,
@@ -81,10 +79,9 @@ $config.on(getUserDataFX.doneData, (state, user) => ({
   ...state,
   user,
 }));
-$config.on(getStorageKeys.doneData, (state, { sawWelcome, secondVisit, selectedSkin }) => ({
+$config.on(getStorageKeys.doneData, (state, { sawWelcome, selectedSkin }) => ({
   ...state,
   sawWelcome,
-  secondVisit,
   selectedSkin,
 }));
 $config.on(finishWelcomeFX.done, state => ({

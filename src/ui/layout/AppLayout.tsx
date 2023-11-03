@@ -1,6 +1,6 @@
 import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $config } from '@core/config';
-import { getStorageKeys, getUserDataFX, setSecondVisitFX } from '@core/config/effects.config';
+import { getStorageKeys, getUserDataFX } from '@core/config/effects.config';
 import { qVK } from '@core/data/q-params';
 import { connectWS } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
@@ -31,8 +31,9 @@ const initialLoadingCombine = combine(
 );
 
 export const AppLayout = () => {
-  const { online, onlineHandleActivate, sawWelcome, secondVisit } = useStore($config);
+  const { online, onlineHandleActivate, sawWelcome } = useStore($config);
   const initialLoading = useStore(initialLoadingCombine);
+  const keysLoading = useStore(getStorageKeys.pending);
 
   const routerPopout = usePopout();
   const { panelsHistory, view: activeView = FView.Main, panel: activePanel = FPanel.Home } = useActiveVkuiLocation();
@@ -69,16 +70,10 @@ export const AppLayout = () => {
   }, []);
 
   useEffect(() => {
-    if (!secondVisit) {
-      setSecondVisitFX();
-    }
-  }, [secondVisit]);
-
-  useEffect(() => {
-    if (!sawWelcome && !initialLoading) {
+    if (!sawWelcome && !keysLoading) {
       routeNavigator.replace(`/${FPanel.Welcome}/step1`);
     }
-  }, [routeNavigator, sawWelcome, initialLoading]);
+  }, [routeNavigator, sawWelcome, keysLoading]);
 
   if (!online || !onlineHandleActivate) {
     return <Offline />;

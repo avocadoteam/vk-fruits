@@ -34,7 +34,6 @@ export const getUserData = () =>
 
 export enum Skeys {
   Welcome = 'u_w',
-  SecondVisit = 'u_s_v',
   Taptic = 'u_t_v',
   SelectedSkin = 'u_s_s',
 }
@@ -63,10 +62,6 @@ export const getUserStorageKeys = (keys: Skeys[]) =>
           {
             key: Skeys.Welcome,
             value: 'yes',
-          },
-          {
-            key: Skeys.SecondVisit,
-            value: 'no',
           },
           {
             key: Skeys.SelectedSkin,
