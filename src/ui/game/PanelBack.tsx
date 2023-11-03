@@ -2,7 +2,6 @@ import { useEventListener } from '@core/hooks/useEventListener';
 import { endGame } from '@core/sockets/game';
 import { INITIAL_URL } from '@ui/layout/router';
 import { btnBackStyle, headerStyle } from '@ui/layout/style.css';
-import { Icon24ChevronCompactLeft } from '@vkontakte/icons';
 import { useParams, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Alert, PanelHeader, PanelHeaderButton } from '@vkontakte/vkui';
 import { useEffect, useState } from 'react';
@@ -49,7 +48,7 @@ export const PanelHeaderBackInGame = () => {
       separator={false}
       before={
         <PanelHeaderButton hasActive={false} className={btnBackStyle} onClick={() => routeNavigator.showPopout(popup)}>
-          <Icon24ChevronCompactLeft width={22} height={22} /> ПОКИНУТЬ ИГРУ
+          ПОКИНУТЬ ИГРУ
         </PanelHeaderButton>
       }
       className={headerStyle({ onTop })}

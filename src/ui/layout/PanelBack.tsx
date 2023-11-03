@@ -25,7 +25,7 @@ export const PanelHeaderBack = () => {
           className={btnBackStyle}
           onClick={() => (isFirstPage ? routeNavigator.replace('/') : routeNavigator.back())}
         >
-          <Icon24ChevronCompactLeft width={22} height={22} /> Назад
+          <Icon24ChevronCompactLeft width={22} height={22} />
         </PanelHeaderButton>
       }
       className={headerStyle({ onTop })}
