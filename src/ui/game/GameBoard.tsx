@@ -8,7 +8,7 @@ import { wrapAsset } from '@core/utils';
 import { DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { typography } from '@ui/theme/typography.css';
 import { useParams } from '@vkontakte/vk-mini-apps-router';
-import { FixedLayout, HorizontalScroll, usePlatform } from '@vkontakte/vkui';
+import { FixedLayout, HorizontalScroll } from '@vkontakte/vkui';
 import { useStore, useStoreMap } from 'effector-react';
 import { memo, useCallback, useState } from 'react';
 import { DraggableItem } from './DraggableItem';
@@ -16,7 +16,6 @@ import { DroppableBox } from './DroppableBox';
 import { gSt } from './style.css';
 
 export const GameBoard = memo(() => {
-  const vkPlatform = usePlatform();
   const params = useParams();
   const lobbyId = params?.id ?? '';
 
@@ -130,7 +129,7 @@ export const GameBoard = memo(() => {
       </div>
 
       <FixedLayout vertical="bottom">
-        <HorizontalScroll showArrows={vkPlatform === 'vkcom'}>
+        <HorizontalScroll showArrows>
           <div className={gSt.horizContainer}>
             <div className={gSt.buyItem} onClick={toggleFreeze}>
               <img src={wrapAsset('/imgs/ice.png')} width={24} height={24} />
