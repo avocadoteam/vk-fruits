@@ -3,12 +3,15 @@ import { $config } from '@core/config';
 import { PlayerJoinPayload } from '@core/game/player';
 import { confirmReady, joinRoom } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
+import { addToastToQueue } from '@core/ui-config/effects.uic';
+import { ToastId } from '@core/ui-config/types';
+import { noop } from '@core/utils/noop';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
 import { FPanel } from '@ui/layout/router';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Icon24CheckCircleFillGreen } from '@vkontakte/icons';
-import { useParams, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
+import { useFirstPageCheck, useParams, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Avatar, Button, FixedLayout, Spinner } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
 import { memo, useEffect } from 'react';
@@ -17,6 +20,8 @@ export const GameFoundLayout = memo(() => {
   const params = useParams();
   const lobbyId = params?.id;
   const routeNavigator = useRouteNavigator();
+  const isFirstPage = useFirstPageCheck();
+
   const { gameRoom, wrongRoom } = useStoreMap({
     store: $game,
     keys: [],
@@ -49,6 +54,31 @@ export const GameFoundLayout = memo(() => {
   const opponent = gameRoom.find(g => g.userId !== userId);
   const me = gameRoom.find(g => g.userId === userId);
   const isPlayerReady = !!me?.confirmed;
+
+  useEffect(() => {
+    client.backToSearch = leaveReason => {
+      addToastToQueue({
+        id: ToastId.Game,
+        toast: {
+          type: 'warn',
+          title:
+            leaveReason === 'non-confirm'
+              ? 'Кто-то не подтвердил готовность. Вы были возвращены в очередь.'
+              : 'Вы были возвращены в очередь.',
+        },
+      });
+
+      if (isFirstPage) {
+        routeNavigator.replace(`/${FPanel.Search}`);
+      } else {
+        routeNavigator.back();
+      }
+    };
+
+    return () => {
+      client.backToSearch = noop;
+    };
+  }, [isFirstPage, routeNavigator]);
 
   useEffect(() => {
     if (lobbyId && userId) {

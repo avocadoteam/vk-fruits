@@ -19,4 +19,5 @@ export const client = clientPerformCallback(m => ({
   errorMessage: m<(error: string) => void>(),
   activeDevice: m<() => void>(),
   wrongRoom: m<() => void>(),
+  backToSearch: m<(leaveReason: 'non-confirm' | 'disconnect') => void>(),
 }));

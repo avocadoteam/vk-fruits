@@ -11,6 +11,7 @@ export type Toast = {
 export enum ToastId {
   unknown = 'test',
   BuyItem = 'buy_item',
+  Game = 'game',
   Gift = 'gift',
   StoryShare = 'story_share',
 }
