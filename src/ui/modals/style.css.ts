@@ -1,4 +1,5 @@
 import { vars } from '@ui/theme/theme.css';
+import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 const day = recipe({
@@ -28,4 +29,10 @@ const day = recipe({
   },
 });
 
-export const modalStyle = { day };
+const btnClose = style({
+  marginBottom: '.5rem !important',
+  color: `${vars.palette.primary} !important`,
+  marginLeft: 'auto',
+});
+
+export const modalStyle = { day, btnClose };

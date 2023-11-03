@@ -5,8 +5,10 @@ import { ToastId } from '@core/ui-config/types';
 import { wrapAsset } from '@core/utils';
 import { FModal } from '@ui/layout/router';
 import { btnSec, contentCenter } from '@ui/theme/theme.css';
+import { typography } from '@ui/theme/typography.css';
+import { Icon24Cancel } from '@vkontakte/icons';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
-import { Button, ModalCard } from '@vkontakte/vkui';
+import { Button, IconButton, ModalCard, usePlatform } from '@vkontakte/vkui';
 import { useStore, useStoreMap } from 'effector-react';
 import { useCallback } from 'react';
 import { modalStyle } from './style.css';
@@ -14,6 +16,7 @@ import { modalStyle } from './style.css';
 export const PlayingDaysInRow = ({ id }: { id: FModal }) => {
   const routeNavigator = useRouteNavigator();
   const loading = useStore(getActivityGiftFX.pending);
+  const platform = usePlatform();
 
   const { daysInRow } = useStoreMap({
     store: $game,
@@ -53,9 +56,22 @@ export const PlayingDaysInRow = ({ id }: { id: FModal }) => {
     <ModalCard
       id={id}
       onClose={() => routeNavigator.hideModal()}
-      icon={<img src={wrapAsset('/imgs/gift.png')} width={56} height={56} />}
-      header="Хочешь подарок?"
-      subheader="Играй каждый день в течение 7 дней и получи случайный скин"
+      children={
+        <>
+          {platform === 'android' ? (
+            <IconButton onClick={() => routeNavigator.hideModal()} className={modalStyle.btnClose}>
+              <Icon24Cancel />
+            </IconButton>
+          ) : null}
+          <div className={contentCenter({ gap: '1' })}>
+            <img src={wrapAsset('/imgs/gift.png')} width={56} height={56} />
+            <p className={typography({ variant: 'head', color: 'primary', align: 'center' })}>Хочешь подарок?</p>
+            <p className={typography({ variant: 'small', color: 'primary', align: 'center' })}>
+              Играй каждый день в течение 7 дней и получи случайный скин
+            </p>
+          </div>
+        </>
+      }
       actions={
         daysInRow >= 7 ? (
           <Button
