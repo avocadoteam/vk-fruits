@@ -146,6 +146,21 @@ export const HomeLayout = () => {
             </span>
           </Button>
         </div>
+        <div className={contentCenter({ direction: 'column' })} style={{ marginTop: '1rem' }}>
+          <Button
+            className={clsx(btnSec.secHome, homeStyles.btnWide)}
+            mode="secondary"
+            stretched
+            size="l"
+            after={<Icon12Chevron fill={vars.palette.shade} />}
+            onClick={() => routeNavigator.push(`/${FPanel.Welcome}/step2`)}
+          >
+            <span className={homeStyles.btnContent}>
+              <img src={wrapAsset('/imgs/graduation_cap.png')} alt="gift" width="28" height="28" />
+              Пройти обучение
+            </span>
+          </Button>
+        </div>
       </div>
     </>
   );
