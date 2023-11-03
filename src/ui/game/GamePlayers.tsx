@@ -2,7 +2,7 @@ import { $game } from '@core/api/game/store.game';
 import { $userId } from '@core/config';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
-import { Avatar } from '@vkontakte/vkui';
+import { Avatar, Spinner } from '@vkontakte/vkui';
 import { useStore, useStoreMap } from 'effector-react';
 
 export const GamePlayers = () => {
@@ -32,7 +32,17 @@ export const GamePlayers = () => {
 
       <div className={contentCenter({ direction: 'row', gap: '1' })}>
         <p className={typography({ variant: 'head' })}>{opponentTable?.points ?? 0}</p>
-        <Avatar size={48} src={opponent?.avatar} />
+        <Avatar
+          size={48}
+          src={opponent?.avatar}
+          children={
+            !opponent ? (
+              <Avatar.Overlay visibility="always" theme="dark">
+                <Spinner />
+              </Avatar.Overlay>
+            ) : null
+          }
+        />
       </div>
     </div>
   );

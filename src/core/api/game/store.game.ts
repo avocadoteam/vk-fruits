@@ -7,12 +7,12 @@ import { getUserInfoFX, getUserLobbyFX } from './effects.game';
 import { GameState } from './type';
 
 export const resetGame = gameDomain.createEvent();
-export const removePlayerLobby = gameDomain.createEvent<number>();
 export const setLobbyId = gameDomain.createEvent<string>();
 export const updateTables = gameDomain.createEvent<FruitsGameTable[]>();
 export const setGameResult = gameDomain.createEvent<GameState['gameResult']>();
 const addPlayerLobby = gameDomain.createEvent<FruitsGameUserData[]>();
 const setPlayerReady = gameDomain.createEvent<number>();
+const setPlayerDisconnected = gameDomain.createEvent<number>();
 const setWrongRoom = gameDomain.createEvent<boolean>();
 
 export const $game = gameDomain.createStore<GameState>({
@@ -51,13 +51,13 @@ $game.on(setPlayerReady, (state, userId) => ({
   ...state,
   gameRoom: state.gameRoom.map(g => (g.userId === userId ? { ...g, confirmed: true } : g)),
 }));
+$game.on(setPlayerDisconnected, (state, userId) => ({
+  ...state,
+  gameRoom: state.gameRoom.filter(g => g.userId !== userId),
+}));
 $game.on(setWrongRoom, (state, wrongRoom) => ({
   ...state,
   wrongRoom,
-}));
-$game.on(removePlayerLobby, (state, userId) => ({
-  ...state,
-  gameRoom: state.gameRoom.filter(gr => gr.userId !== userId),
 }));
 $game.on(setLobbyId, (state, lobbyId) => ({
   ...state,
@@ -104,6 +104,9 @@ $game.on(updateTables, (state, tables) => ({
 
 client.playerJoined = data => {
   addPlayerLobby(data.users);
+};
+client.playerLeft = data => {
+  setPlayerDisconnected(data.userId);
 };
 
 client.wrongRoom = () => {
