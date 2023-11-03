@@ -67,6 +67,13 @@ export const GameResultsLayout = () => {
               </p>
               <img src={wrapAsset('/imgs/trophy.png')} alt="trophy" width="28" height="28" />
             </div>
+          ) : gameResult?.gameType === 'duo' ? (
+            <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
+              <p className={typography({ variant: 'eloB', transform: 'up' })} style={{ marginBottom: '2px' }}>
+                {gameResult?.isDraw ? '+1' : isWinner ? '+1' : '-1'}
+              </p>
+              <img src={wrapAsset('/imgs/trophy.png')} alt="trophy" width="28" height="28" />
+            </div>
           ) : null}
           <div className={contentCenter({ direction: 'row' })}>
             <div className={contentCenter({ gap: '1' })}>
