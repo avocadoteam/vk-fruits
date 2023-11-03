@@ -12,6 +12,8 @@ export type GameState = {
     skinsToBuyMaxCount: number;
     daysInRow: number;
     hasSevenDay: boolean;
+    wins: number;
+    looses: number;
   };
   lobbyId: string;
   gameRoom: FruitsGameUserData[];

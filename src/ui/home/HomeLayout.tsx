@@ -18,7 +18,7 @@ import { homeStyles } from './style.css';
 
 export const HomeLayout = () => {
   const { user } = useStore($config);
-  const { pts, hasPremium, countGifts, hasSevenDay } = useStoreMap({
+  const { pts, hasPremium, countGifts, hasSevenDay, wins, looses } = useStoreMap({
     store: $game,
     keys: [],
     fn: g => {
@@ -27,6 +27,8 @@ export const HomeLayout = () => {
         hasPremium: g.userInfo.hasPremium,
         countGifts: g.userInfo.countGifts,
         hasSevenDay: g.userInfo.hasSevenDay,
+        wins: g.userInfo.wins,
+        looses: g.userInfo.looses,
       };
     },
   });
@@ -73,9 +75,15 @@ export const HomeLayout = () => {
           <p className={typography({ variant: 'head', m: 't1.5' })}>
             {user?.first_name} {user?.last_name}
           </p>
-          <div className={contentCenter({ direction: 'row' })} style={{ marginBottom: '2rem' }}>
+          <div className={contentCenter({ direction: 'row' })}>
             <img src={wrapAsset('/imgs/trophy.png')} alt="trophy" width="20" height="20" />
             <p className={typography({ variant: 'elo', m: 'l.5' })}>{pts}</p>
+          </div>
+          <div className={contentCenter({ direction: 'row' })} style={{ marginBottom: '2rem' }}>
+            <p className={typography({ variant: 'small' })}>
+              <span style={{ color: vars.palette.warn }}>{wins}</span> /{' '}
+              <span style={{ color: vars.palette.error }}>{looses}</span>
+            </p>
           </div>
 
           <Button
