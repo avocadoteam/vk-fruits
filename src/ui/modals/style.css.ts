@@ -22,6 +22,7 @@ const day = recipe({
       },
       false: {
         backgroundColor: '#E4F2EA',
+        color: vars.palette.shade,
       },
     },
   },
