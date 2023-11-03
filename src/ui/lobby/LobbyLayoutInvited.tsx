@@ -122,6 +122,9 @@ export const LobbyLayoutInvited = memo(() => {
 
       <FixedLayout vertical="bottom">
         <div className={contentCenter()}>
+          <p className={typography({ variant: 'small', shadow: true, transform: 'up', mix: true, align: 'center' })}>
+            Для победы нужно набрать 1000 очков
+          </p>
           <Button
             disabled={isPlayerReady}
             onClick={() => confirmReady(lobbyId)}
