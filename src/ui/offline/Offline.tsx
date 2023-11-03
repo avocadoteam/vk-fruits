@@ -1,8 +1,11 @@
 import { getUserTokenFX } from '@core/api/friends/effects.config';
+import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $config, onlineHandleActivate } from '@core/config';
 import { getUserDataFX } from '@core/config/effects.config';
 import { isDev } from '@core/constants';
-import { Div, Group, Panel, PanelHeader, Spinner, Text, Title, View } from '@vkontakte/vkui';
+import { bg } from '@ui/theme/theme.css';
+import { typography } from '@ui/theme/typography.css';
+import { Div, Panel, PanelHeader, Spinner, View } from '@vkontakte/vkui';
 import { useStore } from 'effector-react';
 import React from 'react';
 import { AlienOffline } from 'src/assets/svg/AlienOffline';
@@ -17,6 +20,7 @@ export const Offline = React.memo(() => {
       setTimeout(() => {
         onlineHandleActivate();
         getUserDataFX();
+        getUserInfoFX();
         if (hasFriends && !isDev) {
           getUserTokenFX();
         }
@@ -26,21 +30,21 @@ export const Offline = React.memo(() => {
 
   return (
     <View id="offline" activePanel="offline">
-      <Panel id="offline">
+      <Panel id="offline" className={bg()}>
         <PanelHeader separator={false} />
         <Div className={off_div}>
           <AlienOffline className={off_alien} />
         </Div>
-        <Group separator="hide" className={off_g}>
-          <Title level="2">Ошибка подключения</Title>
-        </Group>
+        <div className={off_g}>
+          <p className={typography({ variant: 'head' })}>Ошибка подключения</p>
+        </div>
         <Div
           style={{
             visibility: online ? 'visible' : 'hidden',
           }}
           className={off_container}
         >
-          <Text weight="1">Переподключаемся...</Text>
+          <p className={typography({ variant: 'small' })}>Переподключаемся...</p>
           <Spinner size="small" className={off_mt} />
         </Div>
       </Panel>
