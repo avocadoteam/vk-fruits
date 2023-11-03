@@ -129,7 +129,7 @@ export const GameBoard = memo(() => {
       </div>
 
       <FixedLayout vertical="bottom">
-        <HorizontalScroll showArrows>
+        <HorizontalScroll showArrows="always">
           <div className={gSt.horizContainer}>
             <div className={gSt.buyItem} onClick={toggleFreeze}>
               <img src={wrapAsset('/imgs/ice.png')} width={24} height={24} />
