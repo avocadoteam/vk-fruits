@@ -1,7 +1,7 @@
-import { $game, updateTables } from '@core/api/game/store.game';
+import { $game, setPlayerDisconnected, updateTables } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { PlayerJoinPayload } from '@core/game/player';
-import { confirmReady, joinRoom } from '@core/sockets/game';
+import { confirmReady, joinRoom, leaveRoom } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
 import { addToastToQueue } from '@core/ui-config/effects.uic';
 import { ToastId } from '@core/ui-config/types';
@@ -63,10 +63,27 @@ export const GameFoundLayout = memo(() => {
           type: 'warn',
           title:
             leaveReason === 'non-confirm'
-              ? 'Кто-то не подтвердил готовность. Вы были возвращены в очередь.'
-              : 'Вы были возвращены в очередь.',
+              ? 'Кто-то не подтвердил готовность. Вы вернулись в очередь.'
+              : 'Вы вернулись в очередь.',
         },
       });
+
+      if (isFirstPage) {
+        routeNavigator.replace(`/${FPanel.Search}`);
+      } else {
+        routeNavigator.back();
+      }
+    };
+    client.playerLeft = data => {
+      addToastToQueue({
+        id: ToastId.Game,
+        toast: {
+          type: 'warn',
+          title: 'Вы вернулись в очередь.',
+        },
+      });
+
+      setPlayerDisconnected(data.userId);
 
       if (isFirstPage) {
         routeNavigator.replace(`/${FPanel.Search}`);
@@ -77,6 +94,7 @@ export const GameFoundLayout = memo(() => {
 
     return () => {
       client.backToSearch = noop;
+      client.playerLeft = noop;
     };
   }, [isFirstPage, routeNavigator]);
 
@@ -112,7 +130,7 @@ export const GameFoundLayout = memo(() => {
 
   return (
     <>
-      <PanelHeaderBack />
+      <PanelHeaderBack onCb={() => leaveRoom(lobbyId)} />
       <div>
         <div
           style={{

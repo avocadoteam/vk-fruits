@@ -1,8 +1,9 @@
-import { $game, updateTables } from '@core/api/game/store.game';
+import { $game, setPlayerDisconnected, updateTables } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { PlayerJoinPayload } from '@core/game/player';
-import { confirmReady, joinRoom } from '@core/sockets/game';
+import { confirmReady, joinRoom, leaveRoom } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
+import { noop } from '@core/utils/noop';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
 import { FPanel } from '@ui/layout/router';
 import { NoResults } from '@ui/rating/NoResults';
@@ -10,7 +11,7 @@ import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Icon24CheckCircleFillGreen } from '@vkontakte/icons';
 import { useParams, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
-import { Avatar, Button, FixedLayout } from '@vkontakte/vkui';
+import { Avatar, Button, FixedLayout, Spinner } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
 import { memo, useEffect } from 'react';
 
@@ -53,6 +54,16 @@ export const LobbyLayoutInvited = memo(() => {
   const isPlayerReady = !!me?.confirmed;
 
   useEffect(() => {
+    client.playerLeft = data => {
+      setPlayerDisconnected(data.userId);
+    };
+
+    return () => {
+      client.playerLeft = noop;
+    };
+  }, []);
+
+  useEffect(() => {
     if (lobbyId && userId) {
       joinRoom(lobbyId, userInfo);
       client.updateTable = data => {
@@ -74,7 +85,7 @@ export const LobbyLayoutInvited = memo(() => {
 
   return (
     <>
-      <PanelHeaderBack />
+      <PanelHeaderBack onCb={() => leaveRoom(lobbyId)} />
       <div>
         <div
           style={{
@@ -109,6 +120,10 @@ export const LobbyLayoutInvited = memo(() => {
                     <Avatar.Badge>
                       <Icon24CheckCircleFillGreen />
                     </Avatar.Badge>
+                  ) : !opponent ? (
+                    <Avatar.Overlay visibility="always" theme="dark">
+                      <Spinner />
+                    </Avatar.Overlay>
                   ) : null
                 }
               />

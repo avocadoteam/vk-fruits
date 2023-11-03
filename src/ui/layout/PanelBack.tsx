@@ -5,7 +5,11 @@ import { PanelHeader, PanelHeaderButton } from '@vkontakte/vkui';
 import { useEffect, useState } from 'react';
 import { btnBackStyle, headerStyle } from './style.css';
 
-export const PanelHeaderBack = () => {
+type Props = {
+  onCb?: () => void;
+};
+
+export const PanelHeaderBack = ({ onCb }: Props) => {
   const routeNavigator = useRouteNavigator();
   const isFirstPage = useFirstPageCheck();
   const [onTop, setOnTop] = useState(true);
@@ -16,15 +20,20 @@ export const PanelHeaderBack = () => {
 
   useEventListener('scroll', () => setOnTop(document.documentElement.scrollTop === 0));
 
+  const onClick = () => {
+    onCb?.();
+    if (isFirstPage) {
+      routeNavigator.replace('/');
+    } else {
+      routeNavigator.back();
+    }
+  };
+
   return (
     <PanelHeader
       separator={false}
       before={
-        <PanelHeaderButton
-          hasActive={false}
-          className={btnBackStyle}
-          onClick={() => (isFirstPage ? routeNavigator.replace('/') : routeNavigator.back())}
-        >
+        <PanelHeaderButton hasActive={false} className={btnBackStyle} onClick={onClick}>
           <Icon24ChevronCompactLeft width={22} height={22} />
         </PanelHeaderButton>
       }

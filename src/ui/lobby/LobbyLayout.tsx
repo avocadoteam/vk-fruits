@@ -1,12 +1,13 @@
 import { getUserLobbyFX } from '@core/api/game/effects.game';
-import { $game, updateTables } from '@core/api/game/store.game';
+import { $game, setPlayerDisconnected, updateTables } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { appId } from '@core/constants';
 import { PlayerJoinPayload } from '@core/game/player';
 import { useOpenWallShare } from '@core/hooks/useShareWall';
-import { confirmReady, joinRoom } from '@core/sockets/game';
+import { confirmReady, joinRoom, leaveRoom } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
 import { wrapAsset } from '@core/utils';
+import { noop } from '@core/utils/noop';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
 import { FPanel } from '@ui/layout/router';
 import { contentCenter } from '@ui/theme/theme.css';
@@ -55,6 +56,16 @@ export const LobbyLayout = memo(() => {
   const me = gameRoom.find(g => g.userId === userId);
 
   useEffect(() => {
+    client.playerLeft = data => {
+      setPlayerDisconnected(data.userId);
+    };
+
+    return () => {
+      client.playerLeft = noop;
+    };
+  }, []);
+
+  useEffect(() => {
     if (wsConnected) {
       getUserLobbyFX();
     }
@@ -79,7 +90,7 @@ export const LobbyLayout = memo(() => {
 
   return (
     <>
-      <PanelHeaderBack />
+      <PanelHeaderBack onCb={() => leaveRoom(lobbyId)} />
       <div>
         <div
           style={{

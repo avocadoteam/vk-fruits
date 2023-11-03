@@ -10,9 +10,9 @@ export const resetGame = gameDomain.createEvent();
 export const setLobbyId = gameDomain.createEvent<string>();
 export const updateTables = gameDomain.createEvent<FruitsGameTable[]>();
 export const setGameResult = gameDomain.createEvent<GameState['gameResult']>();
+export const setPlayerDisconnected = gameDomain.createEvent<number>();
 const addPlayerLobby = gameDomain.createEvent<FruitsGameUserData[]>();
 const setPlayerReady = gameDomain.createEvent<number>();
-const setPlayerDisconnected = gameDomain.createEvent<number>();
 const setWrongRoom = gameDomain.createEvent<boolean>();
 
 export const $game = gameDomain.createStore<GameState>({
@@ -104,9 +104,6 @@ $game.on(updateTables, (state, tables) => ({
 
 client.playerJoined = data => {
   addPlayerLobby(data.users);
-};
-client.playerLeft = data => {
-  setPlayerDisconnected(data.userId);
 };
 
 client.wrongRoom = () => {
