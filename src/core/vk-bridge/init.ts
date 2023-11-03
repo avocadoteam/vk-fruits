@@ -1,5 +1,7 @@
+import { setLobbyId } from '@core/api/game/store.game';
 import { setAppearance, setOnline } from '@core/config';
-import { DefaultUpdateConfigData } from '@vkontakte/vk-bridge';
+import { FPanel } from '@ui/layout/router';
+import { ChangeFragmentResponse, DefaultUpdateConfigData } from '@vkontakte/vk-bridge';
 import { vkBridge } from './instance';
 
 // set client theme
@@ -23,13 +25,13 @@ vkBridge.subscribe(({ detail: { type, data } }) => {
     }
   }
 
-  // if (type === 'VKWebAppChangeFragment') {
-  //   const loc = (data as ChangeFragmentResponse).location;
-  //   const hashValue = Number(loc);
-  //   if (isNaN(hashValue)) {
-  //     return;
-  //   }
-  // }
+  if (type === 'VKWebAppChangeFragment') {
+    const location = (data as ChangeFragmentResponse).location;
+    if (location.includes(FPanel.LobbyInvited)) {
+      const friendLobbyId = location.split('/').pop() ?? '';
+      setLobbyId(friendLobbyId);
+    }
+  }
 });
 
 // Init VK  Mini App

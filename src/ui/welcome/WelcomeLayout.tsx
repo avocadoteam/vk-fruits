@@ -1,11 +1,13 @@
+import { $game } from '@core/api/game/store.game';
 import { finishWelcomeFX } from '@core/config/effects.config';
 import { wrapAsset } from '@core/utils';
 import { DemoBoard, DemoBoardProps } from '@ui/game/DemoBoard';
-import { INITIAL_URL } from '@ui/layout/router';
+import { FPanel, INITIAL_URL } from '@ui/layout/router';
 import { btnSec, contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { useParams, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Button, FixedLayout, PanelHeader } from '@vkontakte/vkui';
+import { useStoreMap } from 'effector-react';
 import { useCallback } from 'react';
 
 const welcomeData: Record<
@@ -60,6 +62,15 @@ const welcomeData: Record<
 export const WelcomeLayout = () => {
   const params = useParams();
   const routeNavigator = useRouteNavigator();
+  const { lobbyId } = useStoreMap({
+    store: $game,
+    keys: [],
+    fn: g => {
+      return {
+        lobbyId: g.lobbyId,
+      };
+    },
+  });
 
   const step = (params?.step as DemoBoardProps['step']) ?? 'step1';
   const stepData = welcomeData[step];
@@ -68,13 +79,13 @@ export const WelcomeLayout = () => {
     if (stepData.shouldExit) {
       finishWelcomeFX();
     }
-    routeNavigator.replace(stepData.nextStep);
-  }, [routeNavigator, stepData.nextStep, stepData.shouldExit]);
+    routeNavigator.replace(lobbyId && step === 'step5' ? `/${FPanel.LobbyInvited}/${lobbyId}` : stepData.nextStep);
+  }, [stepData.shouldExit, stepData.nextStep, routeNavigator, lobbyId, step]);
 
   const skipTutorial = useCallback(() => {
     finishWelcomeFX();
-    routeNavigator.replace(INITIAL_URL);
-  }, [routeNavigator]);
+    routeNavigator.replace(lobbyId && step === 'step5' ? `/${FPanel.LobbyInvited}/${lobbyId}` : INITIAL_URL);
+  }, [lobbyId, routeNavigator, step]);
 
   return (
     <>
