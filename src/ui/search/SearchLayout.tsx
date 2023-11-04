@@ -24,7 +24,7 @@ export const SearchLayout = memo(() => {
     client.foundGameId = data => {
       setLobbyId(data.roomId);
 
-      routeNavigator.push(`/${FPanel.GameFound}/${data.roomId}`);
+      routeNavigator.replace(`/${FPanel.GameFound}/${data.roomId}`);
     };
 
     return () => {

@@ -11,7 +11,7 @@ import { FPanel } from '@ui/layout/router';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Icon24CheckCircleFillGreen } from '@vkontakte/icons';
-import { useFirstPageCheck, useParams, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
+import { useParams, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Avatar, Button, FixedLayout, Spinner } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
 import { memo, useEffect } from 'react';
@@ -20,7 +20,6 @@ export const GameFoundLayout = memo(() => {
   const params = useParams();
   const lobbyId = params?.id;
   const routeNavigator = useRouteNavigator();
-  const isFirstPage = useFirstPageCheck();
 
   const { gameRoom, wrongRoom } = useStoreMap({
     store: $game,
@@ -68,11 +67,7 @@ export const GameFoundLayout = memo(() => {
         },
       });
 
-      if (isFirstPage) {
-        routeNavigator.replace(`/${FPanel.Search}`);
-      } else {
-        routeNavigator.back();
-      }
+      routeNavigator.replace(`/${FPanel.Search}`);
     };
     client.playerLeft = data => {
       addToastToQueue({
@@ -85,18 +80,14 @@ export const GameFoundLayout = memo(() => {
 
       setPlayerDisconnected(data.userId);
 
-      if (isFirstPage) {
-        routeNavigator.replace(`/${FPanel.Search}`);
-      } else {
-        routeNavigator.back();
-      }
+      routeNavigator.replace(`/${FPanel.Search}`);
     };
 
     return () => {
       client.backToSearch = noop;
       client.playerLeft = noop;
     };
-  }, [isFirstPage, routeNavigator]);
+  }, [routeNavigator]);
 
   useEffect(() => {
     if (lobbyId) {
