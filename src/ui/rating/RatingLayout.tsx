@@ -10,7 +10,6 @@ import { RatingFriendsPermissions } from './friends/FriendsPermissions';
 import { RefreshRatingFriends } from './friends/RefreshRatingFriends';
 import { ResultsFriends } from './friends/ResultsFriends';
 import { ratingSt } from './style.css';
-import { PersonalPosition } from './top100/PersonalPosition';
 import { RefreshRank100 } from './top100/RefreshRank100';
 import { ResultsRank100 } from './top100/ResultsRank100';
 
@@ -76,12 +75,9 @@ export const RatingLayout = memo(() => {
           </Tabs>
         </Div>
         {selectedTop100 ? (
-          <>
-            <RefreshRank100>
-              <ResultsRank100 />
-            </RefreshRank100>
-            <PersonalPosition />
-          </>
+          <RefreshRank100>
+            <ResultsRank100 />
+          </RefreshRank100>
         ) : hasFriends ? (
           <RefreshRatingFriends>
             <ResultsFriends />

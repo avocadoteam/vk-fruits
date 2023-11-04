@@ -1,6 +1,8 @@
 import { getTop100RankFX } from '@core/api/rating/effects.rating';
 import { $rating } from '@core/api/rating/store.rating';
+import { $userId } from '@core/config';
 import { numberWithSpace, wrapAsset } from '@core/utils';
+import { useInView } from '@react-spring/web';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Avatar } from '@vkontakte/vkui';
@@ -8,8 +10,11 @@ import { useStore, useStoreMap } from 'effector-react';
 import { memo, useEffect } from 'react';
 import { NoResults } from '../NoResults';
 import { ratingSt } from '../style.css';
+import { PersonalPosition } from './PersonalPosition';
 
 export const ResultsRank100 = memo(() => {
+  const [itemRef, isInView] = useInView();
+
   const { top100 } = useStoreMap({
     store: $rating,
     keys: [],
@@ -19,6 +24,7 @@ export const ResultsRank100 = memo(() => {
       };
     },
   });
+  const userId = useStore($userId);
   const listFetching = useStore(getTop100RankFX.pending);
 
   useEffect(() => {
@@ -29,8 +35,9 @@ export const ResultsRank100 = memo(() => {
 
   return (
     <div className={ratingSt.content}>
+      {isInView ? null : <PersonalPosition />}
       {top100.map((top100r, index) => (
-        <div key={top100r.id} className={ratingSt.cell}>
+        <div key={top100r.id} ref={top100r.vkUserId === userId ? itemRef : undefined} className={ratingSt.cell}>
           <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
             <p className={typography({ variant: 'small' })} style={{ width: '28px' }}>
               {index + 1}
