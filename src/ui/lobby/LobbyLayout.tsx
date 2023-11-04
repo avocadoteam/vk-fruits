@@ -54,6 +54,7 @@ export const LobbyLayout = memo(() => {
 
   const opponent = gameRoom.find(g => g.userId !== userId);
   const me = gameRoom.find(g => g.userId === userId);
+  const isPlayerReady = !!me?.confirmed;
 
   useEffect(() => {
     client.playerLeft = data => {
@@ -110,7 +111,7 @@ export const LobbyLayout = memo(() => {
                 size={96}
                 src={me?.avatar}
                 children={
-                  me?.confirmed ? (
+                  isPlayerReady ? (
                     <Avatar.Badge>
                       <Icon24CheckCircleFillGreen />
                     </Avatar.Badge>
@@ -152,7 +153,7 @@ export const LobbyLayout = memo(() => {
           </p>
           <Button
             onClick={() => confirmReady(lobbyId)}
-            disabled={gameRoom.length < 2 || !!me?.confirmed}
+            disabled={!opponent || isPlayerReady}
             style={{ margin: '1rem 0 3rem' }}
             size="l"
             stretched

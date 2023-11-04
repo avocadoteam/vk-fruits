@@ -11,7 +11,7 @@ import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Icon24CheckCircleFillGreen } from '@vkontakte/icons';
 import { useParams, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
-import { Avatar, Button, FixedLayout, Spinner } from '@vkontakte/vkui';
+import { Avatar, Button, FixedLayout } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
 import { memo, useEffect } from 'react';
 
@@ -123,10 +123,6 @@ export const LobbyLayoutInvited = memo(() => {
                     <Avatar.Badge>
                       <Icon24CheckCircleFillGreen />
                     </Avatar.Badge>
-                  ) : !opponent ? (
-                    <Avatar.Overlay visibility="always" theme="dark">
-                      <Spinner />
-                    </Avatar.Overlay>
                   ) : null
                 }
               />
@@ -144,7 +140,7 @@ export const LobbyLayoutInvited = memo(() => {
             Для победы нужно набрать 1000 очков
           </p>
           <Button
-            disabled={isPlayerReady}
+            disabled={isPlayerReady || !opponent}
             onClick={() => confirmReady(lobbyId)}
             style={{ margin: '1rem 0 3rem' }}
             size="l"
