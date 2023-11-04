@@ -1,5 +1,6 @@
 import { FruitsItemName } from '@core/game/player';
-import { getUserData, getUserStorageKeys, setStorageValue, Skeys } from '@core/vk-bridge/user';
+import { getAdsData, openRewardAds } from '@core/vk-bridge/ads';
+import { Skeys, getUserData, getUserStorageKeys, setStorageValue } from '@core/vk-bridge/user';
 import { appConfigDomain } from './domain';
 
 export const finishWelcomeFX = appConfigDomain.createEffect(async () => {
@@ -24,4 +25,13 @@ export const getStorageKeys = appConfigDomain.createEffect(async () => {
 export const getUserDataFX = appConfigDomain.createEffect(async () => {
   const user = await getUserData();
   return user;
+});
+
+export const hasUserAdsFX = appConfigDomain.createEffect(async () => {
+  const data = await getAdsData();
+  return data.result;
+});
+export const openRewardAdsFX = appConfigDomain.createEffect(async () => {
+  const data = await openRewardAds();
+  return data.result;
 });

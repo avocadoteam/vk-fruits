@@ -12,6 +12,7 @@ export type GameState = {
     skinsToBuyMaxCount: number;
     daysInRow: number;
     hasSevenDay: boolean;
+    hasAdsSkin: boolean;
     wins: number;
     looses: number;
   };

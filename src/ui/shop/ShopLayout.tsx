@@ -16,8 +16,12 @@ import { useStore, useStoreMap } from 'effector-react';
 import { useCallback, useState } from 'react';
 import { MultipleGifts } from 'src/assets/svg/MultipleGifts';
 import { RoundGift } from 'src/assets/svg/RoundGift';
+import { AdsGift } from './AdsGift';
 import { sSt } from './style.css';
-const loadingBuyCombine = combine([buyPaidFeatureFX.pending, getUserInfoFX.pending, buySubFX.pending], ([a, b]) => a || b);
+const loadingBuyCombine = combine(
+  [buyPaidFeatureFX.pending, getUserInfoFX.pending, buySubFX.pending],
+  ([a, b, c]) => a || b || c,
+);
 
 export const ShopLayout = () => {
   const [selectedGifts, selectGift] = useState('1');
@@ -134,6 +138,7 @@ export const ShopLayout = () => {
           </div>
         </div>
 
+        <AdsGift />
         {hasAllSkins ? null : (
           <div className={sSt.box}>
             <div className={contentCenter({ direction: 'column', p: '1' })}>

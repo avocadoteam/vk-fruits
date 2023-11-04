@@ -4,7 +4,14 @@ import { FruitsItemName } from '@core/game/player';
 import { AppearanceType, UserInfo } from '@vkontakte/vk-bridge';
 import { combine, forward } from 'effector';
 import { appConfigDomain } from './domain';
-import { finishWelcomeFX, getStorageKeys, getUserDataFX, setTapticVibration, setUserSkin } from './effects.config';
+import {
+  finishWelcomeFX,
+  getStorageKeys,
+  getUserDataFX,
+  hasUserAdsFX,
+  setTapticVibration,
+  setUserSkin,
+} from './effects.config';
 
 export type ConfigType = {
   appearance: AppearanceType;
@@ -17,6 +24,7 @@ export type ConfigType = {
   taptic: boolean;
   wsConnected: boolean;
   selectedSkin: FruitsItemName;
+  hasAds: boolean;
 };
 
 export const setAppearance = appConfigDomain.createEvent<AppearanceType>();
@@ -39,6 +47,7 @@ export const $config = appConfigDomain.createStore<ConfigType>({
   taptic: true,
   wsConnected: false,
   selectedSkin: 'skin__fruits',
+  hasAds: false,
 });
 
 export const $userId = combine([$config], ([a]) => a.user?.id ?? 0);
@@ -96,6 +105,10 @@ $config.on(setTapticVibration.done, (state, { params }) => ({
 $config.on(setSelectedSkin, (state, selectedSkin) => ({
   ...state,
   selectedSkin,
+}));
+$config.on(hasUserAdsFX.doneData, (state, hasAds) => ({
+  ...state,
+  hasAds,
 }));
 
 forward({
