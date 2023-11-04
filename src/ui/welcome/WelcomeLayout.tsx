@@ -87,6 +87,10 @@ export const WelcomeLayout = () => {
     routeNavigator.replace(lobbyId && step === 'step5' ? `/${FPanel.LobbyInvited}/${lobbyId}` : INITIAL_URL);
   }, [lobbyId, routeNavigator, step]);
 
+  if (!params?.step) {
+    return null;
+  }
+
   return (
     <>
       <PanelHeader separator={false} />
