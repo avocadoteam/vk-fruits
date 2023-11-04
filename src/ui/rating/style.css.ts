@@ -23,8 +23,13 @@ const cell = style({
   alignItems: 'center',
 });
 
+const text = style({
+  padding: '0 1.25rem',
+});
+
 export const ratingSt = {
   tab,
   content,
   cell,
+  text,
 };

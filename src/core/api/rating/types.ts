@@ -10,7 +10,7 @@ export type RatingResult = {
   id: string;
   avatar?: string;
   pts: number;
-  vkUserId: number;
+  userId: number;
   firstName?: string;
   lastName?: string;
 };

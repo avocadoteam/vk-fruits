@@ -2,6 +2,7 @@ import { getTop100RankFX } from '@core/api/rating/effects.rating';
 import { $rating } from '@core/api/rating/store.rating';
 import { $userId } from '@core/config';
 import { numberWithSpace, wrapAsset } from '@core/utils';
+import { clsx } from '@core/utils/clsx';
 import { useInView } from '@react-spring/web';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
@@ -34,27 +35,31 @@ export const ResultsRank100 = memo(() => {
   if (!top100.length) return <NoResults listFetching={listFetching} />;
 
   return (
-    <div className={ratingSt.content}>
+    <>
       {isInView ? null : <PersonalPosition />}
-      {top100.map((top100r, index) => (
-        <div key={top100r.id} ref={top100r.vkUserId === userId ? itemRef : undefined} className={ratingSt.cell}>
-          <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
-            <p className={typography({ variant: 'small' })} style={{ width: '28px' }}>
-              {index + 1}
-            </p>
-            <Avatar size={40} src={top100r.avatar} />
-            <p className={typography({ variant: 'small', truncate: true })} style={{ maxWidth: '140px' }}>
-              {top100r.firstName ?? top100r.lastName}
-            </p>
-          </div>
-          <div className={contentCenter({ direction: 'row', gap: '1', justifyContent: 'sb', p: '0' })}>
-            <div className={contentCenter({ direction: 'row', p: '0' })}>
-              <p className={typography({ variant: 'elo', m: 'l.5' })}>{numberWithSpace(top100r.pts)}</p>
-              <img src={wrapAsset('/imgs/trophy.png')} alt="trophy" width="20" height="20" />
+      <p className={clsx(typography({ variant: 'small', shadow: true }), ratingSt.text)}>Топ 100</p>
+
+      <div className={ratingSt.content}>
+        {top100.map((top100r, index) => (
+          <div key={top100r.id} ref={top100r.userId === userId ? itemRef : undefined} className={ratingSt.cell}>
+            <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
+              <p className={typography({ variant: 'small' })} style={{ width: '28px' }}>
+                {index + 1}
+              </p>
+              <Avatar size={40} src={top100r.avatar} />
+              <p className={typography({ variant: 'small', truncate: true })} style={{ maxWidth: '140px' }}>
+                {top100r.firstName ?? top100r.lastName}
+              </p>
+            </div>
+            <div className={contentCenter({ direction: 'row', gap: '1', justifyContent: 'sb', p: '0' })}>
+              <div className={contentCenter({ direction: 'row', p: '0' })}>
+                <p className={typography({ variant: 'elo', m: 'l.5' })}>{numberWithSpace(top100r.pts)}</p>
+                <img src={wrapAsset('/imgs/trophy.png')} alt="trophy" width="20" height="20" />
+              </div>
             </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 });
