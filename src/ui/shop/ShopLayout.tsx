@@ -7,20 +7,21 @@ import { addToastToQueue } from '@core/ui-config/effects.uic';
 import { ToastId } from '@core/ui-config/types';
 import { wrapAsset } from '@core/utils';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
-import { btnSec, contentCenter } from '@ui/theme/theme.css';
+import { btnSec, contentCenter, vars } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
-import { Button, HorizontalScroll, Image, Radio } from '@vkontakte/vkui';
+import { Icon20InfoCircleOutline } from '@vkontakte/icons';
+import { Button, HorizontalScroll, IconButton, Image, Radio, Tooltip } from '@vkontakte/vkui';
 import { combine } from 'effector';
 import { useStore, useStoreMap } from 'effector-react';
 import { useCallback, useState } from 'react';
 import { MultipleGifts } from 'src/assets/svg/MultipleGifts';
 import { RoundGift } from 'src/assets/svg/RoundGift';
 import { sSt } from './style.css';
-
 const loadingBuyCombine = combine([buyPaidFeatureFX.pending, getUserInfoFX.pending, buySubFX.pending], ([a, b]) => a || b);
 
 export const ShopLayout = () => {
   const [selectedGifts, selectGift] = useState('1');
+  const [isShown, showTooltip] = useState(false);
   const loadingBuy = useStore(loadingBuyCombine);
 
   const { hasAllSkins, skinsToBuyMaxCount, skins, hasPremium } = useStoreMap({
@@ -87,8 +88,34 @@ export const ShopLayout = () => {
               src="https://showtime.app-dich.com/imgs/emoji/veg/avocado.png"
               alt="avocado"
             />
-            <p className={typography({ variant: 'head', m: 't', transform: 'up' })}>Fruit Pass</p>
-            <p className={typography({ variant: 'small', shadow: true })}>Содержит премиальные функции</p>
+            <p className={typography({ variant: 'head', transform: 'up' })}>Fruit Pass</p>
+            <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
+              <p className={typography({ variant: 'small', shadow: true })}>Содержит премиальные функции</p>
+              <Tooltip
+                isShown={isShown}
+                onClose={() => showTooltip(false)}
+                header={<p className={typography({ variant: 'head', transform: 'up' })}>Fruit Pass</p>}
+                text={
+                  <div>
+                    <p className={typography({ variant: 'small', m: 't.5' })}>
+                      На месяц: в два раза больше очков за победу + 3 скина каждый месяц
+                    </p>
+                    <p className={typography({ variant: 'small', m: 't.5' })}>
+                      Навсегда: в два раза больше очков за победу + все скины
+                    </p>
+                  </div>
+                }
+                offsetY={10}
+              >
+                <IconButton
+                  style={{ height: 20, color: vars.palette.white }}
+                  hoverMode="opacity"
+                  onClick={() => showTooltip(true)}
+                >
+                  <Icon20InfoCircleOutline />
+                </IconButton>
+              </Tooltip>
+            </div>
           </div>
 
           <div className={sSt.btnContainer}>
@@ -97,10 +124,10 @@ export const ShopLayout = () => {
             ) : (
               <>
                 <Button className={btnSec.secBase} mode="secondary" stretched size="l" onClick={buySubscription}>
-                  На месяц за 20 голосов
+                  На месяц за 19 голосов
                 </Button>
                 <Button mode="primary" stretched size="l" onClick={() => buyGift(FruitsPaidFeatureTypeUI.FruitsSubFV)}>
-                  Навсегда за 80 голосов
+                  Навсегда за 69 голосов
                 </Button>
               </>
             )}
@@ -157,7 +184,7 @@ export const ShopLayout = () => {
               >
                 Купить за{' '}
                 <span className={typography({ variant: 'small', shadow: true, color: 'primary' })}>
-                  {selectedGifts === '3' ? '50' : '20'} голосов
+                  {selectedGifts === '3' ? '49' : '19'} голосов
                 </span>
               </Button>
             </div>

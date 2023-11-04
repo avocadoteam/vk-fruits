@@ -61,3 +61,11 @@ body {
 .vkuiTabsItem__underline {
   background-color: #fff !important
 }
+
+.vkuiTooltipBase__arrow {
+  color: #407860 !important
+}
+
+.vkuiTooltipBase__content {
+  background-color: #407860 !important
+}
