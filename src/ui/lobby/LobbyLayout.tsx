@@ -126,6 +126,7 @@ export const LobbyLayout = memo(() => {
                 src={opponent ? opponent.avatar : wrapAsset('/imgs/addBig.svg')}
                 style={{
                   backgroundColor: 'transparent !important',
+                  cursor: opponent ? undefined : 'pointer',
                 }}
                 onClick={addFriend}
                 children={
