@@ -3,6 +3,7 @@ export type RatingState = {
   top100: RatingResult[];
   friends: RatingResult[];
   friendIds: number[];
+  userPosition?: string;
 };
 
 export type RatingResult = {

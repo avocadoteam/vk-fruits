@@ -16,7 +16,7 @@ export const RefreshRank100 = memo<Props>(({ children }) => {
 
   return (
     <PullToRefresh onRefresh={refreshListOfTop100} isFetching={listFetching}>
-      <div style={{ minHeight: '50vh' }}>{children}</div>
+      <div style={{ minHeight: '50vh', paddingBottom: '110px' }}>{children}</div>
     </PullToRefresh>
   );
 });

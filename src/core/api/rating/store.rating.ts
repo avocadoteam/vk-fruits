@@ -14,7 +14,8 @@ export const $rating = ratingDomain.createStore<RatingState>({
 
 $rating.on(getTop100RankFX.doneData, (state, data) => ({
   ...state,
-  top100: data,
+  top100: data.top100,
+  userPosition: data.userPosition,
 }));
 $rating.on(getFriendsRatingFX.doneData, (state, data) => ({
   ...state,
