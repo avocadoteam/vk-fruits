@@ -42,9 +42,9 @@ export const AdsGift = () => {
   });
 
   useEffect(() => {
-    if (hasPremium) return;
+    if (hasPremium || hasAdsSkin) return;
     hasUserAdsFX();
-  }, [hasPremium]);
+  }, [hasPremium, hasAdsSkin]);
 
   const watchAds = useCallback(async () => {
     try {
