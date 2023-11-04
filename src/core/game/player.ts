@@ -3,9 +3,6 @@ import { FruitItems } from './types';
 export type FruitsItemName = `skin__${keyof FruitItems}`;
 
 export type PlayerJoinPayload = {
-  avatar: string;
-  firstName: string;
-  lastName: string;
   selectedSkin: FruitsItemName;
 };
 export type FruitGameFreeze = {

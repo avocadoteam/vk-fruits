@@ -35,9 +35,6 @@ export const GameLayout = memo(() => {
     keys: [],
     fn: cf => {
       const userInfo: PlayerJoinPayload = {
-        avatar: cf.user?.photo_200 ?? '',
-        firstName: cf.user?.first_name ?? '',
-        lastName: cf.user?.last_name ?? '',
         selectedSkin: cf.selectedSkin,
       };
 
