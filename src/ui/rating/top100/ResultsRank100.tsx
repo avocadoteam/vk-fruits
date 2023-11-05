@@ -1,7 +1,7 @@
 import { getTop100RankFX } from '@core/api/rating/effects.rating';
 import { $rating } from '@core/api/rating/store.rating';
 import { $userId } from '@core/config';
-import { numberWithSpace, wrapAsset } from '@core/utils';
+import { numberWithSpace, openLink, wrapAsset } from '@core/utils';
 import { clsx } from '@core/utils/clsx';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
@@ -40,7 +40,11 @@ export const ResultsRank100 = memo(() => {
 
       <div className={ratingSt.content}>
         {top100.map((top100r, index) => (
-          <div key={top100r.id} className={ratingSt.cell}>
+          <div
+            key={top100r.id}
+            className={ratingSt.cell({ tappable: true })}
+            onClick={() => openLink(`https://vk.com/id${top100r.userId}`)}
+          >
             <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
               <p className={typography({ variant: 'small' })} style={{ width: '28px' }}>
                 {index + 1}

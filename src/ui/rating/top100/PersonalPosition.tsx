@@ -52,7 +52,7 @@ export const PersonalPosition = ({ positionInList }: Props) => {
     <>
       <p className={clsx(typography({ variant: 'small', shadow: true }), ratingSt.text)}>Ваша позиция в рейтинге</p>
       <div className={ratingSt.content}>
-        <div className={ratingSt.cell}>
+        <div className={ratingSt.cell()}>
           <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
             <p className={typography({ variant: 'small' })} style={{ width: '28px' }}>
               {positionInList ?? userPosition}
