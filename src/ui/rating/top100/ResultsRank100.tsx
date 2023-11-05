@@ -1,5 +1,6 @@
 import { getTop100RankFX } from '@core/api/rating/effects.rating';
 import { $rating } from '@core/api/rating/store.rating';
+import { $userId } from '@core/config';
 import { numberWithSpace, wrapAsset } from '@core/utils';
 import { clsx } from '@core/utils/clsx';
 import { contentCenter } from '@ui/theme/theme.css';
@@ -21,7 +22,10 @@ export const ResultsRank100 = memo(() => {
       };
     },
   });
+  const userId = useStore($userId);
   const listFetching = useStore(getTop100RankFX.pending);
+  const userInList = top100.find(tr => tr.userId === userId);
+  const positionInList = userInList ? top100.indexOf(userInList) + 1 : null;
 
   useEffect(() => {
     getTop100RankFX();
@@ -31,7 +35,7 @@ export const ResultsRank100 = memo(() => {
 
   return (
     <>
-      <PersonalPosition />
+      <PersonalPosition positionInList={positionInList} />
       <p className={clsx(typography({ variant: 'small', shadow: true }), ratingSt.text)}>Топ 100</p>
 
       <div className={ratingSt.content}>

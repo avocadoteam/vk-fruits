@@ -9,7 +9,11 @@ import { Avatar } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
 import { ratingSt } from '../style.css';
 
-export const PersonalPosition = () => {
+type Props = {
+  positionInList: number | null;
+};
+
+export const PersonalPosition = ({ positionInList }: Props) => {
   const { userPosition } = useStoreMap({
     store: $rating,
     keys: [],
@@ -51,7 +55,7 @@ export const PersonalPosition = () => {
         <div className={ratingSt.cell}>
           <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
             <p className={typography({ variant: 'small' })} style={{ width: '28px' }}>
-              {userPosition}
+              {positionInList ?? userPosition}
             </p>
             <Avatar size={40} src={avatar} />
             <p className={typography({ variant: 'small', truncate: true })} style={{ maxWidth: '140px' }}>
