@@ -2,7 +2,7 @@ import { useEventListener } from '@core/hooks/useEventListener';
 import { Icon24ChevronCompactLeft } from '@vkontakte/icons';
 import { useFirstPageCheck, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { PanelHeader, PanelHeaderButton } from '@vkontakte/vkui';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { btnBackStyle, headerStyle } from './style.css';
 
 type Props = {
@@ -20,14 +20,14 @@ export const PanelHeaderBack = ({ onCb }: Props) => {
 
   useEventListener('scroll', () => setOnTop(document.documentElement.scrollTop === 0));
 
-  const onClick = () => {
+  const onClick = useCallback(() => {
     onCb?.();
     if (isFirstPage) {
       routeNavigator.replace('/');
     } else {
       routeNavigator.back();
     }
-  };
+  }, [isFirstPage, onCb, routeNavigator]);
 
   return (
     <PanelHeader

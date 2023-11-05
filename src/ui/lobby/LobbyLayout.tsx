@@ -54,12 +54,12 @@ export const LobbyLayout = memo(() => {
   const isPlayerReady = !!me?.confirmed;
 
   useEffect(() => {
-    client.playerLeft = data => {
+    client.playerLeftRoom = data => {
       setPlayerDisconnected(data.userId);
     };
 
     return () => {
-      client.playerLeft = noop;
+      client.playerLeftRoom = noop;
     };
   }, []);
 

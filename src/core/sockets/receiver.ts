@@ -5,6 +5,7 @@ export const client = clientPerformCallback(m => ({
   foundGameId: m<(data: { roomId: string }) => void>(),
   playerJoined: m<(data: { users: FruitsGameUserData[] }) => void>(),
   playerLeft: m<(data: { userId: number }) => void>(),
+  playerLeftRoom: m<(data: { userId: number }) => void>(),
   playerConfirmed: m<(data: { userId: number }) => void>(),
   updateTable: m<(data: { tables: FruitsGameTable[] }) => void>(),
   gameResults:

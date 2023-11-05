@@ -66,7 +66,7 @@ export const GameFoundLayout = memo(() => {
 
       routeNavigator.replace(`/${FPanel.Search}`);
     };
-    client.playerLeft = data => {
+    client.playerLeftRoom = data => {
       addToastToQueue({
         id: ToastId.Game,
         toast: {
@@ -82,7 +82,7 @@ export const GameFoundLayout = memo(() => {
 
     return () => {
       client.backToSearch = noop;
-      client.playerLeft = noop;
+      client.playerLeftRoom = noop;
     };
   }, [routeNavigator]);
 
