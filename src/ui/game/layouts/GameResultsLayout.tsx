@@ -1,4 +1,4 @@
-import { getUserInfoFX } from '@core/api/game/effects.game';
+import { getBotLobbyFX, getUserInfoFX } from '@core/api/game/effects.game';
 import { $game, setLobbyId } from '@core/api/game/store.game';
 import { $userId } from '@core/config';
 import { useStoryShare } from '@core/hooks/useStoryShare';
@@ -12,7 +12,7 @@ import { typography } from '@ui/theme/typography.css';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Avatar, Button, FixedLayout } from '@vkontakte/vkui';
 import { useStore, useStoreMap } from 'effector-react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { gSt } from '../style.css';
 import { PanelHeaderBackGR } from './PanelBackGR';
 
@@ -60,7 +60,30 @@ export const GameResultsLayout = () => {
 
   const opponent = gameRoom.find(g => g.userId !== userId);
   const me = gameRoom.find(g => g.userId === userId);
-  const isDuo = gameResult?.gameType === 'duo';
+
+  const onClickAgain = useCallback(() => {
+    switch (gameResult?.gameType) {
+      case 'bot':
+        setLoading(true);
+        getBotLobbyFX()
+          .then(newLobbyId => {
+            routeNavigator.replace(`/${FPanel.GameFound}/${newLobbyId}`);
+          })
+          .finally(() => setLoading(false));
+        break;
+      case 'duo':
+        if (lobbyId) {
+          playAgain(lobbyId);
+        }
+        break;
+      case 'rank':
+        routeNavigator.replace(`/${FPanel.Search}`);
+        break;
+
+      default:
+        break;
+    }
+  }, [gameResult?.gameType, lobbyId, routeNavigator]);
 
   if (!gameResult) {
     return (
@@ -127,14 +150,7 @@ export const GameResultsLayout = () => {
       </div>
       <FixedLayout vertical="bottom">
         <div className={contentCenter({ gap: '1' })}>
-          <Button
-            onClick={() => (isDuo ? playAgain(lobbyId) : routeNavigator.replace(`/${FPanel.Search}`))}
-            size="l"
-            stretched
-            mode="primary"
-            loading={isLoading}
-            disabled={clicked}
-          >
+          <Button onClick={onClickAgain} size="l" stretched mode="primary" loading={isLoading} disabled={clicked}>
             Играть ещё раз
           </Button>
           <Button

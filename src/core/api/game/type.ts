@@ -23,7 +23,7 @@ export type GameState = {
     uiTable: ({ name: GameItemNames; points: number; src: string; isFreezed?: boolean } | null)[];
   })[];
   gameResult: {
-    gameType: 'duo' | 'rank';
+    gameType: 'duo' | 'rank' | 'bot';
     isDraw: boolean;
     result: [winner: number, looser: number];
   } | null;

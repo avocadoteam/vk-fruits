@@ -23,3 +23,8 @@ export const getActivityGiftFX = gameDomain.createEffect(async () => {
 export const getAdsGiftFX = gameDomain.createEffect(async () => {
   await AX.post('/fruits/gift/ads' + qVK);
 });
+
+export const getBotLobbyFX = gameDomain.createEffect(async () => {
+  const { data } = await AX.post('/fruits/game/bot' + qVK);
+  return data.data;
+});

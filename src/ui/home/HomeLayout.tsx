@@ -14,6 +14,7 @@ import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Avatar, Button, PanelHeader } from '@vkontakte/vkui';
 import { useStore, useStoreMap } from 'effector-react';
 import { useCallback, useEffect } from 'react';
+import { PlayWithBot } from './PlayWithBot';
 import { homeStyles } from './style.css';
 
 export const HomeLayout = () => {
@@ -153,6 +154,7 @@ export const HomeLayout = () => {
               Играть с другом
             </span>
           </Button>
+          <PlayWithBot />
         </div>
         <div className={contentCenter({ direction: 'column' })} style={{ marginTop: '1rem' }}>
           <Button

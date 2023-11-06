@@ -3,7 +3,7 @@ import { FruitsGameTable, FruitsGameUserData } from '@core/game/player';
 import { FruitItems } from '@core/game/types';
 import { client } from '@core/sockets/receiver';
 import { gameDomain } from './domain';
-import { getUserInfoFX, getUserLobbyFX } from './effects.game';
+import { getBotLobbyFX, getUserInfoFX, getUserLobbyFX } from './effects.game';
 import { GameState } from './type';
 
 export const resetGame = gameDomain.createEvent();
@@ -41,7 +41,7 @@ $game.on(getUserInfoFX.doneData, (state, data) => ({
   ...state,
   userInfo: data,
 }));
-$game.on(getUserLobbyFX.doneData, (state, data) => ({
+$game.on([getUserLobbyFX.doneData, getBotLobbyFX.doneData], (state, data) => ({
   ...state,
   lobbyId: data,
 }));

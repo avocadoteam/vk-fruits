@@ -127,7 +127,9 @@ export const GameFoundLayout = memo(() => {
           }}
           className={contentCenter()}
         >
-          <p className={typography({ variant: 'head', transform: 'up', m: 'b' })}>Рейтинговая игра</p>
+          <p className={typography({ variant: 'head', transform: 'up', m: 'b' })}>
+            {opponent?.userId === 0 ? 'Игра с ботом' : 'Рейтинговая игра'}
+          </p>
 
           <div className={contentCenter({ direction: 'row' })}>
             <div className={contentCenter({ gap: '1' })}>
