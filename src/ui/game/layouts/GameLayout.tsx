@@ -3,7 +3,6 @@ import { $config } from '@core/config';
 import { PlayerJoinPayload } from '@core/game/player';
 import { joinRoom } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
-import { noop } from '@core/utils/noop';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
 import { FPanel } from '@ui/layout/router';
 import { contentCenter } from '@ui/theme/theme.css';
@@ -56,9 +55,6 @@ export const GameLayout = memo(() => {
       });
       updateTables(data.tables);
       routeNavigator.replace(`/${FPanel.GameResults}`);
-    };
-    return () => {
-      client.updateTable = noop;
     };
   }, []);
 

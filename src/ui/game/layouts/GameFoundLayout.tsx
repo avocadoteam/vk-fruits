@@ -95,9 +95,6 @@ export const GameFoundLayout = memo(() => {
         routeNavigator.replace(`/${FPanel.Game}/${lobbyId}`);
       };
     }
-    return () => {
-      client.updateTable = noop;
-    };
   }, [lobbyId, routeNavigator, userInfo]);
 
   if (!lobbyId || wrongRoom) {
