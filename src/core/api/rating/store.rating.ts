@@ -1,3 +1,4 @@
+import { forward } from 'effector';
 import { getUserFriendsFX } from '../friends/effects.config';
 import { ratingDomain } from './domain';
 import { getFriendsRatingFX, getTop100RankFX } from './effects.rating';
@@ -29,3 +30,8 @@ $rating.on(getUserFriendsFX.doneData, (state, { items }) => ({
   ...state,
   friendIds: items,
 }));
+
+forward({
+  from: getUserFriendsFX.doneData.map(({ items }) => items),
+  to: getFriendsRatingFX,
+});
