@@ -16,9 +16,9 @@ export const getStorageKeys = appConfigDomain.createEffect(async () => {
   const data = await getUserStorageKeys([Skeys.Welcome, Skeys.SelectedSkin]);
 
   return {
-    sawWelcome: data.keys.some(v => v.key === Skeys.Welcome && v.value === 'yes'),
+    sawWelcome: !!data?.keys?.some(v => v.key === Skeys.Welcome && v.value === 'yes'),
     selectedSkin:
-      (data.keys.find(v => v.key === Skeys.SelectedSkin && !!v.value)?.value as FruitsItemName) ?? 'skin__fruits',
+      (data?.keys?.find(v => v.key === Skeys.SelectedSkin && !!v.value)?.value as FruitsItemName) ?? 'skin__fruits',
   };
 });
 
