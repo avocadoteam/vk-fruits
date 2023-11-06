@@ -1,3 +1,4 @@
+import { getUserTokenFX } from '@core/api/friends/effects.config';
 import { getFriendsRatingFX } from '@core/api/rating/effects.rating';
 import { $rating } from '@core/api/rating/store.rating';
 import { PullToRefresh } from '@vkontakte/vkui';
@@ -21,7 +22,11 @@ export const RefreshRatingFriends = memo<Props>(({ children }) => {
   });
 
   const refresh = useCallback(() => {
-    getFriendsRatingFX(friendIds);
+    if (friendIds) {
+      getFriendsRatingFX(friendIds);
+    } else {
+      getUserTokenFX();
+    }
   }, [friendIds]);
 
   return (

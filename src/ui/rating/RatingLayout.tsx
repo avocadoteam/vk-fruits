@@ -1,11 +1,11 @@
 import { getUserTokenFX } from '@core/api/friends/effects.config';
-import { getFriendsRatingFX, getTop100RankFX } from '@core/api/rating/effects.rating';
+import { getTop100RankFX } from '@core/api/rating/effects.rating';
 import { $rating, changeRatingActiveTab } from '@core/api/rating/store.rating';
 import { $config } from '@core/config';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
 import { Div, Tabs, TabsItem } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback } from 'react';
 import { RatingFriendsPermissions } from './friends/FriendsPermissions';
 import { RefreshRatingFriends } from './friends/RefreshRatingFriends';
 import { ResultsFriends } from './friends/ResultsFriends';
@@ -14,7 +14,7 @@ import { RefreshRank100 } from './top100/RefreshRank100';
 import { ResultsRank100 } from './top100/ResultsRank100';
 
 export const RatingLayout = memo(() => {
-  const { selectedFriends, selectedTop100, ids } = useStoreMap({
+  const { selectedFriends, selectedTop100 } = useStoreMap({
     store: $rating,
     keys: [],
     fn: rS => {
@@ -24,7 +24,6 @@ export const RatingLayout = memo(() => {
       return {
         selectedTop100,
         selectedFriends,
-        ids: rS.friendIds,
       };
     },
   });
@@ -39,12 +38,6 @@ export const RatingLayout = memo(() => {
     },
   });
 
-  useEffect(() => {
-    if (hasFriends) {
-      getUserTokenFX();
-    }
-  }, [hasFriends]);
-
   const selectTop100 = useCallback(() => {
     changeRatingActiveTab('100');
     getTop100RankFX();
@@ -52,13 +45,8 @@ export const RatingLayout = memo(() => {
 
   const selectFriends = useCallback(() => {
     changeRatingActiveTab('friends');
-
-    if (hasFriends) {
-      getFriendsRatingFX(ids);
-    } else {
-      getUserTokenFX();
-    }
-  }, [hasFriends, ids]);
+    getUserTokenFX();
+  }, []);
 
   return (
     <>
