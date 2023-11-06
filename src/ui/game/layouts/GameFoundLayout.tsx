@@ -1,4 +1,4 @@
-import { $game, setPlayerDisconnected, updateTables } from '@core/api/game/store.game';
+import { $game, setLobbyId, setPlayerDisconnected, updateTables } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { PlayerJoinPayload } from '@core/game/player';
 import { confirmReady, joinRoom, leaveRoom } from '@core/sockets/game';
@@ -88,6 +88,7 @@ export const GameFoundLayout = memo(() => {
 
   useEffect(() => {
     if (lobbyId) {
+      setLobbyId(lobbyId);
       joinRoom(lobbyId, userInfo);
       client.updateTable = data => {
         updateTables(data.tables);

@@ -3,6 +3,7 @@ import { clientPerformCallback } from './callbacks';
 
 export const client = clientPerformCallback(m => ({
   foundGameId: m<(data: { roomId: string }) => void>(),
+  newFriendsGameId: m<(data: { roomId: string; invited: boolean }) => void>(),
   playerJoined: m<(data: { users: FruitsGameUserData[] }) => void>(),
   playerLeft: m<(data: { userId: number }) => void>(),
   playerLeftRoom: m<(data: { userId: number }) => void>(),

@@ -1,7 +1,9 @@
 import { getUserInfoFX } from '@core/api/game/effects.game';
-import { $game } from '@core/api/game/store.game';
+import { $game, setLobbyId } from '@core/api/game/store.game';
 import { $userId } from '@core/config';
 import { useStoryShare } from '@core/hooks/useStoryShare';
+import { playAgain } from '@core/sockets/game';
+import { client } from '@core/sockets/receiver';
 import { wrapAsset } from '@core/utils';
 import { FPanel } from '@ui/layout/router';
 import { NoResults } from '@ui/rating/NoResults';
@@ -10,19 +12,34 @@ import { typography } from '@ui/theme/typography.css';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Avatar, Button, FixedLayout } from '@vkontakte/vkui';
 import { useStore, useStoreMap } from 'effector-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { gSt } from '../style.css';
 import { PanelHeaderBackGR } from './PanelBackGR';
 
 export const GameResultsLayout = () => {
   const routeNavigator = useRouteNavigator();
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     getUserInfoFX();
   }, []);
 
+  useEffect(() => {
+    client.newFriendsGameId = data => {
+      setLoading(true);
+      setLobbyId(data.roomId);
+      if (data.invited) {
+        routeNavigator.replace(`/${FPanel.LobbyInvited}/${data.roomId}`);
+      } else {
+        setTimeout(() => {
+          routeNavigator.replace(`/${FPanel.Lobby}`);
+        }, 1500);
+      }
+    };
+  }, []);
+
   const userId = useStore($userId);
-  const { gameRoom, gameResult, tables, pts } = useStoreMap({
+  const { gameRoom, gameResult, tables, pts, lobbyId } = useStoreMap({
     store: $game,
     keys: [],
     fn: g => {
@@ -31,6 +48,7 @@ export const GameResultsLayout = () => {
         gameResult: g.gameResult,
         tables: g.tables,
         pts: g.userInfo.pts,
+        lobbyId: g.lobbyId,
       };
     },
   });
@@ -42,6 +60,7 @@ export const GameResultsLayout = () => {
 
   const opponent = gameRoom.find(g => g.userId !== userId);
   const me = gameRoom.find(g => g.userId === userId);
+  const isDuo = gameResult?.gameType === 'duo';
 
   if (!gameResult) {
     return (
@@ -108,7 +127,14 @@ export const GameResultsLayout = () => {
       </div>
       <FixedLayout vertical="bottom">
         <div className={contentCenter({ gap: '1' })}>
-          <Button onClick={() => routeNavigator.replace(`/${FPanel.Search}`)} size="l" stretched mode="primary">
+          <Button
+            onClick={() => (isDuo ? playAgain(lobbyId) : routeNavigator.replace(`/${FPanel.Search}`))}
+            size="l"
+            stretched
+            mode="primary"
+            loading={isLoading}
+            disabled={clicked}
+          >
             Играть ещё раз
           </Button>
           <Button
@@ -119,6 +145,7 @@ export const GameResultsLayout = () => {
             className={btnSec.secBase}
             onClick={shareStory}
             loading={clicked}
+            disabled={isLoading}
           >
             Поделиться
           </Button>

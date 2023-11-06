@@ -1,5 +1,5 @@
 import { getUserLobbyFX } from '@core/api/game/effects.game';
-import { $game, setPlayerDisconnected, updateTables } from '@core/api/game/store.game';
+import { $game, setLobbyId, setPlayerDisconnected, updateTables } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { appId } from '@core/constants';
 import { PlayerJoinPayload } from '@core/game/player';
@@ -71,6 +71,7 @@ export const LobbyLayout = memo(() => {
 
   useEffect(() => {
     if (lobbyId) {
+      setLobbyId(lobbyId);
       joinRoom(lobbyId, userInfo);
       client.updateTable = data => {
         updateTables(data.tables);

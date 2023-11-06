@@ -60,3 +60,6 @@ export const tickActionEvent = (payload: FruitsGameAction) => {
 export const endGame = (roomId: string) => {
   socket.emit('endGame', { roomId });
 };
+export const playAgain = (roomId: string) => {
+  socket.emit('playAgain', { roomId });
+};
