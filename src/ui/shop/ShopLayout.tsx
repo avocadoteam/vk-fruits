@@ -102,10 +102,7 @@ export const ShopLayout = () => {
                 text={
                   <div>
                     <p className={typography({ variant: 'small', m: 't.5' })}>
-                      На месяц: в два раза больше очков за победу + 3 скина каждый месяц
-                    </p>
-                    <p className={typography({ variant: 'small', m: 't.5' })}>
-                      Навсегда: в два раза больше очков за победу + все скины
+                      В два раза больше очков за победу + 3 скина каждый месяц
                     </p>
                   </div>
                 }
@@ -128,10 +125,7 @@ export const ShopLayout = () => {
             ) : (
               <>
                 <Button className={btnSec.secBase} mode="secondary" stretched size="l" onClick={buySubscription}>
-                  На месяц за 19 голосов
-                </Button>
-                <Button mode="primary" stretched size="l" onClick={() => buyGift(FruitsPaidFeatureTypeUI.FruitsSubFV)}>
-                  Навсегда за 69 голосов
+                  На месяц за 29 голосов
                 </Button>
               </>
             )}

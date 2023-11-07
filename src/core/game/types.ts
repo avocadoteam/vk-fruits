@@ -2,7 +2,6 @@ export enum FruitsPaidFeatureTypeUI {
   FruitsGift = 'fruits_gift',
   FruitsGift3x = 'fruits_gift_3x',
   FruitsSubMonth = 'fruits_sub_month',
-  FruitsSubFV = 'fruits_sub_fv',
 }
 
 export type Fruits = 'watermelon' | 'green_apple' | 'grapes' | 'red_apple' | 'banana' | 'cherries';
