@@ -44,7 +44,6 @@ const text = style({
 });
 
 const btnUp = style({
-  margin: '1rem',
   padding: '1rem',
 });
 
