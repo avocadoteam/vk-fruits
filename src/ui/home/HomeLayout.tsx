@@ -1,5 +1,5 @@
 import { getUserInfoFX } from '@core/api/game/effects.game';
-import { $game } from '@core/api/game/store.game';
+import { $game, setLobbyId } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { addToastToQueue } from '@core/ui-config/effects.uic';
 import { ToastId } from '@core/ui-config/types';
@@ -165,7 +165,10 @@ export const HomeLayout = () => {
                 stretched
                 size="l"
                 after={<Icon12Chevron fill={vars.palette.shade} />}
-                onClick={() => routeNavigator.push(`/${FPanel.Lobby}`)}
+                onClick={() => {
+                  setLobbyId('');
+                  routeNavigator.push(`/${FPanel.Lobby}`);
+                }}
               >
                 <span className={homeStyles.btnContent}>
                   <img src={wrapAsset('/imgs/wrestling.png')} alt="gift" width="28" height="28" />
