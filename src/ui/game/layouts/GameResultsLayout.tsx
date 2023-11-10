@@ -1,5 +1,5 @@
 import { getBotLobbyFX, getUserInfoFX } from '@core/api/game/effects.game';
-import { $game, setLobbyId } from '@core/api/game/store.game';
+import { $game, resetGame, setLobbyId } from '@core/api/game/store.game';
 import { $userId } from '@core/config';
 import { useStoryShare } from '@core/hooks/useStoryShare';
 import { playAgain } from '@core/sockets/game';
@@ -35,6 +35,10 @@ export const GameResultsLayout = () => {
           routeNavigator.replace(`/${FPanel.Lobby}`);
         }, 1500);
       }
+    };
+
+    return () => {
+      resetGame();
     };
   }, []);
 

@@ -72,8 +72,6 @@ $game.on(setGameResult, (state, gameResult) => ({
 }));
 $game.on(resetGame, state => ({
   ...state,
-  gameRoom: [],
-  lobbyId: '',
   tables: [],
   wrongRoom: false,
   gameResult: null,

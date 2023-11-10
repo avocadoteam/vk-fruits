@@ -64,10 +64,10 @@ export const LobbyLayout = memo(() => {
   }, []);
 
   useEffect(() => {
-    if (wsConnected) {
+    if (wsConnected && !lobbyId) {
       getUserLobbyFX();
     }
-  }, [wsConnected]);
+  }, [wsConnected, lobbyId]);
 
   useEffect(() => {
     if (lobbyId) {
