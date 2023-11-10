@@ -43,9 +43,14 @@ const text = style({
   padding: '0 1.25rem',
 });
 
+const btnUp = style({
+  margin: '0 0 1rem 1rem',
+});
+
 export const ratingSt = {
   tab,
   content,
   cell,
   text,
+  btnUp,
 };

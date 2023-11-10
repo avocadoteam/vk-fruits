@@ -2,10 +2,14 @@ import { getUserTokenFX } from '@core/api/friends/effects.config';
 import { getTop100RankFX } from '@core/api/rating/effects.rating';
 import { $rating, changeRatingActiveTab } from '@core/api/rating/store.rating';
 import { $config } from '@core/config';
+import { useEventListener } from '@core/hooks/useEventListener';
+import { clsx } from '@core/utils/clsx';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
-import { Div, Tabs, TabsItem } from '@vkontakte/vkui';
+import { btnSec } from '@ui/theme/theme.css';
+import { Icon24ArrowUp } from '@vkontakte/icons';
+import { Div, FixedLayout, IconButton, Tabs, TabsItem } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { RatingFriendsPermissions } from './friends/FriendsPermissions';
 import { RefreshRatingFriends } from './friends/RefreshRatingFriends';
 import { ResultsFriends } from './friends/ResultsFriends';
@@ -37,6 +41,13 @@ export const RatingLayout = memo(() => {
       };
     },
   });
+  const [onTop, setOnTop] = useState(true);
+
+  useEffect(() => {
+    setOnTop(document.documentElement.scrollTop === 0);
+  }, []);
+
+  useEventListener('scroll', () => setOnTop(document.documentElement.scrollTop === 0));
 
   const selectTop100 = useCallback(() => {
     changeRatingActiveTab('100');
@@ -74,6 +85,16 @@ export const RatingLayout = memo(() => {
           <RatingFriendsPermissions />
         )}
       </div>
+      <FixedLayout vertical="bottom">
+        {onTop ? null : (
+          <IconButton
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className={clsx(btnSec.secBase, ratingSt.btnUp)}
+          >
+            <Icon24ArrowUp />
+          </IconButton>
+        )}
+      </FixedLayout>
     </>
   );
 });
