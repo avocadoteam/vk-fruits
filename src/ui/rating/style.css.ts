@@ -44,7 +44,8 @@ const text = style({
 });
 
 const btnUp = style({
-  margin: '0 0 1rem 1rem',
+  margin: '1rem',
+  padding: '1rem',
 });
 
 export const ratingSt = {

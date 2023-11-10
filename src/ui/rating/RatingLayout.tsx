@@ -3,7 +3,6 @@ import { getTop100RankFX } from '@core/api/rating/effects.rating';
 import { $rating, changeRatingActiveTab } from '@core/api/rating/store.rating';
 import { $config } from '@core/config';
 import { useEventListener } from '@core/hooks/useEventListener';
-import { clsx } from '@core/utils/clsx';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
 import { btnSec } from '@ui/theme/theme.css';
 import { Icon24ArrowUp } from '@vkontakte/icons';
@@ -87,12 +86,11 @@ export const RatingLayout = memo(() => {
       </div>
       <FixedLayout vertical="bottom">
         {onTop ? null : (
-          <IconButton
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className={clsx(btnSec.secBase, ratingSt.btnUp)}
-          >
-            <Icon24ArrowUp />
-          </IconButton>
+          <div className={ratingSt.btnUp}>
+            <IconButton onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className={btnSec.secBase}>
+              <Icon24ArrowUp />
+            </IconButton>
+          </div>
         )}
       </FixedLayout>
     </>

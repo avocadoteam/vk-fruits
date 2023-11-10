@@ -138,7 +138,7 @@ const buyItem = style({
 const horizContainer = style({
   display: 'flex',
   gap: '1rem',
-  marginBottom: '3rem',
+  marginBottom: '1.5rem',
   padding: '0 1rem',
 });
 const horizContainerSpecial = style({
