@@ -42,7 +42,7 @@ const gameBoard = style({
   padding: '10px',
   maxWidth: '335px',
   width: '100%',
-  margin: '1rem auto 120px',
+  margin: '1rem auto 160px',
 });
 const opponentContainer = recipe({
   base: {
@@ -141,6 +141,12 @@ const horizContainer = style({
   marginBottom: '3rem',
   padding: '0 1rem',
 });
+const horizContainerSpecial = style({
+  display: 'flex',
+  gap: '1rem',
+  marginBottom: '.5rem',
+  padding: '0 1rem',
+});
 
 export const gSt = {
   container,
@@ -153,4 +159,5 @@ export const gSt = {
   buyItem,
   grBadge2,
   horizContainer,
+  horizContainerSpecial,
 };

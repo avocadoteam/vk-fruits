@@ -129,13 +129,15 @@ export const GameBoard = memo(() => {
       </div>
 
       <FixedLayout vertical="bottom">
+        <div className={gSt.horizContainerSpecial}>
+          <div className={gSt.buyItem} onClick={toggleFreeze}>
+            <img src={wrapAsset('/imgs/ice.png')} width={24} height={24} />
+            <p className={typography({ variant: 'small' })}>Заморозка</p>
+            <div className={gSt.grBadge2}>-{myTable.actionPrices[0]}</div>
+          </div>
+        </div>
         <HorizontalScroll showArrows="always">
           <div className={gSt.horizContainer}>
-            <div className={gSt.buyItem} onClick={toggleFreeze}>
-              <img src={wrapAsset('/imgs/ice.png')} width={24} height={24} />
-              <p className={typography({ variant: 'small' })}>Заморозка</p>
-              <div className={gSt.grBadge2}>-{myTable.actionPrices[0]}</div>
-            </div>
             {skinPack.map((skin, index) => (
               <div
                 className={gSt.buyItem}
@@ -149,7 +151,6 @@ export const GameBoard = memo(() => {
                 }}
               >
                 <img src={skin.src} width={24} height={24} />
-                <p className={typography({ variant: 'small' })}>Новый предмет</p>
                 <div className={gSt.grBadge2}>-{myTable.fruitPrices[index]}</div>
               </div>
             ))}
