@@ -1,5 +1,5 @@
 import { getUserInfoFX } from '@core/api/game/effects.game';
-import { $game, resetGame } from '@core/api/game/store.game';
+import { $game } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { addToastToQueue } from '@core/ui-config/effects.uic';
 import { ToastId } from '@core/ui-config/types';
@@ -19,7 +19,7 @@ import { homeStyles } from './style.css';
 
 export const HomeLayout = () => {
   const { user } = useStore($config);
-  const { pts, hasPremium, countGifts, hasSevenDay, wins, looses } = useStoreMap({
+  const { pts, hasPremium, countGifts, hasSevenDay, wins, looses, hasUnfinishedGame, lobbyId } = useStoreMap({
     store: $game,
     keys: [],
     fn: g => {
@@ -30,13 +30,15 @@ export const HomeLayout = () => {
         hasSevenDay: g.userInfo.hasSevenDay,
         wins: g.userInfo.wins,
         looses: g.userInfo.looses,
+
+        hasUnfinishedGame: g.tables.length && !g.gameResult,
+        lobbyId: g.lobbyId,
       };
     },
   });
   const routeNavigator = useRouteNavigator();
 
   useEffect(() => {
-    resetGame();
     getUserInfoFX();
   }, []);
 
@@ -127,34 +129,52 @@ export const HomeLayout = () => {
           </Button>
         </div>
         <div className={contentCenter({ direction: 'column' })} style={{ marginTop: '1rem' }}>
-          <Button
-            className={clsx(btnSec.secHome, homeStyles.btnWide)}
-            mode="secondary"
-            stretched
-            size="l"
-            after={<Icon12Chevron fill={vars.palette.shade} />}
-            onClick={() => routeNavigator.push(`/${FPanel.Search}`)}
-          >
-            <span className={homeStyles.btnContent}>
-              <img src={wrapAsset('/imgs/mag_glass.png')} alt="gift" width="28" height="28" />
-              Найти игру
-            </span>
-          </Button>
-          <Button
-            style={{ marginTop: '.5rem' }}
-            className={clsx(btnSec.secHome, homeStyles.btnWide)}
-            mode="secondary"
-            stretched
-            size="l"
-            after={<Icon12Chevron fill={vars.palette.shade} />}
-            onClick={() => routeNavigator.push(`/${FPanel.Lobby}`)}
-          >
-            <span className={homeStyles.btnContent}>
-              <img src={wrapAsset('/imgs/wrestling.png')} alt="gift" width="28" height="28" />
-              Играть с другом
-            </span>
-          </Button>
-          <PlayWithBot />
+          {hasUnfinishedGame && lobbyId ? (
+            <Button
+              className={clsx(btnSec.secHome, homeStyles.btnWide)}
+              mode="secondary"
+              stretched
+              size="l"
+              after={<Icon12Chevron fill={vars.palette.shade} />}
+              onClick={() => routeNavigator.push(`/${FPanel.Game}/${lobbyId}`)}
+            >
+              <span className={homeStyles.btnContent}>
+                <img src={wrapAsset('/imgs/back_hand.png')} alt="gift" width="28" height="28" />
+                Продолжить игру
+              </span>
+            </Button>
+          ) : (
+            <>
+              <Button
+                className={clsx(btnSec.secHome, homeStyles.btnWide)}
+                mode="secondary"
+                stretched
+                size="l"
+                after={<Icon12Chevron fill={vars.palette.shade} />}
+                onClick={() => routeNavigator.push(`/${FPanel.Search}`)}
+              >
+                <span className={homeStyles.btnContent}>
+                  <img src={wrapAsset('/imgs/mag_glass.png')} alt="gift" width="28" height="28" />
+                  Найти игру
+                </span>
+              </Button>
+              <Button
+                style={{ marginTop: '.5rem' }}
+                className={clsx(btnSec.secHome, homeStyles.btnWide)}
+                mode="secondary"
+                stretched
+                size="l"
+                after={<Icon12Chevron fill={vars.palette.shade} />}
+                onClick={() => routeNavigator.push(`/${FPanel.Lobby}`)}
+              >
+                <span className={homeStyles.btnContent}>
+                  <img src={wrapAsset('/imgs/wrestling.png')} alt="gift" width="28" height="28" />
+                  Играть с другом
+                </span>
+              </Button>
+              <PlayWithBot />
+            </>
+          )}
         </div>
         <div className={contentCenter({ direction: 'column' })} style={{ marginTop: '1rem' }}>
           <Button

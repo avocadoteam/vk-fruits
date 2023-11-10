@@ -1,21 +1,25 @@
-import { useEventListener, useWindowListener } from '@core/hooks/useEventListener';
+import { $game } from '@core/api/game/store.game';
+import { useEventListener } from '@core/hooks/useEventListener';
 import { endGame } from '@core/sockets/game';
 import { INITIAL_URL } from '@ui/layout/router';
 import { btnBackStyle, headerStyle } from '@ui/layout/style.css';
-import { useParams, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
+import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Alert, PanelHeader, PanelHeaderButton } from '@vkontakte/vkui';
+import { useStoreMap } from 'effector-react';
 import { useEffect, useState } from 'react';
 
 export const PanelHeaderBackInGame = () => {
   const routeNavigator = useRouteNavigator();
   const [onTop, setOnTop] = useState(true);
-  const params = useParams();
-  const lobbyId = params?.id;
-  useEffect(() => {
-    setOnTop(document.documentElement.scrollTop === 0);
-  }, []);
-
-  useEventListener('scroll', () => setOnTop(document.documentElement.scrollTop === 0));
+  const { lobbyId } = useStoreMap({
+    store: $game,
+    keys: [],
+    fn: g => {
+      return {
+        lobbyId: g.lobbyId,
+      };
+    },
+  });
 
   const popup = (
     <Alert
@@ -43,11 +47,11 @@ export const PanelHeaderBackInGame = () => {
     />
   );
 
-  useWindowListener('popstate', e => {
-    e.preventDefault();
-    console.debug('popstate');
-    routeNavigator.showPopout(popup);
-  });
+  useEffect(() => {
+    setOnTop(document.documentElement.scrollTop === 0);
+  }, []);
+
+  useEventListener('scroll', () => setOnTop(document.documentElement.scrollTop === 0));
 
   return (
     <PanelHeader

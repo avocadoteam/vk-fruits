@@ -18,13 +18,3 @@ export const useEventListener = <K extends keyof DocumentEventMap>(
     return () => document.removeEventListener(eventListen, eventHandler);
   }, [eventListen, eventKey, callback]);
 };
-
-export const useWindowListener = <K extends keyof WindowEventMap>(
-  eventListen: K,
-  callback: (e: WindowEventMap[K]) => void,
-) => {
-  useEffect(() => {
-    window.addEventListener(eventListen, callback);
-    return () => window.removeEventListener(eventListen, callback);
-  }, [eventListen, callback]);
-};
