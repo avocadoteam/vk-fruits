@@ -1,4 +1,4 @@
-import { useEventListener } from '@core/hooks/useEventListener';
+import { useEventListener, useWindowListener } from '@core/hooks/useEventListener';
 import { endGame } from '@core/sockets/game';
 import { INITIAL_URL } from '@ui/layout/router';
 import { btnBackStyle, headerStyle } from '@ui/layout/style.css';
@@ -42,6 +42,12 @@ export const PanelHeaderBackInGame = () => {
       text="Вы действительно хотите покинуть игру?"
     />
   );
+
+  useWindowListener('popstate', e => {
+    e.preventDefault();
+    console.debug('popstate');
+    routeNavigator.showPopout(popup);
+  });
 
   return (
     <PanelHeader

@@ -83,7 +83,7 @@ $game.on(updateTables, (state, tables) => ({
   ...state,
   tables: tables.map(t => {
     const user = state.gameRoom.find(g => g.userId === t.userId);
-    const [, skinName] = user?.selectedSkin.split('__') ?? [];
+    const [, skinName] = user?.selectedSkin.split('__') ?? ['', 'fruits'];
     const pack = itemsSkins[skinName as keyof FruitItems];
     return {
       ...t,
