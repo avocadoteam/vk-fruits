@@ -1,5 +1,5 @@
 import { getUserInfoFX } from '@core/api/game/effects.game';
-import { $game, setLobbyId } from '@core/api/game/store.game';
+import { $game, resetGameRoom } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { addToastToQueue } from '@core/ui-config/effects.uic';
 import { ToastId } from '@core/ui-config/types';
@@ -166,7 +166,7 @@ export const HomeLayout = () => {
                 size="l"
                 after={<Icon12Chevron fill={vars.palette.shade} />}
                 onClick={() => {
-                  setLobbyId('');
+                  resetGameRoom();
                   routeNavigator.push(`/${FPanel.Lobby}`);
                 }}
               >

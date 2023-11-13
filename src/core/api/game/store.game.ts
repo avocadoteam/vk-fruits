@@ -7,6 +7,7 @@ import { getBotLobbyFX, getUserInfoFX, getUserLobbyFX } from './effects.game';
 import { GameState } from './type';
 
 export const resetGame = gameDomain.createEvent();
+export const resetGameRoom = gameDomain.createEvent();
 export const setLobbyId = gameDomain.createEvent<string>();
 export const updateTables = gameDomain.createEvent<FruitsGameTable[]>();
 export const setGameResult = gameDomain.createEvent<GameState['gameResult']>();
@@ -75,6 +76,11 @@ $game.on(resetGame, state => ({
   tables: [],
   wrongRoom: false,
   gameResult: null,
+}));
+$game.on(resetGameRoom, state => ({
+  ...state,
+  gameRoom: [],
+  lobbyId: '',
 }));
 
 $game.on(updateTables, (state, tables) => ({
