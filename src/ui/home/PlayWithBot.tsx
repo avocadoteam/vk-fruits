@@ -1,4 +1,5 @@
 import { getBotLobbyFX } from '@core/api/game/effects.game';
+import { setLobbyId } from '@core/api/game/store.game';
 import { clsx } from '@core/utils/clsx';
 import { FPanel } from '@ui/layout/router';
 import { btnSec, vars } from '@ui/theme/theme.css';
@@ -15,6 +16,7 @@ export const PlayWithBot = () => {
 
   const startGameWithBot = useCallback(() => {
     getBotLobbyFX().then(lobbyId => {
+      setLobbyId(lobbyId);
       routeNavigator.push(`/${FPanel.GameFound}/${lobbyId}`);
     });
   }, [routeNavigator]);
