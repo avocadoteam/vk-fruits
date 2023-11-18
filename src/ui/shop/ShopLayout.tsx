@@ -3,6 +3,7 @@ import { $game } from '@core/api/game/store.game';
 import { buyPaidFeatureFX, buySubFX } from '@core/api/shop/effects.shop';
 import { $config, setSelectedSkin } from '@core/config';
 import { FruitsPaidFeatureTypeUI } from '@core/game/types';
+import { useIsIosApp } from '@core/hooks/useIsIosApp';
 import { addToastToQueue } from '@core/ui-config/effects.uic';
 import { ToastId } from '@core/ui-config/types';
 import { wrapAsset } from '@core/utils';
@@ -18,6 +19,7 @@ import { MultipleGifts } from 'src/assets/svg/MultipleGifts';
 import { RoundGift } from 'src/assets/svg/RoundGift';
 import { AdsGift } from './AdsGift';
 import { sSt } from './style.css';
+
 const loadingBuyCombine = combine(
   [buyPaidFeatureFX.pending, getUserInfoFX.pending, buySubFX.pending],
   ([a, b, c]) => a || b || c,
@@ -27,6 +29,7 @@ export const ShopLayout = () => {
   const [selectedGifts, selectGift] = useState('1');
   const [isShown, showTooltip] = useState(false);
   const loadingBuy = useStore(loadingBuyCombine);
+  const isIOS = useIsIosApp();
 
   const { hasAllSkins, skinsToBuyMaxCount, skins, hasPremium } = useStoreMap({
     store: $game,
@@ -83,57 +86,58 @@ export const ShopLayout = () => {
       <div className={contentCenter({ direction: 'column', alignItems: 'start' })}>
         <p className={typography({ variant: 'small', shadow: true, transform: 'up', m: 'l' })}>Покупки</p>
 
-        <div className={sSt.box}>
-          <div className={contentCenter({ direction: 'column', p: '1' })}>
-            <img
-              width={32}
-              style={{ marginTop: '1rem' }}
-              height={32}
-              src="https://showtime.app-dich.com/imgs/emoji/veg/avocado.png"
-              alt="avocado"
-            />
-            <p className={typography({ variant: 'head', transform: 'up' })}>Fruit Pass</p>
-            <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
-              <p className={typography({ variant: 'small', shadow: true })}>Содержит премиальные функции</p>
-              <Tooltip
-                isShown={isShown}
-                onClose={() => showTooltip(false)}
-                header={<p className={typography({ variant: 'head', transform: 'up' })}>Fruit Pass</p>}
-                text={
-                  <div>
-                    <p className={typography({ variant: 'small', m: 't.5' })}>
-                      В два раза больше очков за победу + 3 скина каждый месяц
-                    </p>
-                  </div>
-                }
-                offsetY={10}
-              >
-                <IconButton
-                  style={{ height: 20, color: vars.palette.white }}
-                  hoverMode="opacity"
-                  onClick={() => showTooltip(true)}
+        {hasPremium || !isIOS ? (
+          <div className={sSt.box}>
+            <div className={contentCenter({ direction: 'column', p: '1' })}>
+              <img
+                width={32}
+                style={{ marginTop: '1rem' }}
+                height={32}
+                src="https://showtime.app-dich.com/imgs/emoji/veg/avocado.png"
+                alt="avocado"
+              />
+              <p className={typography({ variant: 'head', transform: 'up' })}>Fruit Pass</p>
+              <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
+                <p className={typography({ variant: 'small', shadow: true })}>Содержит премиальные функции</p>
+                <Tooltip
+                  isShown={isShown}
+                  onClose={() => showTooltip(false)}
+                  header={<p className={typography({ variant: 'head', transform: 'up' })}>Fruit Pass</p>}
+                  text={
+                    <div>
+                      <p className={typography({ variant: 'small', m: 't.5' })}>
+                        В два раза больше очков за победу + 3 скина каждый месяц
+                      </p>
+                    </div>
+                  }
+                  offsetY={10}
                 >
-                  <Icon20InfoCircleOutline />
-                </IconButton>
-              </Tooltip>
+                  <IconButton
+                    style={{ height: 20, color: vars.palette.white }}
+                    hoverMode="opacity"
+                    onClick={() => showTooltip(true)}
+                  >
+                    <Icon20InfoCircleOutline />
+                  </IconButton>
+                </Tooltip>
+              </div>
+            </div>
+            <div className={sSt.btnContainer}>
+              {hasPremium ? (
+                <p className={typography({ variant: 'small', transform: 'up' })}>Вы уже купили премиум</p>
+              ) : (
+                <>
+                  <Button className={btnSec.secBase} mode="secondary" stretched size="l" onClick={buySubscription}>
+                    На месяц за 29 голосов
+                  </Button>
+                </>
+              )}
             </div>
           </div>
-
-          <div className={sSt.btnContainer}>
-            {hasPremium ? (
-              <p className={typography({ variant: 'small', transform: 'up' })}>Вы уже купили премиум</p>
-            ) : (
-              <>
-                <Button className={btnSec.secBase} mode="secondary" stretched size="l" onClick={buySubscription}>
-                  На месяц за 29 голосов
-                </Button>
-              </>
-            )}
-          </div>
-        </div>
+        ) : null}
 
         <AdsGift />
-        {hasAllSkins ? null : (
+        {hasAllSkins || isIOS ? null : (
           <div className={sSt.box}>
             <div className={contentCenter({ direction: 'column', p: '1' })}>
               <img width={32} style={{ marginTop: '1rem' }} height={32} src={wrapAsset('/imgs/gift.png')} alt="gift" />
