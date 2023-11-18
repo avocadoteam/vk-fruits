@@ -22,7 +22,7 @@ import { useActiveVkuiLocation, usePopout, useRouteNavigator } from '@vkontakte/
 import { Alert, Panel, Root, ScreenSpinner, SplitCol, SplitLayout, View } from '@vkontakte/vkui';
 import { combine } from 'effector';
 import { useStore } from 'effector-react';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { FPanel, FView } from './router';
 
 const initialLoadingCombine = combine(
@@ -36,10 +36,9 @@ export const AppLayout = () => {
   const keysLoading = useStore(getStorageKeys.pending);
 
   const routerPopout = usePopout();
-  const { panelsHistory, view: activeView = FView.Main, panel: activePanel = FPanel.Home } = useActiveVkuiLocation();
+  const { view: activeView = FView.Main, panel: activePanel = FPanel.Home } = useActiveVkuiLocation();
 
   const routeNavigator = useRouteNavigator();
-  const onSwipeBack = useCallback(() => routeNavigator.back(), [routeNavigator]);
 
   const popup = (
     <Alert
@@ -83,7 +82,7 @@ export const AppLayout = () => {
     <SplitLayout modal={<ModalRoots />} popout={initialLoading ? <ScreenSpinner /> : routerPopout}>
       <SplitCol>
         <Root activeView={activeView}>
-          <View nav={FView.Main} activePanel={activePanel} onSwipeBack={onSwipeBack} history={panelsHistory}>
+          <View nav={FView.Main} activePanel={activePanel}>
             <Panel nav={FPanel.Welcome} className={bg()}>
               <WelcomeLayout />
             </Panel>
