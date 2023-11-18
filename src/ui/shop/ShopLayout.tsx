@@ -84,7 +84,7 @@ export const ShopLayout = () => {
       <PanelHeaderBack />
 
       <div className={contentCenter({ direction: 'column', alignItems: 'start' })}>
-        <p className={typography({ variant: 'small', shadow: true, transform: 'up', m: 'l' })}>Покупки</p>
+        {!isIOS ? <p className={typography({ variant: 'small', shadow: true, transform: 'up', m: 'l' })}>Покупки</p> : null}
 
         {hasPremium || !isIOS ? (
           <div className={sSt.box}>
