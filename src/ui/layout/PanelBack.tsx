@@ -1,4 +1,5 @@
 import { useEventListener } from '@core/hooks/useEventListener';
+import { useIsIosApp } from '@core/hooks/useIsIosApp';
 import { Icon24ChevronCompactLeft } from '@vkontakte/icons';
 import { useFirstPageCheck, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { PanelHeader, PanelHeaderButton } from '@vkontakte/vkui';
@@ -13,6 +14,7 @@ export const PanelHeaderBack = ({ onCb }: Props) => {
   const routeNavigator = useRouteNavigator();
   const isFirstPage = useFirstPageCheck();
   const [onTop, setOnTop] = useState(true);
+  const isIOS = useIsIosApp();
 
   useEffect(() => {
     setOnTop(document.documentElement.scrollTop === 0);
@@ -37,7 +39,7 @@ export const PanelHeaderBack = ({ onCb }: Props) => {
           <Icon24ChevronCompactLeft width={22} height={22} />
         </PanelHeaderButton>
       }
-      className={headerStyle({ onTop })}
+      className={headerStyle({ onTop, isIOS })}
     />
   );
 };

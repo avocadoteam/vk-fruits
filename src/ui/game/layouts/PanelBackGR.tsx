@@ -1,4 +1,5 @@
 import { useEventListener } from '@core/hooks/useEventListener';
+import { useIsIosApp } from '@core/hooks/useIsIosApp';
 import { INITIAL_URL } from '@ui/layout/router';
 import { btnBackStyle, headerStyle } from '@ui/layout/style.css';
 import { Icon24ChevronCompactLeft } from '@vkontakte/icons';
@@ -9,6 +10,7 @@ import { useEffect, useState } from 'react';
 export const PanelHeaderBackGR = () => {
   const routeNavigator = useRouteNavigator();
   const [onTop, setOnTop] = useState(true);
+  const isIOS = useIsIosApp();
 
   useEffect(() => {
     setOnTop(document.documentElement.scrollTop === 0);
@@ -24,7 +26,7 @@ export const PanelHeaderBackGR = () => {
           <Icon24ChevronCompactLeft width={22} height={22} />
         </PanelHeaderButton>
       }
-      className={headerStyle({ onTop })}
+      className={headerStyle({ onTop, isIOS })}
     />
   );
 };

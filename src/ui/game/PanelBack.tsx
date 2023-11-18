@@ -1,5 +1,6 @@
 import { $game } from '@core/api/game/store.game';
 import { useEventListener } from '@core/hooks/useEventListener';
+import { useIsIosApp } from '@core/hooks/useIsIosApp';
 import { endGame } from '@core/sockets/game';
 import { INITIAL_URL } from '@ui/layout/router';
 import { btnBackStyle, headerStyle } from '@ui/layout/style.css';
@@ -11,6 +12,8 @@ import { useEffect, useState } from 'react';
 export const PanelHeaderBackInGame = () => {
   const routeNavigator = useRouteNavigator();
   const [onTop, setOnTop] = useState(true);
+  const isIOS = useIsIosApp();
+
   const { lobbyId } = useStoreMap({
     store: $game,
     keys: [],
@@ -61,7 +64,7 @@ export const PanelHeaderBackInGame = () => {
           ПОКИНУТЬ ИГРУ
         </PanelHeaderButton>
       }
-      className={headerStyle({ onTop })}
+      className={headerStyle({ onTop, isIOS })}
     />
   );
 };
