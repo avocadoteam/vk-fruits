@@ -50,6 +50,14 @@ export const PersonalPosition = ({ positionInList }: Props) => {
 
   return (
     <>
+      <div className={ratingSt.content}>
+        <div className={ratingSt.cell()}>
+          <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
+            <img width={40} height={40} src={wrapAsset('/imgs/wow_face.png')} />
+            <p className={typography({ variant: 'small' })}>Каждую неделю мы дарим стикеры топ-5 игрокам</p>
+          </div>
+        </div>
+      </div>
       <p className={clsx(typography({ variant: 'small', shadow: true }), ratingSt.text)}>Ваша позиция в рейтинге</p>
       <div className={ratingSt.content}>
         <div className={ratingSt.cell()}>
