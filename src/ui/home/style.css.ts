@@ -1,6 +1,9 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 
 const btnWide = style({});
+const btnPlay = style({
+  backgroundColor: 'rgba(255, 255, 255, 0.35) !important',
+});
 const btnContent = style({
   display: 'flex',
   alignItems: 'center',
@@ -22,4 +25,5 @@ export const homeStyles = {
   btnWide,
   btnContent,
   grid,
+  btnPlay,
 };

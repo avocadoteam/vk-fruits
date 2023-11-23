@@ -102,32 +102,7 @@ export const HomeLayout = () => {
             </span>
           </Button>
         </div>
-        <div className={homeStyles.grid}>
-          <Button
-            onClick={() => routeNavigator.push(`/${FPanel.Shop}`)}
-            className={clsx(btnSec.secHome, homeStyles.btnWide)}
-            mode="secondary"
-            stretched
-            size="l"
-          >
-            <span className={homeStyles.btnContent}>
-              <img src={wrapAsset('/imgs/money_bag.png')} alt="gift" width="28" height="28" />
-              Магазин
-            </span>
-          </Button>
-          <Button
-            onClick={() => routeNavigator.push(`/${FPanel.Rating}`)}
-            className={clsx(btnSec.secHome, homeStyles.btnWide)}
-            mode="secondary"
-            stretched
-            size="l"
-          >
-            <span className={homeStyles.btnContent}>
-              <img src={wrapAsset('/imgs/fire.png')} alt="gift" width="28" height="28" />
-              Рейтинг
-            </span>
-          </Button>
-        </div>
+
         <div className={contentCenter({ direction: 'column' })} style={{ marginTop: '1rem' }}>
           {hasUnfinishedGame && lobbyId ? (
             <Button
@@ -146,7 +121,7 @@ export const HomeLayout = () => {
           ) : (
             <>
               <Button
-                className={clsx(btnSec.secHome, homeStyles.btnWide)}
+                className={clsx(btnSec.secHome, homeStyles.btnWide, homeStyles.btnPlay)}
                 mode="secondary"
                 stretched
                 size="l"
@@ -178,6 +153,32 @@ export const HomeLayout = () => {
               <PlayWithBot />
             </>
           )}
+        </div>
+        <div className={homeStyles.grid} style={{ marginTop: '1rem' }}>
+          <Button
+            onClick={() => routeNavigator.push(`/${FPanel.Shop}`)}
+            className={clsx(btnSec.secHome, homeStyles.btnWide)}
+            mode="secondary"
+            stretched
+            size="l"
+          >
+            <span className={homeStyles.btnContent}>
+              <img src={wrapAsset('/imgs/money_bag.png')} alt="gift" width="28" height="28" />
+              Магазин
+            </span>
+          </Button>
+          <Button
+            onClick={() => routeNavigator.push(`/${FPanel.Rating}`)}
+            className={clsx(btnSec.secHome, homeStyles.btnWide)}
+            mode="secondary"
+            stretched
+            size="l"
+          >
+            <span className={homeStyles.btnContent}>
+              <img src={wrapAsset('/imgs/fire.png')} alt="gift" width="28" height="28" />
+              Рейтинг
+            </span>
+          </Button>
         </div>
         <div className={contentCenter({ direction: 'column' })} style={{ marginTop: '1rem' }}>
           <Button
