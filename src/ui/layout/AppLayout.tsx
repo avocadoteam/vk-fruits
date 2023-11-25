@@ -2,6 +2,7 @@ import { getUserInfoFX } from '@core/api/game/effects.game';
 import { $config } from '@core/config';
 import { getStorageKeys, getUserDataFX } from '@core/config/effects.config';
 import { qVK } from '@core/data/q-params';
+import { useChatId } from '@core/hooks/useChatId';
 import { connectWS } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
 import { GameFoundLayout } from '@ui/game/layouts/GameFoundLayout';
@@ -34,6 +35,7 @@ export const AppLayout = () => {
   const { online, onlineHandleActivate, sawWelcome } = useStore($config);
   const initialLoading = useStore(initialLoadingCombine);
   const keysLoading = useStore(getStorageKeys.pending);
+  const { hasChatId } = useChatId();
 
   const routerPopout = usePopout();
   const { view: activeView = FView.Main, panel: activePanel = FPanel.Home } = useActiveVkuiLocation();
@@ -69,10 +71,15 @@ export const AppLayout = () => {
   }, []);
 
   useEffect(() => {
-    if (!sawWelcome && !keysLoading) {
-      routeNavigator.replace(`/${FPanel.Welcome}/step1`);
+    if (keysLoading) {
+      return;
     }
-  }, [routeNavigator, sawWelcome, keysLoading]);
+    if (!sawWelcome) {
+      routeNavigator.replace(`/${FPanel.Welcome}/step1`);
+    } else if (hasChatId) {
+      routeNavigator.push(`/${FPanel.Lobby}`);
+    }
+  }, [routeNavigator, sawWelcome, keysLoading, hasChatId]);
 
   if (!online || !onlineHandleActivate) {
     return <Offline />;
