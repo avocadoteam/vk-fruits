@@ -119,14 +119,11 @@ export const LobbyLayout = memo(() => {
           hash: `/${FPanel.LobbyInvited}/${lobbyId}`,
         })
         .then(data => {
-          console.debug('VKWebAppAddToChat', data);
           if (!data.result) {
             routeNavigator.showPopout(popup);
           }
         })
         .catch(() => {
-          console.debug('VKWebAppAddToChat error');
-
           routeNavigator.showPopout(popup);
         });
     } else {
