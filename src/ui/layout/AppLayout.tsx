@@ -72,16 +72,17 @@ export const AppLayout = () => {
   }, []);
 
   useEffect(() => {
+    const hash = window.location.hash;
     if (keysLoading) {
       return;
     }
-    if (!sawWelcome && activePanel !== FPanel.Welcome) {
+    if (!sawWelcome) {
       routeNavigator.replace(`/${FPanel.Welcome}/step1`);
-    } else if (hasChatId && !onceOpened.current && activePanel !== FPanel.LobbyInvited) {
+    } else if (hasChatId && !onceOpened.current && !hash.includes(FPanel.LobbyInvited)) {
       onceOpened.current = true;
       routeNavigator.replace(`/${FPanel.Lobby}`);
     }
-  }, [routeNavigator, sawWelcome, keysLoading, hasChatId, onceOpened, activePanel]);
+  }, [routeNavigator, sawWelcome, keysLoading, hasChatId, onceOpened]);
 
   if (!online || !onlineHandleActivate) {
     return <Offline />;
