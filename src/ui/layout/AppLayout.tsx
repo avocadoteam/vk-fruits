@@ -32,7 +32,7 @@ const initialLoadingCombine = combine(
 );
 
 export const AppLayout = () => {
-  const { online, onlineHandleActivate, sawWelcome } = useStore($config);
+  const { online, onlineHandleActivate, sawWelcome, wsConnected } = useStore($config);
   const initialLoading = useStore(initialLoadingCombine);
   const keysLoading = useStore(getStorageKeys.pending);
   const { hasChatId } = useChatId();
@@ -76,10 +76,10 @@ export const AppLayout = () => {
     }
     if (!sawWelcome) {
       routeNavigator.replace(`/${FPanel.Welcome}/step1`);
-    } else if (hasChatId) {
-      routeNavigator.push(`/${FPanel.Lobby}`);
+    } else if (hasChatId && !wsConnected) {
+      routeNavigator.replace(`/${FPanel.Lobby}`);
     }
-  }, [routeNavigator, sawWelcome, keysLoading, hasChatId]);
+  }, [routeNavigator, sawWelcome, keysLoading, hasChatId, wsConnected]);
 
   if (!online || !onlineHandleActivate) {
     return <Offline />;
