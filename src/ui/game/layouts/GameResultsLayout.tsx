@@ -1,6 +1,8 @@
-import { getBotLobbyFX, getUserInfoFX } from '@core/api/game/effects.game';
+import { getBotLobbyFX, getUserInfoFX, getUserLobbyFX } from '@core/api/game/effects.game';
 import { $game, resetGame, setLobbyId } from '@core/api/game/store.game';
 import { $userId } from '@core/config';
+import { useChatId } from '@core/hooks/useChatId';
+import { useInviteToChat } from '@core/hooks/useInviteToChat';
 import { useStoryShare } from '@core/hooks/useStoryShare';
 import { playAgain } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
@@ -19,7 +21,8 @@ import { PanelHeaderBackGR } from './PanelBackGR';
 export const GameResultsLayout = () => {
   const routeNavigator = useRouteNavigator();
   const [isLoading, setLoading] = useState(false);
-
+  const { hasChatId } = useChatId();
+  const { share } = useInviteToChat();
   useEffect(() => {
     getUserInfoFX();
   }, []);
@@ -75,11 +78,23 @@ export const GameResultsLayout = () => {
           })
           .finally(() => setLoading(false));
         break;
-      case 'duo':
+      case 'duo': {
+        setLoading(true);
+        if (hasChatId) {
+          getUserLobbyFX()
+            .then(newLobbyId => {
+              share(newLobbyId, { closeApp: true });
+            })
+            .finally(() => setLoading(false));
+
+          return;
+        }
+
         if (lobbyId) {
           playAgain(lobbyId);
         }
         break;
+      }
       case 'rank':
         routeNavigator.replace(`/${FPanel.Search}`);
         break;
@@ -87,7 +102,7 @@ export const GameResultsLayout = () => {
       default:
         break;
     }
-  }, [gameResult?.gameType, lobbyId, routeNavigator]);
+  }, [gameResult?.gameType, hasChatId, lobbyId, routeNavigator, share]);
 
   if (!gameResult) {
     return (

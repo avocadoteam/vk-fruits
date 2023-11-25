@@ -1,28 +1,24 @@
 import { getUserLobbyFX } from '@core/api/game/effects.game';
 import { $game, setLobbyId, setPlayerDisconnected, updateTables } from '@core/api/game/store.game';
 import { $config } from '@core/config';
-import { appId } from '@core/constants';
 import { PlayerJoinPayload } from '@core/game/player';
-import { useChatId } from '@core/hooks/useChatId';
-import { useOpenWallShare } from '@core/hooks/useShareWall';
+import { useInviteToChat } from '@core/hooks/useInviteToChat';
 import { confirmReady, joinRoom, leaveRoom } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
 import { wrapAsset } from '@core/utils';
 import { noop } from '@core/utils/noop';
-import { vkBridge } from '@core/vk-bridge/instance';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
 import { FPanel } from '@ui/layout/router';
 import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Icon24CheckCircleFillGreen } from '@vkontakte/icons';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
-import { Alert, Avatar, Button, FixedLayout } from '@vkontakte/vkui';
+import { Avatar, Button, FixedLayout } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
-import { memo, useCallback, useEffect, useMemo } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 
 export const LobbyLayout = memo(() => {
   const routeNavigator = useRouteNavigator();
-  const { hasChatId } = useChatId();
   const { lobbyId, gameRoom } = useStoreMap({
     store: $game,
     keys: [],
@@ -33,7 +29,7 @@ export const LobbyLayout = memo(() => {
       };
     },
   });
-  const { shareWall } = useOpenWallShare(`https://vk.com/app${appId}#/${FPanel.LobbyInvited}/${lobbyId}`);
+  const { share } = useInviteToChat();
 
   const { userInfo, wsConnected, userId } = useStoreMap({
     store: $config,
@@ -83,53 +79,11 @@ export const LobbyLayout = memo(() => {
     }
   }, [lobbyId, routeNavigator, userInfo]);
 
-  const popup = useMemo(
-    () => (
-      <Alert
-        actions={[
-          {
-            title: 'Потом',
-            autoClose: true,
-            mode: 'cancel',
-          },
-          {
-            title: 'Поделиться',
-            autoClose: true,
-            mode: 'default',
-            action: () => {
-              shareWall();
-            },
-          },
-        ]}
-        onClose={() => routeNavigator.hidePopout()}
-        text="Временно недоступно. Попробуйте поделиться ссылкой."
-      />
-    ),
-    [routeNavigator, shareWall],
-  );
-
   const addFriend = useCallback(() => {
     if (opponent && lobbyId) return;
 
-    if (hasChatId) {
-      vkBridge
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .send('VKWebAppAddToChat' as any, {
-          action_title: 'Присоединиться к лобби',
-          hash: `/${FPanel.LobbyInvited}/${lobbyId}`,
-        })
-        .then(data => {
-          if (!data.result) {
-            routeNavigator.showPopout(popup);
-          }
-        })
-        .catch(() => {
-          routeNavigator.showPopout(popup);
-        });
-    } else {
-      shareWall();
-    }
-  }, [opponent, lobbyId, hasChatId, routeNavigator, popup, shareWall]);
+    share(lobbyId);
+  }, [opponent, lobbyId, share]);
 
   return (
     <>
