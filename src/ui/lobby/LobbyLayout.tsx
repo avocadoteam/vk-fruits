@@ -16,9 +16,9 @@ import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Icon24CheckCircleFillGreen } from '@vkontakte/icons';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
-import { Avatar, Button, FixedLayout } from '@vkontakte/vkui';
+import { Alert, Avatar, Button, FixedLayout } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 
 export const LobbyLayout = memo(() => {
   const routeNavigator = useRouteNavigator();
@@ -83,19 +83,50 @@ export const LobbyLayout = memo(() => {
     }
   }, [lobbyId, routeNavigator, userInfo]);
 
+  const popup = useMemo(
+    () => (
+      <Alert
+        actions={[
+          {
+            title: 'Потом',
+            autoClose: true,
+            mode: 'cancel',
+          },
+          {
+            title: 'Поделиться',
+            autoClose: true,
+            mode: 'default',
+            action: () => {
+              shareWall();
+            },
+          },
+        ]}
+        onClose={() => routeNavigator.hidePopout()}
+        text="Временно недоступно. Попробуйте поделиться ссылкой."
+      />
+    ),
+    [routeNavigator, shareWall],
+  );
+
   const addFriend = useCallback(() => {
     if (opponent && lobbyId) return;
 
     if (hasChatId) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      vkBridge.send('VKWebAppAddToChat' as any, {
-        action_title: 'Бросить вызов',
-        hash: `/${FPanel.LobbyInvited}/${lobbyId}`,
-      });
+      vkBridge
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .send('VKWebAppAddToChat' as any, {
+          action_title: 'Присоединиться к лобби',
+          hash: `/${FPanel.LobbyInvited}/${lobbyId}`,
+        })
+        .then(data => {
+          if (!data.result) {
+            routeNavigator.showPopout(popup);
+          }
+        });
     } else {
       shareWall();
     }
-  }, [opponent, shareWall, lobbyId, hasChatId]);
+  }, [opponent, lobbyId, hasChatId, routeNavigator, popup, shareWall]);
 
   return (
     <>
