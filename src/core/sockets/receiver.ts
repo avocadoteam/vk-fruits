@@ -9,6 +9,7 @@ export const client = clientPerformCallback(m => ({
   playerLeftRoom: m<(data: { userId: number }) => void>(),
   playerConfirmed: m<(data: { userId: number }) => void>(),
   updateTable: m<(data: { tables: FruitsGameTable[] }) => void>(),
+  gameStarted: m<() => void>(),
   gameResults:
     m<
       (data: {

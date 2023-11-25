@@ -1,23 +1,29 @@
+import { getUserLobbyFX } from '@core/api/game/effects.game';
 import { $game, setLobbyId, setPlayerDisconnected, updateTables } from '@core/api/game/store.game';
 import { $config } from '@core/config';
 import { PlayerJoinPayload } from '@core/game/player';
+import { useChatId } from '@core/hooks/useChatId';
+import { useInviteToChat } from '@core/hooks/useInviteToChat';
 import { confirmReady, joinRoom, leaveRoom } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
 import { noop } from '@core/utils/noop';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
 import { FPanel } from '@ui/layout/router';
 import { NoResults } from '@ui/rating/NoResults';
-import { contentCenter } from '@ui/theme/theme.css';
+import { btnSec, contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Icon24CheckCircleFillGreen } from '@vkontakte/icons';
 import { useParams, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
-import { Avatar, Button, FixedLayout } from '@vkontakte/vkui';
+import { Avatar, Button, FixedLayout, Placeholder } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
-import { memo, useEffect } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 
 export const LobbyLayoutInvited = memo(() => {
   const params = useParams();
   const routeNavigator = useRouteNavigator();
+  const { hasChatId } = useChatId();
+  const [isLoading, setLoading] = useState(false);
+  const { share } = useInviteToChat();
 
   const lobbyId = params?.id;
   const { gameRoom, wrongRoom } = useStoreMap({
@@ -61,22 +67,56 @@ export const LobbyLayoutInvited = memo(() => {
   }, []);
 
   useEffect(() => {
+    client.gameStarted = () => {
+      routeNavigator.replace(`/${FPanel.Game}/${lobbyId}`);
+    };
+    return () => {
+      client.gameStarted = noop;
+    };
+  }, [lobbyId, routeNavigator]);
+
+  useEffect(() => {
     if (lobbyId) {
       setLobbyId(lobbyId);
       joinRoom(lobbyId, userInfo);
       client.updateTable = data => {
         updateTables(data.tables);
-
-        routeNavigator.replace(`/${FPanel.Game}/${lobbyId}`);
       };
     }
   }, [lobbyId, routeNavigator, userInfo]);
+
+  const onClickAgain = useCallback(() => {
+    getUserLobbyFX()
+      .then(newLobbyId => {
+        share(newLobbyId, { closeApp: true });
+      })
+      .finally(() => setLoading(false));
+  }, [share]);
 
   if (!lobbyId || wrongRoom) {
     return (
       <>
         <PanelHeaderBack />
-        <NoResults listFetching={false} textEmpty="Такого лобби не существует" />
+        <NoResults
+          listFetching={false}
+          textEmpty={hasChatId ? 'Лобби уже заполнено или игра окончена' : 'Такого лобби не существует'}
+        />
+        {hasChatId ? (
+          <Placeholder
+            action={
+              <Button
+                onClick={onClickAgain}
+                size="l"
+                mode="secondary"
+                stretched
+                className={btnSec.secBase}
+                loading={isLoading}
+              >
+                Создать новую игру
+              </Button>
+            }
+          />
+        ) : null}
       </>
     );
   }

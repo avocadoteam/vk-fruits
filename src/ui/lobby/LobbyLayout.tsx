@@ -68,13 +68,20 @@ export const LobbyLayout = memo(() => {
   }, [wsConnected, lobbyId]);
 
   useEffect(() => {
+    client.gameStarted = () => {
+      routeNavigator.replace(`/${FPanel.Game}/${lobbyId}`);
+    };
+    return () => {
+      client.gameStarted = noop;
+    };
+  }, [lobbyId, routeNavigator]);
+
+  useEffect(() => {
     if (lobbyId) {
       setLobbyId(lobbyId);
       joinRoom(lobbyId, userInfo);
       client.updateTable = data => {
         updateTables(data.tables);
-
-        routeNavigator.replace(`/${FPanel.Game}/${lobbyId}`);
       };
     }
   }, [lobbyId, routeNavigator, userInfo]);
