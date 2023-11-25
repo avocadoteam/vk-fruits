@@ -23,7 +23,7 @@ import { useActiveVkuiLocation, usePopout, useRouteNavigator } from '@vkontakte/
 import { Alert, Panel, Root, ScreenSpinner, SplitCol, SplitLayout, View } from '@vkontakte/vkui';
 import { combine } from 'effector';
 import { useStore } from 'effector-react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { FPanel, FView } from './router';
 
 const initialLoadingCombine = combine(
@@ -32,7 +32,8 @@ const initialLoadingCombine = combine(
 );
 
 export const AppLayout = () => {
-  const { online, onlineHandleActivate, sawWelcome, wsConnected } = useStore($config);
+  const onceOpened = useRef(false);
+  const { online, onlineHandleActivate, sawWelcome } = useStore($config);
   const initialLoading = useStore(initialLoadingCombine);
   const keysLoading = useStore(getStorageKeys.pending);
   const { hasChatId } = useChatId();
@@ -76,10 +77,11 @@ export const AppLayout = () => {
     }
     if (!sawWelcome) {
       routeNavigator.replace(`/${FPanel.Welcome}/step1`);
-    } else if (hasChatId && !wsConnected) {
+    } else if (hasChatId && !onceOpened.current) {
+      onceOpened.current = true;
       routeNavigator.replace(`/${FPanel.Lobby}`);
     }
-  }, [routeNavigator, sawWelcome, keysLoading, hasChatId, wsConnected]);
+  }, [routeNavigator, sawWelcome, keysLoading, hasChatId, onceOpened]);
 
   if (!online || !onlineHandleActivate) {
     return <Offline />;
