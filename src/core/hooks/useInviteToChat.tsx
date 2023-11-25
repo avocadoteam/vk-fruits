@@ -49,6 +49,8 @@ export const useInviteToChat = () => {
           .then(data => {
             if (!data.result) {
               routeNavigator.showPopout(popup(`/${FPanel.LobbyInvited}/${lobbyId}`));
+            } else if (config.closeApp) {
+              vkBridge.send('VKWebAppClose');
             }
           })
           .catch(() => {
