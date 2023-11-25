@@ -70,6 +70,10 @@ export const AppLayout = () => {
     };
   }, []);
 
+  console.debug('keysLoading', keysLoading);
+  console.debug('sawWelcome', sawWelcome);
+  console.debug('hasChatId', hasChatId);
+
   useEffect(() => {
     if (keysLoading) {
       return;
