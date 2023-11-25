@@ -122,6 +122,9 @@ export const LobbyLayout = memo(() => {
           if (!data.result) {
             routeNavigator.showPopout(popup);
           }
+        })
+        .catch(() => {
+          routeNavigator.showPopout(popup);
         });
     } else {
       shareWall();
