@@ -3,11 +3,13 @@ import { $game, setLobbyId, setPlayerDisconnected, updateTables } from '@core/ap
 import { $config } from '@core/config';
 import { appId } from '@core/constants';
 import { PlayerJoinPayload } from '@core/game/player';
+import { useChatId } from '@core/hooks/useChatId';
 import { useOpenWallShare } from '@core/hooks/useShareWall';
 import { confirmReady, joinRoom, leaveRoom } from '@core/sockets/game';
 import { client } from '@core/sockets/receiver';
 import { wrapAsset } from '@core/utils';
 import { noop } from '@core/utils/noop';
+import { vkBridge } from '@core/vk-bridge/instance';
 import { PanelHeaderBack } from '@ui/layout/PanelBack';
 import { FPanel } from '@ui/layout/router';
 import { contentCenter } from '@ui/theme/theme.css';
@@ -20,7 +22,7 @@ import { memo, useCallback, useEffect } from 'react';
 
 export const LobbyLayout = memo(() => {
   const routeNavigator = useRouteNavigator();
-
+  const { hasChatId } = useChatId();
   const { lobbyId, gameRoom } = useStoreMap({
     store: $game,
     keys: [],
@@ -84,8 +86,16 @@ export const LobbyLayout = memo(() => {
   const addFriend = useCallback(() => {
     if (opponent && lobbyId) return;
 
-    shareWall();
-  }, [opponent, shareWall, lobbyId]);
+    if (hasChatId) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      vkBridge.send('VKWebAppAddToChat' as any, {
+        action_title: 'Бросить вызов',
+        hash: `/${FPanel.LobbyInvited}/${lobbyId}`,
+      });
+    } else {
+      shareWall();
+    }
+  }, [opponent, shareWall, lobbyId, hasChatId]);
 
   return (
     <>
