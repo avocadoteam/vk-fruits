@@ -75,13 +75,13 @@ export const AppLayout = () => {
     if (keysLoading) {
       return;
     }
-    if (!sawWelcome) {
+    if (!sawWelcome && activePanel !== FPanel.Welcome) {
       routeNavigator.replace(`/${FPanel.Welcome}/step1`);
-    } else if (hasChatId && !onceOpened.current) {
+    } else if (hasChatId && !onceOpened.current && activePanel !== FPanel.LobbyInvited) {
       onceOpened.current = true;
       routeNavigator.replace(`/${FPanel.Lobby}`);
     }
-  }, [routeNavigator, sawWelcome, keysLoading, hasChatId, onceOpened]);
+  }, [routeNavigator, sawWelcome, keysLoading, hasChatId, onceOpened, activePanel]);
 
   if (!online || !onlineHandleActivate) {
     return <Offline />;

@@ -9,20 +9,10 @@ vkBridge.subscribe(({ detail: { type, data } }) => {
   if (type === 'VKWebAppUpdateConfig') {
     const d = data as DefaultUpdateConfigData;
     setAppearance(d.appearance);
-
-    // if (vkBridge.supports('VKWebAppSetViewSettings')) {
-    //   const isLight = d.appearance === 'light';
-    //   vkBridge.send('VKWebAppSetViewSettings', {
-    //     status_bar_style: isLight ? 'dark' : 'light',
-    //     action_bar_color: isLight ? colors.light.bg : colors.dark.bg,
-    //   });
-    // }
   }
 
-  if (type === 'VKWebAppViewRestore') {
-    if (window.navigator.onLine) {
-      setOnline();
-    }
+  if (type === 'VKWebAppViewRestore' && window.navigator.onLine) {
+    setOnline();
   }
 
   if (type === 'VKWebAppChangeFragment') {
