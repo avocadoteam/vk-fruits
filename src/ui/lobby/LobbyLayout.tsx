@@ -13,11 +13,12 @@ import { contentCenter } from '@ui/theme/theme.css';
 import { typography } from '@ui/theme/typography.css';
 import { Icon24CheckCircleFillGreen } from '@vkontakte/icons';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
-import { Avatar, Button, FixedLayout } from '@vkontakte/vkui';
+import { ActionSheet, ActionSheetItem, Avatar, Button, FixedLayout } from '@vkontakte/vkui';
 import { useStoreMap } from 'effector-react';
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 
 export const LobbyLayout = memo(() => {
+  const baseTargetRef = useRef<HTMLDivElement>(null);
   const routeNavigator = useRouteNavigator();
   const { lobbyId, gameRoom } = useStoreMap({
     store: $game,
@@ -29,7 +30,7 @@ export const LobbyLayout = memo(() => {
       };
     },
   });
-  const { share } = useInviteToChat();
+  const { shareToChat, hasChatId, nativeShare } = useInviteToChat();
 
   const { userInfo, wsConnected, userId } = useStoreMap({
     store: $config,
@@ -86,11 +87,30 @@ export const LobbyLayout = memo(() => {
     }
   }, [lobbyId, routeNavigator, userInfo]);
 
+  const showActionPopout = useCallback(
+    () =>
+      routeNavigator.showPopout(
+        <ActionSheet onClose={() => routeNavigator.hidePopout()} toggleRef={baseTargetRef}>
+          <ActionSheetItem autoClose onClick={() => nativeShare(lobbyId)}>
+            Пригласить друга
+          </ActionSheetItem>
+          <ActionSheetItem autoClose onClick={() => shareToChat(lobbyId)}>
+            Добавить в чат
+          </ActionSheetItem>
+        </ActionSheet>,
+      ),
+    [lobbyId, nativeShare, routeNavigator, shareToChat],
+  );
+
   const addFriend = useCallback(() => {
     if (opponent && lobbyId) return;
 
-    share(lobbyId);
-  }, [opponent, lobbyId, share]);
+    if (hasChatId) {
+      shareToChat(lobbyId);
+    } else {
+      showActionPopout();
+    }
+  }, [opponent, lobbyId, hasChatId, shareToChat, showActionPopout]);
 
   return (
     <>
@@ -120,7 +140,7 @@ export const LobbyLayout = memo(() => {
               <p className={typography({ variant: 'small' })}>Вы</p>
             </div>
             <p className={typography({ variant: 'head', transform: 'up', mix: true })}>vs</p>
-            <div className={contentCenter({ gap: '1' })}>
+            <div className={contentCenter({ gap: '1' })} ref={baseTargetRef}>
               <Avatar
                 size={96}
                 src={opponent ? opponent.avatar : wrapAsset('/imgs/addBig.svg')}

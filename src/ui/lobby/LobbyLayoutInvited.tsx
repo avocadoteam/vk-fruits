@@ -23,7 +23,7 @@ export const LobbyLayoutInvited = memo(() => {
   const routeNavigator = useRouteNavigator();
   const { hasChatId } = useChatId();
   const [isLoading, setLoading] = useState(false);
-  const { share } = useInviteToChat();
+  const { shareToChat } = useInviteToChat();
 
   const lobbyId = params?.id;
   const { gameRoom, wrongRoom } = useStoreMap({
@@ -88,10 +88,10 @@ export const LobbyLayoutInvited = memo(() => {
   const onClickAgain = useCallback(() => {
     getUserLobbyFX()
       .then(newLobbyId => {
-        share(newLobbyId, { closeApp: true });
+        shareToChat(newLobbyId, { closeApp: true });
       })
       .finally(() => setLoading(false));
-  }, [share]);
+  }, [shareToChat]);
 
   if (!lobbyId || wrongRoom) {
     return (

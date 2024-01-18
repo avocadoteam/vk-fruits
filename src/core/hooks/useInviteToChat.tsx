@@ -36,32 +36,37 @@ export const useInviteToChat = () => {
     [routeNavigator, shareWall],
   );
 
-  const share = useCallback(
+  const shareToChat = useCallback(
     (lobbyId: string, config: { closeApp: boolean } = { closeApp: false }) => {
-      if (hasChatId) {
-        vkBridge
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .send('VKWebAppAddToChat' as any, {
-            action_title: 'Присоединиться к лобби',
-            hash: `/${FPanel.LobbyInvited}/${lobbyId}`,
-            close_app: config.closeApp,
-          })
-          .then(data => {
-            if (!data.result) {
-              routeNavigator.showPopout(popup(`/${FPanel.LobbyInvited}/${lobbyId}`));
-            }
-          })
-          .catch(() => {
+      vkBridge
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .send('VKWebAppAddToChat' as any, {
+          action_title: 'Присоединиться к лобби',
+          hash: `/${FPanel.LobbyInvited}/${lobbyId}`,
+          close_app: config.closeApp,
+        })
+        .then(data => {
+          if (!data.result) {
             routeNavigator.showPopout(popup(`/${FPanel.LobbyInvited}/${lobbyId}`));
-          });
-      } else {
-        shareWall(`/${FPanel.LobbyInvited}/${lobbyId}`);
-      }
+          }
+        })
+        .catch(() => {
+          routeNavigator.showPopout(popup(`/${FPanel.LobbyInvited}/${lobbyId}`));
+        });
     },
-    [hasChatId, popup, routeNavigator, shareWall],
+    [popup, routeNavigator],
+  );
+
+  const nativeShare = useCallback(
+    (lobbyId: string) => {
+      shareWall(`/${FPanel.LobbyInvited}/${lobbyId}`);
+    },
+    [shareWall],
   );
 
   return {
-    share,
+    nativeShare,
+    shareToChat,
+    hasChatId,
   };
 };

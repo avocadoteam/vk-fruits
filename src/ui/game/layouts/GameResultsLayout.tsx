@@ -22,7 +22,7 @@ export const GameResultsLayout = () => {
   const routeNavigator = useRouteNavigator();
   const [isLoading, setLoading] = useState(false);
   const { hasChatId } = useChatId();
-  const { share } = useInviteToChat();
+  const { shareToChat } = useInviteToChat();
   useEffect(() => {
     getUserInfoFX();
   }, []);
@@ -83,7 +83,7 @@ export const GameResultsLayout = () => {
         if (hasChatId) {
           getUserLobbyFX()
             .then(newLobbyId => {
-              share(newLobbyId, { closeApp: true });
+              shareToChat(newLobbyId, { closeApp: true });
             })
             .finally(() => setLoading(false));
 
@@ -102,7 +102,7 @@ export const GameResultsLayout = () => {
       default:
         break;
     }
-  }, [gameResult?.gameType, hasChatId, lobbyId, routeNavigator, share]);
+  }, [gameResult?.gameType, hasChatId, lobbyId, routeNavigator, shareToChat]);
 
   if (!gameResult) {
     return (
