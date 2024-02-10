@@ -58,7 +58,7 @@ export const PersonalPosition = ({ positionInList }: Props) => {
               className={typography({ variant: 'small' })}
               style={{ width: '28px', fontSize: Number(userPosition) > 100 ? '.75rem' : undefined }}
             >
-              {positionInList ?? Number(userPosition) > 100 ? '100+' : userPosition}
+              {positionInList ? positionInList : Number(userPosition) > 100 ? '100+' : userPosition}
             </p>
             <Avatar size={40} src={avatar} />
             <p className={typography({ variant: 'small', truncate: true })} style={{ maxWidth: '140px' }}>
