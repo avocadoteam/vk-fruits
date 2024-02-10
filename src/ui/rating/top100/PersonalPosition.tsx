@@ -54,8 +54,11 @@ export const PersonalPosition = ({ positionInList }: Props) => {
       <div className={ratingSt.content}>
         <div className={ratingSt.cell()}>
           <div className={contentCenter({ direction: 'row', gap: '1', p: '0' })}>
-            <p className={typography({ variant: 'small' })} style={{ width: '28px' }}>
-              {positionInList ?? userPosition}
+            <p
+              className={typography({ variant: 'small' })}
+              style={{ width: '28px', fontSize: Number(userPosition) > 100 ? '.75rem' : undefined }}
+            >
+              {positionInList ?? Number(userPosition) > 100 ? '100+' : userPosition}
             </p>
             <Avatar size={40} src={avatar} />
             <p className={typography({ variant: 'small', truncate: true })} style={{ maxWidth: '140px' }}>
