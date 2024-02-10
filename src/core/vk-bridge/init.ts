@@ -17,6 +17,7 @@ vkBridge.subscribe(({ detail: { type, data } }) => {
 
   if (type === 'VKWebAppChangeFragment') {
     const location = (data as ChangeFragmentResponse).location;
+    console.debug('location', location);
     if (location.includes(FPanel.LobbyInvited)) {
       const friendLobbyId = location.split('/').pop() ?? '';
       setLobbyId(friendLobbyId);
