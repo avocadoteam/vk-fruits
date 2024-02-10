@@ -9,7 +9,7 @@ import { DroppableBox } from './DroppableBox';
 import { gSt } from './style.css';
 
 export type DemoBoardProps = {
-  step: 'step1' | 'step2' | 'step3' | 'step4' | 'step5';
+  step: 'step1' | 'step2' | 'step3' | 'step4' | 'step5' | 'step6';
 };
 
 const dropBoxes = ['0', '1', '2', '3'];
@@ -48,7 +48,7 @@ export const DemoBoard = memo<DemoBoardProps>(({ step }) => {
 
   const watermelon = itemsSkins.fruits.find(f => f.name === 'watermelon')!;
 
-  const draggable = (id: string) => <DraggableItem id={id} />;
+  const draggable = (id: string) => <DraggableItem id={id} freezed={step === 'step5'} />;
 
   switch (step) {
     case 'step2':
@@ -65,6 +65,7 @@ export const DemoBoard = memo<DemoBoardProps>(({ step }) => {
       );
     case 'step3':
     case 'step4':
+    case 'step5':
       return (
         <div className={gSt.container({ isDemo: true })}>
           <DndContext onDragEnd={handleDragEnd} sensors={sensors}>

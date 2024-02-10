@@ -50,6 +50,13 @@ const welcomeData: Record<
     nextStep: '/welcome/step5',
   },
   step5: {
+    img: wrapAsset('/imgs/w_bow.png'),
+    title: 'Заморозка!',
+    subtitle: 'Фрукт заморожен – теперь ты не получаешь очков на протяжении 15 секунд',
+    btnText: 'Что дальше?',
+    nextStep: '/welcome/step6',
+  },
+  step6: {
     img: wrapAsset('/imgs/w_ok.png'),
     title: 'Как победить?',
     subtitle: 'Для победы нужно набрать 1000 очков быстрее своего соперника',
@@ -79,12 +86,12 @@ export const WelcomeLayout = () => {
     if (stepData.shouldExit) {
       finishWelcomeFX();
     }
-    routeNavigator.replace(lobbyId && step === 'step5' ? `/${FPanel.LobbyInvited}/${lobbyId}` : stepData.nextStep);
+    routeNavigator.replace(lobbyId && step === 'step6' ? `/${FPanel.LobbyInvited}/${lobbyId}` : stepData.nextStep);
   }, [stepData.shouldExit, stepData.nextStep, routeNavigator, lobbyId, step]);
 
   const skipTutorial = useCallback(() => {
     finishWelcomeFX();
-    routeNavigator.replace(lobbyId && step === 'step5' ? `/${FPanel.LobbyInvited}/${lobbyId}` : INITIAL_URL);
+    routeNavigator.replace(lobbyId && step === 'step6' ? `/${FPanel.LobbyInvited}/${lobbyId}` : INITIAL_URL);
   }, [lobbyId, routeNavigator, step]);
 
   if (!params?.step) {
