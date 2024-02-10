@@ -187,7 +187,10 @@ export const HomeLayout = () => {
             stretched
             size="l"
             after={<Icon12Chevron fill={vars.palette.shade} />}
-            onClick={() => routeNavigator.push(`/${FPanel.Welcome}/step2`)}
+            onClick={() => {
+              resetGameRoom();
+              routeNavigator.push(`/${FPanel.Welcome}/step2`);
+            }}
           >
             <span className={homeStyles.btnContent}>
               <img src={wrapAsset('/imgs/graduation_cap.png')} alt="gift" width="28" height="28" />
