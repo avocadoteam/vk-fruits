@@ -161,6 +161,7 @@ export const HomeLayout = () => {
             mode="secondary"
             stretched
             size="l"
+            after={<Icon12Chevron fill={vars.palette.shade} />}
           >
             <span className={homeStyles.btnContent}>
               <img src={wrapAsset('/imgs/money_bag.png')} alt="gift" width="28" height="28" />
@@ -173,6 +174,7 @@ export const HomeLayout = () => {
             mode="secondary"
             stretched
             size="l"
+            after={<Icon12Chevron fill={vars.palette.shade} />}
           >
             <span className={homeStyles.btnContent}>
               <img src={wrapAsset('/imgs/fire.png')} alt="gift" width="28" height="28" />
