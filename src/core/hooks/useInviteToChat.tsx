@@ -59,7 +59,7 @@ export const useInviteToChat = () => {
 
   const nativeShare = useCallback(
     (lobbyId: string) => {
-      shareWall(`/${FPanel.LobbyInvited}/${lobbyId}`);
+      shareWall(`${FPanel.LobbyInvited}/${lobbyId}`);
     },
     [shareWall],
   );
