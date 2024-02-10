@@ -31,7 +31,7 @@ export const RefreshRatingFriends = memo<Props>(({ children }) => {
 
   return (
     <PullToRefresh onRefresh={refresh} isFetching={listFetching}>
-      <div style={{ minHeight: '50vh' }}>{children}</div>
+      <div style={{ minHeight: '50vh', paddingBottom: '110px' }}>{children}</div>
     </PullToRefresh>
   );
 });
