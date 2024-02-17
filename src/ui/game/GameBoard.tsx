@@ -48,7 +48,7 @@ export const GameBoard = memo(() => {
     if (typeof over?.id === 'number' && myTable?.uiTable[Number(over.id)] && over.id !== Number(index)) {
       const onDropItem = myTable?.uiTable[Number(over.id)];
       const dragItem = myTable?.uiTable[Number(index)];
-      if (onDropItem && dragItem && !onDropItem.isFreezed) {
+      if (onDropItem && dragItem && !onDropItem.isFreezed && !dragItem.isFreezed) {
         tickActionEvent({
           actionType: 'unite',
           roomId: lobbyId,
