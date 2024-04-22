@@ -48,8 +48,5 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to gh pages 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: dist
+      - run: npm install -g surge
+      - run: surge dist ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
