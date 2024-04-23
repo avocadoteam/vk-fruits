@@ -1,21 +1,21 @@
 @font-face {
   font-family: 'SF Pro Rounded';
-  src: url(/fonts/SF-Pro-Rounded-Medium.woff2) format('woff2');
+  src: url(./assets/fonts/SF-Pro-Rounded-Medium.woff2) format('woff2');
   font-style: medium;
   font-weight: 400;
 }
 
 @font-face {
   font-family: 'SF Pro Rounded';
-  src: url(/fonts/SF-Pro-Rounded-Semibold.woff2) format('woff2'),
-    url(/fonts/SF-Pro-Rounded-Semibold.otf) format('otf');
+  src: url(./assets/fonts/SF-Pro-Rounded-Semibold.woff2) format('woff2'),
+    url(./assets/fonts/SF-Pro-Rounded-Semibold.otf) format('otf');
   font-style: semibold;
   font-weight: 600;
 }
 
 @font-face {
   font-family: 'SF Pro Rounded';
-  src: url(/fonts/SF-Pro-Rounded-Bold.woff2) format('woff2');
+  src: url(./assets/fonts/SF-Pro-Rounded-Bold.woff2) format('woff2');
   font-style: bold;
   font-weight: 700;
 }
